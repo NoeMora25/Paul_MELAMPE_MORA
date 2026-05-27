@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Paul_MELAMPE_MORA.Classes
 {
-    public enum Categorie_produit { Gateaux, Viennoiseries, Pains}
+
     public class Categorie : ICrud<Categorie>
     {
         private int categorie_id;

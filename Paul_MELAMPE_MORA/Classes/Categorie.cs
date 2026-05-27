@@ -12,6 +12,15 @@ namespace Paul_MELAMPE_MORA.Classes
         private int categorie_id;
         private string categorie_nom;
 
+        public Categorie()
+        {
+        }
+
+        public Categorie(string categorie_nom)
+        {
+            this.Categorie_nom = categorie_nom;
+        }
+
         public int Categorie_id
         {
             get

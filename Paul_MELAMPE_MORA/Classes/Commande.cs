@@ -17,8 +17,16 @@ namespace Paul_MELAMPE_MORA.Classes
         private decimal total;
         private DateTime date_evenement;
         private int nb_personne;
+        private Client client;
+        private Categorie_evenement categorie_evenement;
 
-        public Commande(DateTime date_creation, DateTime date_retrait, decimal acompte, bool est_prete, bool est_recuperee, decimal total, DateTime date_evenement, int nb_personne)
+
+
+        public Commande()
+        {
+        }
+
+        public Commande(DateTime date_creation, DateTime date_retrait, decimal acompte, bool est_prete, bool est_recuperee, decimal total, DateTime date_evenement, int nb_personne, Client client, Categorie_evenement categorie_evenement)
         {
             this.Date_creation = date_creation;
             this.Date_retrait = date_retrait;
@@ -28,10 +36,8 @@ namespace Paul_MELAMPE_MORA.Classes
             this.Total = total;
             this.Date_evenement = date_evenement;
             this.Nb_personne = nb_personne;
-        }
-
-        public Commande()
-        {
+            this.Client = client;
+            this.Categorie_evenement = categorie_evenement;
         }
 
         public int Id
@@ -147,6 +153,31 @@ namespace Paul_MELAMPE_MORA.Classes
             }
         }
 
+        public Client Client
+        {
+            get
+            {
+                return this.client;
+            }
+
+            set
+            {
+                this.client = value;
+            }
+        }
+
+        public Categorie_evenement Categorie_evenement
+        {
+            get
+            {
+                return this.categorie_evenement;
+            }
+
+            set
+            {
+                this.categorie_evenement = value;
+            }
+        }
 
         public void CalculerAcompte()
         {

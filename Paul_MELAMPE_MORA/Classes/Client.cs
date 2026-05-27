@@ -14,6 +14,18 @@ namespace Paul_MELAMPE_MORA.Classes
         private string telephone;
         private string mail;
 
+        public Client()
+        {
+        }
+
+        public Client(string nom, string prenom, string telephone, string mail)
+        {
+            this.Nom = nom;
+            this.Prenom = prenom;
+            this.Telephone = telephone;
+            this.Mail = mail;
+        }
+
         public int Id
         {
             get

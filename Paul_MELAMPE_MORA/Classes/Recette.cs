@@ -11,6 +11,18 @@ namespace Paul_MELAMPE_MORA.Classes
         private int recette_id;
         private string recette_nom;
         private string recette_description;
+        private Categorie categorie;
+
+        public Recette()
+        {
+        }
+
+        public Recette(string recette_nom, string recette_description, Categorie categorie)
+        {
+            this.Recette_nom = recette_nom;
+            this.Recette_description = recette_description;
+            this.Categorie = categorie;
+        }
 
         public int Recette_id
         {
@@ -47,6 +59,21 @@ namespace Paul_MELAMPE_MORA.Classes
                 this.recette_description = value;
             }
         }
+
+        public Categorie Categorie
+        {
+            get
+            {
+                return this.categorie;
+            }
+
+            set
+            {
+                this.categorie = value;
+            }
+        }
+
+
 
         public int Create()
         {

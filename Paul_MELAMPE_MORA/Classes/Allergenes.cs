@@ -13,6 +13,15 @@ namespace Paul_MELAMPE_MORA.Classes
         private int allergene_id;
         private string allergene_nom;
 
+        public Allergenes()
+        {
+        }
+
+        public Allergenes(string allergene_nom)
+        {
+            this.Allergene_nom = allergene_nom;
+        }
+
         public int Allergene_id
         {
             get

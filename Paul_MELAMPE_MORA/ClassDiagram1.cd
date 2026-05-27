@@ -1,31 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Paul_MELAMPE_MORA.Classes.Allergenes">
-    <Position X="2.5" Y="0.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAAgAAAAAAAAAAAAAQCAggAAEAAEACAAAAAAgAAAA=</HashCode>
-      <FileName>Classes\Allergenes.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
   <Class Name="Paul_MELAMPE_MORA.Classes.Categorie">
-    <Position X="7.75" Y="0.75" Width="1.5" />
+    <Position X="10.5" Y="3" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAACAAQCAgiAAEAAkAAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\Categorie.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Paul_MELAMPE_MORA.Classes.Categorie_evenement">
-    <Position X="13" Y="0.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQgAAAAAAAAAAAgAAAQCAggAAEAAEAAAAAAAAAAIAA=</HashCode>
-      <FileName>Classes\Categorie_evenement.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
   <Class Name="Paul_MELAMPE_MORA.Classes.Client">
-    <Position X="11.25" Y="0.75" Width="1.5" />
+    <Position X="0.5" Y="0.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AAQCAAAAAAAAAABAAAAQKAAgACEAIEAAAKAAAQCAAAE=</HashCode>
       <FileName>Classes\Client.cs</FileName>
@@ -33,50 +23,140 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Paul_MELAMPE_MORA.Classes.Commande">
-    <Position X="4.25" Y="0.75" Width="1.5" />
+    <Position X="3.25" Y="0.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAQigAAIIIQEAAQEBAAUGAAgQBEAQUAAAEAQAAAAEAA=</HashCode>
+      <HashCode>AAQihAAIIIQEAAQEBAAUGAAgQBEAQUAAQEAQBAAAEAQ=</HashCode>
       <FileName>Classes\Commande.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Client" />
+      <Property Name="Categorie_evenement" />
+    </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Paul_MELAMPE_MORA.Classes.Contient">
-    <Position X="9.5" Y="0.75" Width="1.5" />
+    <Position X="5.75" Y="0.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAQAEAAAAAAAAAAAAAAQCAAgAAEAAEgAAAAIAAAAABA=</HashCode>
+      <HashCode>AAQCEAAAAgAAAAAAAAAQCAAgAAEAAEgAAAAoAAAAIBA=</HashCode>
       <FileName>Classes\Contient.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Produit" />
+      <Property Name="Commande" />
+    </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Paul_MELAMPE_MORA.Classes.Produit">
-    <Position X="6" Y="0.75" Width="1.5" />
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Recette" Type="Paul_MELAMPE_MORA.Classes.Recette" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.875" Y="4.045" />
+        <Point X="8.875" Y="4.767" />
+        <Point X="7.5" Y="4.767" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAQCAAAAAAAAABAAAAEQCAAhAAEAAEAAAUAAAAEAAAA=</HashCode>
+      <HashCode>AAQCAAAAAAAAABAAIAEQCCAhAAEAAEAAAUAAAAEAAAA=</HashCode>
       <FileName>Classes\Produit.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="Paul_MELAMPE_MORA.Classes.Recette">
-    <Position X="0.5" Y="0.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAQAAAAEAQCAAgQAEAAEAAAAAAAAAAAAA=</HashCode>
-      <FileName>Classes\Recette.cs</FileName>
-    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Recette" />
+    </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="TD3_BindingBDPension.Model.DataAccess">
-    <Position X="0.5" Y="4.75" Width="1.5" />
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAgAAAAAAAAgAAAABABAAAAAAABAAAAgAABAAAgA=</HashCode>
       <FileName>Classes\DataAccess.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TD3_BindingBDPension.Model.LogError">
-    <Position X="2.5" Y="4.5" Width="1.5" />
+    <Position X="10.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\LogError.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="Paul_MELAMPE_MORA.Classes.Categorie_evenement">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQgAAAAAAAAAAAgAAAQCAggAAEQAEAAAAAAAAAAIAA=</HashCode>
+      <FileName>Classes\Categorie_evenement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Paul_MELAMPE_MORA.Classes.Allergenes">
+    <Position X="11.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAgAAAAAAAAAAAAAQCAggAAEAAEACAAAAAAgAAAA=</HashCode>
+      <FileName>Classes\Allergenes.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Paul_MELAMPE_MORA.Classes.Presente">
+    <Position X="8.75" Y="6.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAIAAAACAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Classes\Presente.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Allergene" />
+      <Property Name="Recette" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Paul_MELAMPE_MORA.Classes.Recette">
+    <Position X="6" Y="4.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAQAAgAEAQKAAgQAEAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Recette.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Categorie" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Paul_MELAMPE_MORA.Classes.ICrud&lt;T&gt;">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAQCAAgAAEAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\ICrud.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Paul_MELAMPE_MORA.Classes.CategoriePrincipale">
+    <Position X="2" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Classes\Categorie_evenement.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Paul_MELAMPE_MORA.Classes.allergene_nom">
+    <Position X="12.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAACAAAAAAAAkAACAAAIgAA=</HashCode>
+      <FileName>Classes\Allergenes.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

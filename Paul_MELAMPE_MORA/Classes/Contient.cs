@@ -10,6 +10,20 @@ namespace Paul_MELAMPE_MORA.Classes
     {
         private int quantite;
         private bool est_decoupe;
+        private Commande commande;
+        private Produit produit;
+
+        public Contient()
+        {
+        }
+
+        public Contient(int quantite, bool est_decoupe, Commande commande, Produit produit)
+        {
+            this.Quantite = quantite;
+            this.Est_decoupe = est_decoupe;
+            this.Commande = commande;
+            this.Produit = produit;
+        }
 
         public int Quantite
         {
@@ -34,6 +48,32 @@ namespace Paul_MELAMPE_MORA.Classes
             set
             {
                 this.est_decoupe = value;
+            }
+        }
+
+        public Commande Commande
+        {
+            get
+            {
+                return this.commande;
+            }
+
+            set
+            {
+                this.commande = value;
+            }
+        }
+
+        public Produit Produit
+        {
+            get
+            {
+                return this.produit;
+            }
+
+            set
+            {
+                this.produit = value;
             }
         }
 

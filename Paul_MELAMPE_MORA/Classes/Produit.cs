@@ -13,6 +13,19 @@ namespace Paul_MELAMPE_MORA.Classes
         private bool est_disponible;
         private int nb_parts;
         private decimal prix;
+        private Recette recette;
+
+        public Produit()
+        {
+        }
+
+        public Produit(bool est_disponible, int nb_parts, decimal prix, Recette recette)
+        {
+            this.Est_disponible = est_disponible;
+            this.Nb_parts = nb_parts;
+            this.Prix = prix;
+            this.Recette = recette;
+        }
 
         public int Id
         {
@@ -59,6 +72,19 @@ namespace Paul_MELAMPE_MORA.Classes
             set
             {
                 this.prix = value;
+            }
+        }
+
+        public Recette Recette
+        {
+            get
+            {
+                return this.recette;
+            }
+
+            set
+            {
+                this.recette = value;
             }
         }
 

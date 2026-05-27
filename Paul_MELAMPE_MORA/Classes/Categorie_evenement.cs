@@ -6,8 +6,26 @@ using System.Threading.Tasks;
 
 namespace Paul_MELAMPE_MORA.Classes
 {
+    public enum CategoriePrincipale
+    {
+        Familial,
+        Professionnel
+    }
+
     public class Categorie_evenement : ICrud<Categorie_evenement>
     {
+        public static readonly Dictionary<CategoriePrincipale, List<string>> SousCategories = new Dictionary<CategoriePrincipale, List<string>>()
+        {
+            {
+                CategoriePrincipale.Familial,
+                new List<string> { "Mariage", "Anniversaire", "Fête", "Religieux", "Naissance" }
+            },
+            {
+                CategoriePrincipale.Professionnel,
+                new List<string> { "Réunion", "Pot de départ", "Portes ouvertes" }
+            }
+        };
+
         private int categorie_evenement_id;
         private string categorie_evenement_nom;
 

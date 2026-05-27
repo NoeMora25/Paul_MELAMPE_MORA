@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 namespace Paul_MELAMPE_MORA.Classes
 {
 
-
     public class Produit : ICrud<Produit>
     {
         private int produit_id;

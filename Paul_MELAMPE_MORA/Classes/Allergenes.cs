@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Paul_MELAMPE_MORA.Classes
 {
+    public enum allergene_nom { Cereales_gluten, Oeufs, Lait, Fruit_coque, Soja, Sesame, Sulfites}
+
     public class Allergenes : ICrud<Allergenes>
     {
         private int allergene_id;

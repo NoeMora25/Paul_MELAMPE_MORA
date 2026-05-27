@@ -1,9 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-
-namespace TD3_BindingBDPension.Model
+namespace Paul_MELAMPE_MORA.Classes
 {
     public interface ICrud<T>
-   {
+    {
         public int Create();
 
         public void Read();
@@ -11,10 +15,9 @@ namespace TD3_BindingBDPension.Model
         public int Update();
 
         public int Delete();
-      
-        public  List<T> FindAll();
+
+        public List<T> FindAll();
 
         public List<T> FindBySelection(string criteres);
-   
-   }
+    }
 }

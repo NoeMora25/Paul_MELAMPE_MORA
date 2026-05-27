@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Paul_MELAMPE_MORA.Classes
 {
-    public class Commande
+    public class Commande : ICrud<Commande>
     {
         private int commande_id;
         private DateTime date_creation;
@@ -147,19 +147,7 @@ namespace Paul_MELAMPE_MORA.Classes
             }
         }
 
-        public void AjouterCommande()
-        {
 
-        }
-        public void ModifierCommande()
-        {
-
-        }
-
-        public void SupprimerCommande()
-        {
-
-        }
         public void CalculerAcompte()
         {
 
@@ -167,6 +155,36 @@ namespace Paul_MELAMPE_MORA.Classes
         public void CalculerTotal()
         {
 
+        }
+
+        public int Create()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Read()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Update()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Delete()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Commande> FindAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Commande> FindBySelection(string criteres)
+        {
+            throw new NotImplementedException();
         }
     }
 }

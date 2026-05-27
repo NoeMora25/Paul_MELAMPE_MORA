@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Paul_MELAMPE_MORA.Classes
 {
-    public class Allergenes
+    public class Allergenes : ICrud<Allergenes>
     {
         private int allergene_id;
         private string allergene_nom;
@@ -32,19 +32,35 @@ namespace Paul_MELAMPE_MORA.Classes
                 this.allergene_nom = value;
             }
         }
-        public void AjouterAllergene()
-        {
 
+        public int Create()
+        {
+            throw new NotImplementedException();
         }
 
-        public void ModifierAllergene()
+        public int Delete()
         {
-
+            throw new NotImplementedException();
         }
 
-        public void SupprimerAllergene()
+        public List<Allergenes> FindAll()
         {
+            throw new NotImplementedException();
+        }
 
+        public List<Allergenes> FindBySelection(string criteres)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Read()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Update()
+        {
+            throw new NotImplementedException();
         }
     }
 }

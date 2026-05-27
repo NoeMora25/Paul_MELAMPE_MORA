@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Paul_MELAMPE_MORA.Classes
 {
-    public class Client
+    public class Client : ICrud<Client>
     {
         private int client_id;
         private string nom;
@@ -75,19 +75,35 @@ namespace Paul_MELAMPE_MORA.Classes
                 this.mail = value;
             }
         }
-        public void AjouterClient()
-        {
 
+        public int Create()
+        {
+            throw new NotImplementedException();
         }
 
-        public void ModifierClient()
+        public int Delete()
         {
-
+            throw new NotImplementedException();
         }
 
-        public void SupprimerClient()
+        public List<Client> FindAll()
         {
+            throw new NotImplementedException();
+        }
 
+        public List<Client> FindBySelection(string criteres)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Read()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Update()
+        {
+            throw new NotImplementedException();
         }
     }
 }

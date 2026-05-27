@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Paul_MELAMPE_MORA.Classes
 {
-    public class Contient
+    public class Contient : ICrud<Contient>
     {
         private int quantite;
         private bool est_decoupe;
@@ -36,19 +36,35 @@ namespace Paul_MELAMPE_MORA.Classes
                 this.est_decoupe = value;
             }
         }
-        public void AjouterContient()
-        {
 
-        }
-        public void ModifierContient()
+        public int Create()
         {
-
+            throw new NotImplementedException();
         }
 
-        public void SupprimerContient()
+        public int Delete()
         {
-
+            throw new NotImplementedException();
         }
 
+        public List<Contient> FindAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Contient> FindBySelection(string criteres)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Read()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Update()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

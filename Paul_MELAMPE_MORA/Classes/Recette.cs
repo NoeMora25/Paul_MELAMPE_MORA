@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Paul_MELAMPE_MORA.Classes
 {
-    public class Recette
+    public class Recette : ICrud<Recette>
     {
         private int recette_id;
         private string recette_nom;
@@ -47,18 +47,37 @@ namespace Paul_MELAMPE_MORA.Classes
                 this.recette_description = value;
             }
         }
-        public void AjouterRecette()
-        {
 
-        }
-        public void ModifierRecette()
+        public int Create()
         {
-
+            throw new NotImplementedException();
         }
 
-        public void SupprimerRecette()
+        public int Delete()
         {
+            throw new NotImplementedException();
+        }
 
+        public List<Recette> FindAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Recette> FindBySelection(string criteres)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void Read()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public int Update()
+        {
+            throw new NotImplementedException();
         }
     }
 }

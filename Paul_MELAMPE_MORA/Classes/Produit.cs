@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Paul_MELAMPE_MORA.Classes
 {
-    public class Produit
+
+
+    public class Produit : ICrud<Produit>
     {
         private int produit_id;
         private bool est_disponible;
@@ -60,18 +62,35 @@ namespace Paul_MELAMPE_MORA.Classes
                 this.prix = value;
             }
         }
-        public void AjouterProduit()
-        {
 
-        }
-        public void ModifierProduit()
+        public int Create()
         {
-
+            throw new NotImplementedException();
         }
 
-        public void SupprimerProduit()
+        public int Delete()
         {
+            throw new NotImplementedException();
+        }
 
+        public List<Produit> FindAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Produit> FindBySelection(string criteres)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Read()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Update()
+        {
+            throw new NotImplementedException();
         }
     }
 }

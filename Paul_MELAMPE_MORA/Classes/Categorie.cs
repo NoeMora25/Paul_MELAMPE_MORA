@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Paul_MELAMPE_MORA.Classes
 {
-    public class Categorie
+    public class Categorie : ICrud<Categorie>
     {
         private int categorie_id;
         private string categorie_nom;
@@ -32,18 +32,38 @@ namespace Paul_MELAMPE_MORA.Classes
                 this.categorie_nom = value;
             }
         }
-        public void AjouterCategorie()
-        {
 
-        }
-        public void ModifierCategorie()
-        {
 
+        public int Create()
+        {
+            throw new NotImplementedException();
         }
 
-        public void SupprimerCategorie()
+        public int Delete()
         {
+            throw new NotImplementedException();
+        }
 
+        public List<Categorie> FindAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Categorie> FindBySelection(string criteres)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void Read()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public int Update()
+        {
+            throw new NotImplementedException();
         }
     }
 }

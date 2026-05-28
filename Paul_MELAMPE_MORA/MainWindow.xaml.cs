@@ -22,6 +22,7 @@ namespace Paul_MELAMPE_MORA
         {
             ChargeData();
             InitializeComponent();
+            MainContent.Content = new UC.UCproduit();
 
         }
 

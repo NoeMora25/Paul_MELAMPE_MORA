@@ -1,22 +1,33 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TD3_BindingBDPension.Model;
 
 namespace Paul_MELAMPE_MORA.Classes
 {
 
-    public class Categorie : ICrud<Categorie>
+    public class Categorie : ICrud<Categorie>, INotifyPropertyChanged
     {
         private int categorie_id;
         private string categorie_nom;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
 
         public Categorie()
         {
         }
 
         public Categorie(string categorie_nom)
+        {
+            this.Categorie_nom = categorie_nom;
+        }
+        public Categorie(int categorie_id,string categorie_nom)
         {
             this.Categorie_nom = categorie_nom;
         }

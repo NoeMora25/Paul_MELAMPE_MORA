@@ -24,15 +24,7 @@ namespace Paul_MELAMPE_MORA.UC
         public UCproduit()
         {
             InitializeComponent();
-            ChargerLesProduits();
-        }
 
-        private void ChargerLesProduits()
-        {
-            Produit unProduit = new Produit();
-
-            List<Produit> lesProduits = unProduit.FindAll();
-            dgProduits.ItemsSource = lesProduits;
         }
     }
 }

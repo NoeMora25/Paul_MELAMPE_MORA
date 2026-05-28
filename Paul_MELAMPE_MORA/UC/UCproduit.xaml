@@ -32,7 +32,40 @@
             </ComboBoxItem>
         </ComboBox>
 
-        <DataGrid Grid.Row="1" x:Name="dgProduits" AutoGenerateColumns="False" IsReadOnly="True" Margin="20,0,20,20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <StackPanel>
+                    <TextBlock Text="Filtrer par catégories :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
+                    <ComboBox x:Name="ComboCategories" Width="200" Padding="5">
+                        <ComboBoxItem>
+                            <CheckBox Content="Gâteaux"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <CheckBox Content="Viennoiseries"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <CheckBox Content="Pains"/>
+                        </ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+            </StackPanel>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" 
+                  x:Name="dgProduits" 
+                  ItemsSource="{Binding LesProduits}" 
+                  AutoGenerateColumns="False" 
+                  IsReadOnly="True" 
+                  Margin="20,0,20,20" 
+                  HorizontalAlignment="Stretch" 
+                  VerticalAlignment="Stretch"
+                  BorderBrush="#DDDDDD" 
+                  BorderThickness="1"
+                  RowBackground="White"
+                  AlternatingRowBackground="#F9F9F9"
+                  HeadersVisibility="Column"
+                  GridLinesVisibility="Horizontal"
+                  HorizontalGridLinesBrush="#EEEEEE">
+
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Binding="{Binding Recette.Categorie.Categorie_nom, ValidatesOnExceptions=True}" Header="Categorie" />
                 <DataGridTextColumn Width="*" Binding="{Binding Recette.Recette_nom, ValidatesOnExceptions=True}" Header="Nom" />
@@ -46,17 +79,19 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
 
-                <DataGridTextColumn Width="*" Binding="{Binding Recette.Recette_description, ValidatesOnExceptions=True}" Header="Description">
+                <DataGridTextColumn Width="3*" Binding="{Binding Recette.Recette_description, ValidatesOnExceptions=True}" Header="Description">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="TextWrapping" Value="Wrap" />
                             <Setter Property="Margin" Value="5" />
+                            <Setter Property="Foreground" Value="#555555" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
 
-                <DataGridTextColumn Width="*" Binding="{Binding Est_indisponible, ValidatesOnExceptions=True}" Header="Disponibilité" />
+                <DataGridTextColumn Width="*" Binding="{Binding Est_indisponible, ValidatesOnExceptions=True}" Header="Indisponible ?" />
             </DataGrid.Columns>
+
         </DataGrid>
 
     </Grid>

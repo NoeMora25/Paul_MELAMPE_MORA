@@ -6,7 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TD3_BindingBDPension.Model;
+using Paul_MELAMPE_MORA.Classes;
 
 namespace Paul_MELAMPE_MORA.Classes
 {

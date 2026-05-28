@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Paul_MELAMPE_MORA.UC"
              mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="320" Background="#FF2F2F2F" BorderBrush="Black" Foreground="White">
+             d:DesignHeight="400" d:DesignWidth="320" Background="#FF2F2F2F" BorderBrush="Black" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top">
     <Grid>
         <Label Content="Login" HorizontalAlignment="Left" Margin="19,33,0,0" VerticalAlignment="Top" Height="43" Width="64" FontSize="18" Foreground="#FF927F00"/>
         <TextBox x:Name="TxtLogin" HorizontalAlignment="Left" Margin="19,81,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="252" Background="#FFCECECE" RenderTransformOrigin="0.5,0.5" AutomationProperties.HelpText="Login"/>

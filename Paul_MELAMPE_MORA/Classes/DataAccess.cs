@@ -1,11 +1,13 @@
 
-
 using System.Collections.Generic;
 using System.Data;
+using System.Security.Cryptography.X509Certificates;
+using System.Windows;
 using Npgsql;
+using Paul_MELAMPE_MORA;
 
 
-namespace TD3_BindingBDPension.Model
+namespace Paul_MELAMPE_MORA.Classes
 {
 
     public  class DataAccess
@@ -19,7 +21,9 @@ namespace TD3_BindingBDPension.Model
         
         static DataAccess()
         {
-            connectionString = "Host=srv-peda-new;Port=5433;Username=melampel;Password=jg5dghff6;Database=S201_MORA_MELAMPE;Options='-c search_path=melampel'";
+            MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+            connectionString = $"Host=srv-peda-new;Port=5433;Username=melampel;Password={MainWindow.mdp_user};Database=S201_MORA_MELAMPE;Options='-c search_path=melampel'";
+            //connectionString = $"Host=srv-peda-new;Port=5433;Username=melampel;Password=jg5dghff6;Database=S201_MORA_MELAMPE;Options='-c search_path=melampel'";
             try
             {
                 connection = new NpgsqlConnection(connectionString);

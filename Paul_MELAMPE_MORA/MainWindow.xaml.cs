@@ -1,4 +1,5 @@
 ﻿using Paul_MELAMPE_MORA.Classes;
+using Paul_MELAMPE_MORA.UC;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,13 +19,20 @@ namespace Paul_MELAMPE_MORA
     public partial class MainWindow : Window
     {
         public Boulangerie LaBoulangerie { get; set; }
+        public string roleUser;
+        public static string mdp_user= "jg5dghff6";
         public MainWindow()
         {
-            ChargeData();
+
             InitializeComponent();
-            MainContent.Content = new UC.UCproduit();
+            ChargeData();
+
+
+            MainContent.Content = new UC.UClogin();
+
 
         }
+
 
         public void ChargeData()
         {
@@ -35,25 +43,10 @@ namespace Paul_MELAMPE_MORA
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show("Impossible de charger les données. Voir votre admin.");
                 Application.Current.Shutdown();
             }
         }
-
-        public bool EmployeExiste(string login)
-        {
-            foreach (Employe unEmploye in LaBoulangerie.LesEmployes)
-            {
-                if (login == unEmploye.Login)
-                {
-                    return true;
-                }
-            }
-            return false;   
-
-        }
-
 
     }
 }

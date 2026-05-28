@@ -48,5 +48,23 @@ namespace Paul_MELAMPE_MORA
             }
         }
 
+        public bool EmployeExiste(string login)
+        {
+            foreach (Employe unEmploye in LaBoulangerie.LesEmployes)
+            {
+                if (login == unEmploye.Login)
+                {
+                    return true;
+                }
+            }
+            return false;   
+
+        }
+
+       
+
+
+
+
     }
 }

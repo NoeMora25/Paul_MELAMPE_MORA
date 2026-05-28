@@ -4,9 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Paul_MELAMPE_MORA.UC"
-             xmlns:materialDesignMahApps="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="Paul_MELAMPE_MORA.UC.UCproduit"
+             xmlns:materialDesignMahApps="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             x:Class="Paul_MELAMPE_MORA.UC.UCproduit"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="550" d:DesignWidth="800"
+             Background="White">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -14,30 +16,82 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ComboBox Grid.Row="0" x:Name="ComboAllergenes" Width="200" Margin="0,70,0,20">
-            <ComboBoxItem>
-                <CheckBox Content="Sans Gluten (Céréales)"/>
-            </ComboBoxItem>
-            <ComboBoxItem>
-                <CheckBox Content="Sans Œufs"/>
-            </ComboBoxItem>
-            <ComboBoxItem>
-                <CheckBox Content="Sans Lactose (Lait)"/>
-            </ComboBoxItem>
-            <ComboBoxItem>
-                <CheckBox Content="Sans Fruits à coque"/>
-            </ComboBoxItem>
-            <ComboBoxItem>
-                <CheckBox Content="Sans Soja"/>
-            </ComboBoxItem>
-        </ComboBox>
+        <StackPanel Grid.Row="0" Margin="20,20,20,15">
 
-        <DataGrid Grid.Row="1" x:Name="dgProduits" AutoGenerateColumns="False" IsReadOnly="True" Margin="20,0,20,20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TextBlock Text="Catalogue des Produits" 
+                       FontSize="24" 
+                       FontWeight="Bold" 
+                       Foreground="#333333" 
+                       Margin="0,0,0,15"/>
+
+            <StackPanel Orientation="Horizontal">
+
+                <StackPanel Margin="0,0,20,0">
+                    <TextBlock Text="Filtrer par allergènes :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
+                    <ComboBox x:Name="ComboAllergenes" Width="220" Padding="5">
+                        <ComboBoxItem>
+                            <CheckBox x:Name="chkAleGluten" Content="Sans Gluten (Céréales)" Checked="Filtre_Modifie" Unchecked="Filtre_Modifie"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <CheckBox x:Name="chkAleOeuf" Content="Sans Œufs" Checked="Filtre_Modifie" Unchecked="Filtre_Modifie"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <CheckBox x:Name="chkAleLactose" Content="Sans Lactose (Lait)" Checked="Filtre_Modifie" Unchecked="Filtre_Modifie"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <CheckBox x:Name="chkAleFruitsACoque" Content="Sans Fruits à coque" Checked="Filtre_Modifie" Unchecked="Filtre_Modifie"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <CheckBox x:Name="chkAleSoja" Content="Sans Soja" Checked="Filtre_Modifie" Unchecked="Filtre_Modifie"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <CheckBox x:Name="chkAleSesame" Content="Sans Graines de sésame" Checked="Filtre_Modifie" Unchecked="Filtre_Modifie"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <CheckBox x:Name="chkAleSulfite" Content="Sans Sulfites" Checked="Filtre_Modifie" Unchecked="Filtre_Modifie"/>
+                        </ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="Filtrer par catégories :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
+                    <ComboBox x:Name="ComboCategories" Width="200" Padding="5">
+                        <ComboBoxItem>
+                            <CheckBox x:Name="chkCatGateaux" Content="Gâteaux" Checked="Filtre_Modifie" Unchecked="Filtre_Modifie"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <CheckBox x:Name="chkCatViennoiseries" Content="Viennoiseries" Checked="Filtre_Modifie" Unchecked="Filtre_Modifie"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <CheckBox x:Name="chkCatPains" Content="Pains" Checked="Filtre_Modifie" Unchecked="Filtre_Modifie"/>
+                        </ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+            </StackPanel>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" 
+                  x:Name="dgProduits" 
+                  ItemsSource="{Binding LesProduits}" 
+                  AutoGenerateColumns="False" 
+                  IsReadOnly="True" 
+                  Margin="20,0,20,20" 
+                  HorizontalAlignment="Stretch" 
+                  VerticalAlignment="Stretch"
+                  BorderBrush="#DDDDDD" 
+                  BorderThickness="1"
+                  RowBackground="White"
+                  AlternatingRowBackground="#F9F9F9"
+                  HeadersVisibility="Column"
+                  GridLinesVisibility="Horizontal"
+                  HorizontalGridLinesBrush="#EEEEEE">
+
             <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Binding="{Binding Recette.Categorie.Categorie_nom, ValidatesOnExceptions=True}" Header="Categorie" />
-                <DataGridTextColumn Width="*" Binding="{Binding Recette.Recette_nom, ValidatesOnExceptions=True}" Header="Nom" />
+                <DataGridTextColumn Width="1.5*" Binding="{Binding Recette.Categorie.Categorie_nom, ValidatesOnExceptions=True}" Header="Catégorie" />
+                <DataGridTextColumn Width="2*" Binding="{Binding Recette.Recette_nom, ValidatesOnExceptions=True}" Header="Nom" FontWeight="SemiBold" />
 
-                <DataGridTextColumn Width="*" Binding="{Binding Recette.Allergenes, ValidatesOnExceptions=True}" Header="Allergene">
+                <DataGridTextColumn Width="2.5*" Binding="{Binding Recette.Allergenes, ValidatesOnExceptions=True}" Header="Allergènes">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="TextWrapping" Value="Wrap" />
@@ -46,18 +100,19 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
 
-                <DataGridTextColumn Width="*" Binding="{Binding Recette.Recette_description, ValidatesOnExceptions=True}" Header="Description">
+                <DataGridTextColumn Width="3*" Binding="{Binding Recette.Recette_description, ValidatesOnExceptions=True}" Header="Description">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="TextWrapping" Value="Wrap" />
                             <Setter Property="Margin" Value="5" />
+                            <Setter Property="Foreground" Value="#555555" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
 
-                <DataGridTextColumn Width="*" Binding="{Binding Est_indisponible, ValidatesOnExceptions=True}" Header="Disponibilité" />
+                <DataGridTextColumn Width="*" Binding="{Binding Est_indisponible, ValidatesOnExceptions=True}" Header="Indisponible ?" />
             </DataGrid.Columns>
-        </DataGrid>
 
+        </DataGrid>
     </Grid>
 </UserControl>

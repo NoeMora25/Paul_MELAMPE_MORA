@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace Paul_MELAMPE_MORA.Classes
 {
-    public class Contient : ICrud<Contient>
+    public class LigneCommande : ICrud<LigneCommande>
     {
         private int quantite;
         private bool est_decoupe;
         private Commande commande;
         private Produit produit;
 
-        public Contient()
+        public LigneCommande()
         {
         }
 
-        public Contient(int quantite, bool est_decoupe, Commande commande, Produit produit)
+        public LigneCommande(int quantite, bool est_decoupe, Commande commande, Produit produit)
         {
             this.Quantite = quantite;
             this.Est_decoupe = est_decoupe;
@@ -87,12 +87,12 @@ namespace Paul_MELAMPE_MORA.Classes
             throw new NotImplementedException();
         }
 
-        public List<Contient> FindAll()
+        public List<LigneCommande> FindAll()
         {
             throw new NotImplementedException();
         }
 
-        public List<Contient> FindBySelection(string criteres)
+        public List<LigneCommande> FindBySelection(string criteres)
         {
             throw new NotImplementedException();
         }
@@ -106,5 +106,6 @@ namespace Paul_MELAMPE_MORA.Classes
         {
             throw new NotImplementedException();
         }
+
     }
 }

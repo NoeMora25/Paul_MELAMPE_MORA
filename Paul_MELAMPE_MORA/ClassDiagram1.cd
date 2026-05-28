@@ -37,21 +37,6 @@
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Paul_MELAMPE_MORA.Classes.Contient">
-    <Position X="5.75" Y="0.75" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier>
-      <HashCode>AAQCEAAAAgAAAAAAAAAQCAAgAAEAAEgAAAAoAAAAIBA=</HashCode>
-      <FileName>Classes\Contient.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Commande" />
-      <Property Name="Produit" />
-    </ShowAsAssociation>
-    <Lollipop Position="0.2" />
-  </Class>
   <Class Name="Paul_MELAMPE_MORA.Classes.Produit">
     <Position X="8.25" Y="0.5" Width="1.5" />
     <Compartments>
@@ -136,6 +121,21 @@
       <Property Name="Allergene" />
       <Property Name="Recette" />
     </ShowAsAssociation>
+  </Class>
+  <Class Name="Paul_MELAMPE_MORA.Classes.LigneCommande">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQCEAAAAgAAAAAAAAAQCAAgAAEAAEgAAAAoAAAAIBA=</HashCode>
+      <FileName>Classes\LigneCommande.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Commande" />
+      <Property Name="Produit" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
   </Class>
   <Interface Name="Paul_MELAMPE_MORA.Classes.ICrud&lt;T&gt;">
     <Position X="12.75" Y="0.5" Width="1.5" />

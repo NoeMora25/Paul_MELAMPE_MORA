@@ -7,8 +7,14 @@
              xmlns:materialDesignMahApps="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="Paul_MELAMPE_MORA.UC.UCproduit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel>
-        <ComboBox x:Name="ComboAllergenes" Width="200" Margin="20,70,0,0" HorizontalAlignment="Left">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ComboBox Grid.Row="0" x:Name="ComboAllergenes" Width="200" Margin="0,70,0,20">
             <ComboBoxItem>
                 <CheckBox Content="Sans Gluten (Céréales)"/>
             </ComboBoxItem>
@@ -26,25 +32,32 @@
             </ComboBoxItem>
         </ComboBox>
         
-        <DataGrid
-    x:Name="dgProduits"
-    Width="300"
-    Height="330"
-    HorizontalAlignment="Center"
-    AutoGenerateColumns="False"
-    IsReadOnly="True"
-    ItemsSource="{Binding}" VerticalAlignment="Center">
+        <DataGrid Grid.Row="1" x:Name="dgProduits" AutoGenerateColumns="False" IsReadOnly="True" Margin="20,0,20,20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <DataGrid.Columns>
-                <DataGridTextColumn
-            Width="*"
-            Binding="{Binding NomProduit , ValidatesOnExceptions=True}"
-            Header="Nom" />
-                <DataGridTextColumn
-            Width="*"
-            Binding="{Binding Allergene, ValidatesOnExceptions=True}"
-            Header="Allergene" />
+                <DataGridTextColumn Width="*" Binding="{Binding Recette.Categorie.Categorie_nom, ValidatesOnExceptions=True}" Header="Categorie" />
+                <DataGridTextColumn Width="*" Binding="{Binding Recette.Recette_nom, ValidatesOnExceptions=True}" Header="Nom" />
+
+                <DataGridTextColumn Width="*" Binding="{Binding Recette.Allergenes, ValidatesOnExceptions=True}" Header="Allergene">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                            <Setter Property="Margin" Value="5" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Width="*" Binding="{Binding Recette.Recette_description, ValidatesOnExceptions=True}" Header="Description">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                            <Setter Property="Margin" Value="5" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Width="*" Binding="{Binding Est_indisponible, ValidatesOnExceptions=True}" Header="Disponibilité" />
             </DataGrid.Columns>
         </DataGrid>
 
-    </StackPanel>
+    </Grid>
 </UserControl>

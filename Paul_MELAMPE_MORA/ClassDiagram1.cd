@@ -47,8 +47,8 @@
       <FileName>Classes\Contient.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Produit" />
       <Property Name="Commande" />
+      <Property Name="Produit" />
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
@@ -109,20 +109,6 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Paul_MELAMPE_MORA.Classes.Presente">
-    <Position X="8.75" Y="6.75" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier>
-      <HashCode>AAAIAAAAAAAAAAAAIAAAACAAAAAAAAAAAAAAAAAACAA=</HashCode>
-      <FileName>Classes\Presente.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Allergene" />
-      <Property Name="Recette" />
-    </ShowAsAssociation>
-  </Class>
   <Class Name="Paul_MELAMPE_MORA.Classes.Recette">
     <Position X="6" Y="4.5" Width="1.5" />
     <Compartments>
@@ -136,6 +122,20 @@
       <Property Name="Categorie" />
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Paul_MELAMPE_MORA.Classes.RecetteAllergene">
+    <Position X="8.5" Y="7" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAIAAAACAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Classes\RecetteAllergene.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Allergene" />
+      <Property Name="Recette" />
+    </ShowAsAssociation>
   </Class>
   <Interface Name="Paul_MELAMPE_MORA.Classes.ICrud&lt;T&gt;">
     <Position X="12.75" Y="0.5" Width="1.5" />

@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Paul_MELAMPE_MORA.Classes
 {
-    public class Presente
+    public class RecetteAllergene
     {
         private Allergenes allergene;
         private Recette recette;
 
-        public Presente()
+        public RecetteAllergene()
         {
         }
 
-        public Presente(Allergenes allergene, Recette recette)
+        public RecetteAllergene(Allergenes allergene, Recette recette)
         {
             this.Allergene = allergene;
             this.Recette = recette;

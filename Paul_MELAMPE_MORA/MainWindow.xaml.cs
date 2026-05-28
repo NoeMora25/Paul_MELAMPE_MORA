@@ -19,6 +19,9 @@ namespace Paul_MELAMPE_MORA
         public MainWindow()
         {
             InitializeComponent();
+            MainContent.Content = new UC.UCproduit();
+
+
         }
     }
 }

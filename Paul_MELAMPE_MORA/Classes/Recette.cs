@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TD3_BindingBDPension.Model;
 
 namespace Paul_MELAMPE_MORA.Classes
 {
@@ -12,9 +15,18 @@ namespace Paul_MELAMPE_MORA.Classes
         private string recette_nom;
         private string recette_description;
         private Categorie categorie;
+        private string allergenes;
 
         public Recette()
         {
+        }
+        public Recette(int recette_id, string recette_nom, string description, Categorie categorie, string allergenes)
+        {
+            this.recette_id = recette_id;
+            this.Recette_nom = recette_nom;
+            this.Recette_description = description;
+            this.Categorie = categorie;
+            this.Allergenes = allergenes;
         }
 
         public Recette(string recette_nom, string recette_description, Categorie categorie)
@@ -73,7 +85,18 @@ namespace Paul_MELAMPE_MORA.Classes
             }
         }
 
+        public string Allergenes
+        {
+            get
+            {
+                return this.allergenes;
+            }
 
+            set
+            {
+                this.allergenes = value;
+            }
+        }
 
         public int Create()
         {

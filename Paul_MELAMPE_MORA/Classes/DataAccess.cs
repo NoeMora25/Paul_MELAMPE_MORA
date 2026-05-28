@@ -19,7 +19,7 @@ namespace TD3_BindingBDPension.Model
         
         static DataAccess()
         {
-            connectionString = "Host=srv-peda-new;Port=5433;Username=morano;Password=;Database=morano_pension;Options='-c search_path=morano'";
+            connectionString = "Host=srv-peda-new;Port=5433;Username=melampel;Password=jg5dghff6;Database=S201_MORA_MELAMPE;Options='-c search_path=melampel'";
             try
             {
                 connection = new NpgsqlConnection(connectionString);

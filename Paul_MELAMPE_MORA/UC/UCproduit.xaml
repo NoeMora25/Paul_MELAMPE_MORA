@@ -31,7 +31,7 @@
                 <CheckBox Content="Sans Soja"/>
             </ComboBoxItem>
         </ComboBox>
-        
+
         <DataGrid Grid.Row="1" x:Name="dgProduits" AutoGenerateColumns="False" IsReadOnly="True" Margin="20,0,20,20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Binding="{Binding Recette.Categorie.Categorie_nom, ValidatesOnExceptions=True}" Header="Categorie" />

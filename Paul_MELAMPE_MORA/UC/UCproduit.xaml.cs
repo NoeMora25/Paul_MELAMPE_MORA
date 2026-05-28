@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Paul_MELAMPE_MORA.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,16 @@ namespace Paul_MELAMPE_MORA.UC
         public UCproduit()
         {
             InitializeComponent();
+            ChargerLesProduits();
+        }
+
+        private void ChargerLesProduits()
+        {
+            Produit unProduit = new Produit();
+
+            List<Produit> lesProduits = unProduit.FindAll();
+            dgProduits.ItemsSource = lesProduits;
         }
     }
 }
+

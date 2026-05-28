@@ -5,8 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Paul_MELAMPE_MORA.UC"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="400" d:DesignWidth="320" Background="#FF2F2F2F" BorderBrush="Black" Foreground="White">
     <Grid>
-            
+        <Label Content="Login" HorizontalAlignment="Left" Margin="19,33,0,0" VerticalAlignment="Top" Height="43" Width="64" FontSize="18" Foreground="#FF927F00"/>
+        <TextBox x:Name="TxtLogin" HorizontalAlignment="Left" Margin="19,81,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="252" Background="#FFCECECE"/>
+
+        <Label Content="Mot de passe" HorizontalAlignment="Left" Margin="19,124,0,0" VerticalAlignment="Top" Height="43" Width="150" FontSize="18" Foreground="#FF927F00"/>
+        <TextBox x:Name="TxtMDP" HorizontalAlignment="Left" Margin="19,172,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="252" Background="#FFD0D0D0"/>
+
+        <Label x:Name="MsgErreur" Content="" Foreground="#FFD00000" Margin="19,216,43,86" />
+
+        <Button x:Name="ButConnecter" Content="Se connecter" HorizontalAlignment="Left" Margin="198,329,0,0" VerticalAlignment="Top" Width="98" Background="Black" Foreground="#FF927F00" BorderBrush="Black" RenderTransformOrigin="1,0"/>
+
+
     </Grid>
 </UserControl>

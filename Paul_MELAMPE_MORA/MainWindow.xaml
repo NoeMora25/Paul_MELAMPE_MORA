@@ -8,8 +8,8 @@
         Title="MainWindow" Height="450" Width="800">
     <StackPanel>
         <Grid x:Name="Bandeau" Height="50" Background="Black">
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Paul" VerticalAlignment="Center" Foreground="#FF927F00" Width="60" Height="30" FontSize="28" FontFamily="Lucida Fax" Margin="20,0,0,0" RenderTransformOrigin="0.768,0.571"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="&#x23FB;" VerticalAlignment="Center" Foreground="#FF927F00" Width="32" Height="30" FontSize="28" FontFamily="Lucida Fax" Margin="749,0,0,0" RenderTransformOrigin="0.768,0.571"/>
+            <Label HorizontalAlignment="Left"  Content="Paul" VerticalAlignment="Center" Foreground="#FF927F00" Width="68" Height="42" FontSize="28" FontFamily="Lucida Fax" Margin="10,0,0,0" RenderTransformOrigin="0.768,0.571"/>
+            <Label HorizontalAlignment="Left"  Content="&#x23FB;" VerticalAlignment="Center" Foreground="#FF927F00" Width="41" Height="42" FontSize="28" FontFamily="Lucida Fax" Margin="749,0,0,0" RenderTransformOrigin="0.768,0.571"/>
 
         </Grid>
     </StackPanel>

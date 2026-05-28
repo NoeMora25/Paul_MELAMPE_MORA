@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Paul_MELAMPE_MORA.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace Paul_MELAMPE_MORA.UC
 {
     /// <summary>
@@ -20,9 +23,22 @@ namespace Paul_MELAMPE_MORA.UC
     /// </summary>
     public partial class UClogin : UserControl
     {
+
         public UClogin()
         {
             InitializeComponent();
+
+            String role;
+        }
+
+        private void ButConnecter_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
+
+            if (mainWindow.EmployeExiste(TxtLogin.Text))
+            {
+
+            }
         }
 
 

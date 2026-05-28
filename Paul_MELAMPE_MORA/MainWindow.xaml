@@ -9,7 +9,7 @@
     <StackPanel>
         <Grid x:Name="Bandeau" Height="50" Background="Black">
             <Label HorizontalAlignment="Left"  Content="Paul" VerticalAlignment="Center" Foreground="#FF927F00" Width="68" Height="42" FontSize="28" FontFamily="Lucida Fax" Margin="10,0,0,0" RenderTransformOrigin="0.768,0.571"/>
-            <Label HorizontalAlignment="Left"  Content="&#x23FB;" VerticalAlignment="Center" Foreground="#FF927F00" Width="41" Height="42" FontSize="28" FontFamily="Lucida Fax" Margin="749,0,0,0" RenderTransformOrigin="0.768,0.571"/>
+            <Label HorizontalAlignment="Right"  Content="&#x23FB;" VerticalAlignment="Center" Foreground="#FF927F00" Width="41" Height="42" FontSize="28" FontFamily="Lucida Fax" RenderTransformOrigin="0.768,0.571" Margin="0,0,10,0"/>
 
         </Grid>
     </StackPanel>

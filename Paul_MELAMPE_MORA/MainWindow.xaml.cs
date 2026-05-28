@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Paul_MELAMPE_MORA.Classes;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,9 +17,42 @@ namespace Paul_MELAMPE_MORA
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Boulangerie LaBoulangerie { get; set; }
         public MainWindow()
         {
+            ChargeData();
             InitializeComponent();
+
         }
+
+        public void ChargeData()
+        {
+            try
+            {
+                LaBoulangerie = new Boulangerie("Boulangerie Paul");
+                this.DataContext = LaBoulangerie;
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Impossible de charger les données. Voir votre admin.");
+                Application.Current.Shutdown();
+            }
+        }
+
+        public bool EmployeExiste(string login)
+        {
+            foreach (Employe unEmploye in LaBoulangerie.LesEmployes)
+            {
+                if (login == unEmploye.Login)
+                {
+                    return true;
+                }
+            }
+            return false;   
+
+        }
+
+
     }
 }

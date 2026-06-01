@@ -34,34 +34,40 @@ namespace Paul_MELAMPE_MORA.UC
 
         private void ButConnecter_Click(object sender, RoutedEventArgs e)
         {
-            bool trouve = false;
-            MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
 
-            foreach (Employe unEmploye in mainWindow.LaBoulangerie.LesEmployes)
+            MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
+            mainWindow.mdp_user = TxtMDP.Text;
+            mainWindow.loginuser = TxtLogin.Text;
+
+            try
             {
-                if (TxtLogin.Text == unEmploye.Login)
+                mainWindow.ChargeData();
+                foreach (Employe unEmploye in mainWindow.LaBoulangerie.LesEmployes)
                 {
-                    trouve = true;
                     mainWindow.roleUser = unEmploye.Role;
 
-
-                    if (mainWindow.roleUser == "Chef" && TxtMDP.Text == MainWindow.mdp_user)
+                    if (mainWindow.roleUser == "Chef")
                         mainWindow.MainContent.Content = new UCgererCommande();
 
-                    else if (mainWindow.roleUser == "Vendeur" && TxtMDP.Text == MainWindow.mdp_user)
+                    else if (mainWindow.roleUser == "Vendeur")
                     {
                         mainWindow.MainContent.Content = new UCcommande();
                     }
 
-                    else if (TxtMDP.Text != MainWindow.mdp_user)
-                        MsgErreur.Content = "Mot de passe incorrect";
-
                     else
                         MsgErreur.Content = "Vous n'avez pas de rôle !";
+
                 }
             }
-            if (trouve is false)
-                MsgErreur.Content = "Identifiant incorrect";
+            catch (Exception ex)
+            {
+                MsgErreur.Content = ex.Message;
+            }
+
+
+
+            
+
 
 
         }

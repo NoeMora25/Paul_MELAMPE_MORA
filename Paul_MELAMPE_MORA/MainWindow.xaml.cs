@@ -20,12 +20,13 @@ namespace Paul_MELAMPE_MORA
     {
         public Boulangerie LaBoulangerie { get; set; }
         public string roleUser;
-        public static string mdp_user= "jg5dghff6";
+        public string mdp_user;
+        public string loginuser;
         public MainWindow()
         {
 
             InitializeComponent();
-            ChargeData();
+
 
 
             MainContent.Content = new UC.UClogin();
@@ -43,25 +44,14 @@ namespace Paul_MELAMPE_MORA
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Impossible de charger les données. Voir votre admin.");
-                Application.Current.Shutdown();
+                throw new Exception("Identifiant ou mot de passe invalide");
+                //MessageBox.Show("Impossible de charger les données. Voir votre admin.");
+                //Application.Current.Shutdown();
+
             }
         }
 
-        public bool EmployeExiste(string login)
-        {
-            foreach (Employe unEmploye in LaBoulangerie.LesEmployes)
-            {
-                if (login == unEmploye.Login)
-                {
-                    return true;
-                }
-            }
-            return false;   
 
-        }
-
-       
 
 
 

@@ -22,8 +22,7 @@ namespace Paul_MELAMPE_MORA.Classes
         static DataAccess()
         {
             MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
-            connectionString = $"Host=srv-peda-new;Port=5433;Username=melampel;Password={MainWindow.mdp_user};Database=S201_MORA_MELAMPE;Options='-c search_path=melampel'";
-            //connectionString = $"Host=srv-peda-new;Port=5433;Username=melampel;Password=jg5dghff6;Database=S201_MORA_MELAMPE;Options='-c search_path=melampel'";
+            connectionString = $"Host=srv-peda-new;Port=5433;Username={mainWindow.loginuser};Password={mainWindow.mdp_user};Database=S201_MORA_MELAMPE;Options='-c search_path=melampel'";
             try
             {
                 connection = new NpgsqlConnection(connectionString);

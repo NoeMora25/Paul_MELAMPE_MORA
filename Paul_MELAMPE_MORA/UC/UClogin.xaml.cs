@@ -35,7 +35,7 @@ namespace Paul_MELAMPE_MORA.UC
                     }
                     else if (mainWindow.roleUser == "Vendeur")
                     {
-                        mainWindow.MainContent.Content = new UCproduit();
+                        mainWindow.MainContent.Content = new UCrechercheClient();
                     }
                     else
                     {

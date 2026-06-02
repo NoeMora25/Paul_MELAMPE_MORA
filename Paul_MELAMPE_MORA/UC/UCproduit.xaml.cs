@@ -27,8 +27,8 @@ namespace Paul_MELAMPE_MORA.UC
         private void ChargerLesProduits()
         {
             LesProduits.Clear();
-            Produit monDAO = new Produit();
-            var listeBDD = monDAO.FindAll();
+            Produit monProduit = new Produit();
+            var listeBDD = monProduit.FindAll();
 
             foreach (var p in listeBDD)
             {
@@ -75,7 +75,19 @@ namespace Paul_MELAMPE_MORA.UC
                 if (chkAleSulfite.IsChecked == true && listeAllergenes.Contains("Sulfites")) matchAllergene = false;
             }
 
-            return matchCategorie && matchAllergene;
+            bool matchTexte = RechercheMotClef(obj);
+
+            return matchCategorie && matchAllergene && matchTexte;
+        }
+
+        private bool RechercheMotClef(object obj)
+        {
+            if (String.IsNullOrEmpty(txtBoxProduit.Text))
+                return true;
+
+            Produit unProduit = obj as Produit;
+
+            return (unProduit.Recette.Recette_nom.Contains(txtBoxProduit.Text, StringComparison.OrdinalIgnoreCase));
         }
 
         private void Filtre_Modifie(object sender, RoutedEventArgs e)
@@ -117,6 +129,11 @@ namespace Paul_MELAMPE_MORA.UC
         {
             public Produit LeProduit { get; set; }
             public int Quantite { get; set; }
+        }
+
+        private void BtnVoirPanier_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

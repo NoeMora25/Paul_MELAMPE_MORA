@@ -4,18 +4,37 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Paul_MELAMPE_MORA.UC"
-             mc:Ignorable="d" d:DesignWidth="320" Background="#FF2F2F2F" BorderBrush="Black" Foreground="White">
+             mc:Ignorable="d" Background="#FF2F2F2F" BorderBrush="Black" Foreground="White" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+
+
     <Grid>
-        <Label Content="Login" HorizontalAlignment="Left" Margin="19,33,0,0" VerticalAlignment="Top" Height="43" Width="64" FontSize="18" Foreground="#FF927F00"/>
-        <TextBox x:Name="TxtLogin" HorizontalAlignment="Left" Margin="19,81,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="252" Background="#FFCECECE" RenderTransformOrigin="0.5,0.5" AutomationProperties.HelpText="Login"/>
+        <StackPanel Orientation="Horizontal">
 
-        <Label Content="Mot de passe" HorizontalAlignment="Left" Margin="19,124,0,0" VerticalAlignment="Top" Height="43" Width="150" FontSize="18" Foreground="#FF927F00"/>
-        <TextBox x:Name="TxtMDP" HorizontalAlignment="Left" Margin="19,172,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="252" Background="#FFD0D0D0" AutomationProperties.HelpText="Mot de passe"/>
+            <Grid VerticalAlignment="Center" Width="354">
 
-        <Label x:Name="MsgErreur" Content="" Foreground="#FFD00000" Margin="19,216,43,51" />
+                <Label Content="Boulangerie Paul" FontSize="30" Foreground="White" Margin="8,77,41,293" FontFamily="Century" />
+                <Label Content="Login" HorizontalAlignment="Left" Margin="23,142,0,0" VerticalAlignment="Top" Height="43" Width="64" FontSize="18" Foreground="#FF927F00"/>
+                <TextBox x:Name="TxtLogin" HorizontalAlignment="Left" BorderBrush="Black" Margin="19,190,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="252" Background="#FFCECECE" RenderTransformOrigin="0.5,0.5" AutomationProperties.HelpText="Login"/>
 
-        <Button x:Name="ButConnecter" Content="Se connecter" HorizontalAlignment="Left" Margin="196,302,0,0" VerticalAlignment="Top" Width="98" Background="Black" Foreground="#FF927F00" BorderBrush="Black" RenderTransformOrigin="1,0" Click="ButConnecter_Click"/>
+                <Label Content="Mot de passe" HorizontalAlignment="Left" Margin="22,215,0,0" VerticalAlignment="Top" Height="43" Width="150" FontSize="18" Foreground="#FF927F00"/>
+                <TextBox x:Name="TxtMDP" HorizontalAlignment="Left" BorderBrush="Black" Margin="22,261,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="252" Background="#FFD0D0D0" AutomationProperties.HelpText="Mot de passe"/>
 
+                <Label x:Name="MsgErreur" Content="" Foreground="#FFD00000" Margin="19,300,52,79" />
 
+                <Border CornerRadius="20" Background="Black" Margin="181,337,41,37">
+                    <Button x:Name="ButConnecter" Content="Se connecter" Width="112" Foreground="#FF927F00" BorderBrush="Black" RenderTransformOrigin="1,0" Click="ButConnecter_Click" BorderThickness="1,1,1,1" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Black" Height="38" />
+                </Border>
+            </Grid>
+
+            <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Image Source="/img/img_paul_illustration.png" Stretch="UniformToFill"/>
+
+            </Grid>
+
+        </StackPanel>
     </Grid>
+
+
 </UserControl>

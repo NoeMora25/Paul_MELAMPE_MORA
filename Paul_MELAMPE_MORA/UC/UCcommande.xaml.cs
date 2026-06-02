@@ -113,5 +113,42 @@ namespace Paul_MELAMPE_MORA.UC
             lblTotal.Text = string.Format("{0:N2} €", total);
             lblAcompte.Text = string.Format("{0:N2} €", acompte);
         }
+        private void ComboCategorieEvenement_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (comboCategorieEvenement == null || comboNomEvenement == null) return;
+
+            ComboBoxItem selection = comboCategorieEvenement.SelectedItem as ComboBoxItem;
+
+            if (selection != null)
+            {
+                string choix = selection.Content.ToString();
+                comboNomEvenement.Items.Clear();
+
+                if (choix == "Familial")
+                {
+                    comboNomEvenement.IsEnabled = true;
+                    foreach (string evt in Categorie_evenement.SousCategories[CategoriePrincipale.Familial])
+                    {
+                        comboNomEvenement.Items.Add(evt);
+                    }
+                    comboNomEvenement.SelectedIndex = 0;
+                }
+                else if (choix == "Professionnel")
+                {
+                    comboNomEvenement.IsEnabled = true;
+                    foreach (string evt in Categorie_evenement.SousCategories[CategoriePrincipale.Professionnel])
+                    {
+                        comboNomEvenement.Items.Add(evt);
+                    }
+                    comboNomEvenement.SelectedIndex = 0;
+                }
+                else
+                {
+                    comboNomEvenement.IsEnabled = false;
+                    comboNomEvenement.Items.Add("-");
+                    comboNomEvenement.SelectedIndex = 0;
+                }
+            }
+        }
     }
 }

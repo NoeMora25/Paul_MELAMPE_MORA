@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Paul_MELAMPE_MORA.UC"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="950"
+             d:DesignHeight="700" d:DesignWidth="950"
              Background="White">
 
     <Grid Margin="20">
@@ -36,7 +36,6 @@
                                         </StackPanel>
 
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-
                                             <Button Content="-" Width="30" Height="30" Background="White" BorderThickness="0" 
                                                     Click="BtnMoinsUn_Click" Cursor="Hand" FontWeight="Bold"/>
 
@@ -74,21 +73,74 @@
 
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                     <StackPanel>
+
                         <TextBlock Text="Client associé :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
-                        <Grid Margin="0,0,0,15">
+                        <Grid Margin="0,0,0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBox x:Name="txtClientAssocie" IsReadOnly="True" Text="Aucun client sélectionné" Padding="8" Background="#F0F0F0"/>
-                            <Button Grid.Column="1" Content="Rechercher 🔍" Padding="10,0" Margin="5,0,0,0" Click="BtnRechercherClient_Click"/>
+                            <TextBlock x:Name="txtClientStatus" Text="Veuillez sélectionner un client" Foreground="#AA0000" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            <Button Grid.Column="1" Content="Rechercher 🔍" Padding="10,5" Click="BtnRechercherClient_Click" Cursor="Hand"/>
                         </Grid>
 
-                        <TextBlock Text="Date de retrait prévue :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
-                        <DatePicker x:Name="dateRetrait" Margin="0,0,0,15" Padding="5"/>
+                        <Border Background="#EDEDED" CornerRadius="5" Padding="10" Margin="0,0,0,15">
+                            <StackPanel>
+                                <TextBlock x:Name="txtClientNomPrenom" Text="- Aucun client -" FontSize="14" FontWeight="Bold" Foreground="#333333" Margin="0,0,0,3"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                                    <TextBlock Text="📞 " Foreground="Gray" FontSize="11"/>
+                                    <TextBlock x:Name="txtClientTel" Text="---" Foreground="#555555" Margin="0,0,15,0" FontSize="12"/>
+                                    <TextBlock Text="✉️ " Foreground="Gray" FontSize="11"/>
+                                    <TextBlock x:Name="txtClientMail" Text="---" Foreground="#555555" FontSize="12"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
 
-                        <TextBlock Text="Nombre de personnes :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
-                        <TextBox x:Name="txtNbPersonnes" Text="1" Margin="0,0,0,20" Padding="8"/>
+                        <Grid Margin="0,0,0,15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Margin="0,0,5,0">
+                                <TextBlock Text="Catégorie d'événement :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
+                                <ComboBox x:Name="comboCategorieEvenement" Padding="6" SelectionChanged="ComboCategorieEvenement_SelectionChanged">
+                                    <ComboBoxItem Content="Aucun événement" IsSelected="True"/>
+                                    <ComboBoxItem Content="Familial"/>
+                                    <ComboBoxItem Content="Professionnel"/>
+                                </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Margin="5,0,0,0">
+                                <TextBlock Text="Nom de l'événement :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
+                                <ComboBox x:Name="comboNomEvenement" Padding="6" IsEnabled="False">
+                                    <ComboBoxItem Content="-" IsSelected="True"/>
+                                </ComboBox>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Margin="0,0,5,0">
+                                <TextBlock Text="Date de retrait prévue :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
+                                <DatePicker x:Name="dateRetrait" Padding="5"/>
+                            </StackPanel>
+ 
+                        </Grid>
+
+                        <TextBlock Text="Nombre de personnes pour l'événement :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
+                        <TextBox x:Name="txtNbPersonnes" Text="1" Margin="0,0,0,15" Padding="8"/>
+
+                        <CheckBox x:Name="chkDemandeDecoupe" Content="Demander la découpe des gâteaux (si possible)" 
+                                  FontSize="13" Foreground="#333333" Margin="0,5,0,15" Cursor="Hand"/>
+
+                        <TextBlock Text="Texte à écrire / Instructions personnalisées :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
+                        <TextBox x:Name="txtInstructions" Margin="0,0,0,20" Padding="8" Height="60" 
+                                 TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
 
                         <Separator Background="#DDDDDD" Margin="0,0,0,20"/>
 
@@ -97,7 +149,7 @@
                             <TextBlock x:Name="lblAcompte" Text="0,00 €" FontSize="14" FontWeight="SemiBold" HorizontalAlignment="Right" Foreground="#555555"/>
                         </Grid>
 
-                        <Grid>
+                        <Grid Margin="0,0,0,10">
                             <TextBlock Text="TOTAL À PAYER :" FontSize="20" FontWeight="Bold" Foreground="#333333"/>
                             <TextBlock x:Name="lblTotal" Text="0,00 €" FontSize="22" FontWeight="Bold" HorizontalAlignment="Right" Foreground="#1E90FF"/>
                         </Grid>

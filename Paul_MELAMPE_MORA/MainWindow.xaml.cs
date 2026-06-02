@@ -1,4 +1,5 @@
-﻿using Paul_MELAMPE_MORA.Classes;
+﻿using System;
+using Paul_MELAMPE_MORA.Classes;
 using Paul_MELAMPE_MORA.UC;
 using System.Text;
 using System.Windows;
@@ -26,8 +27,6 @@ namespace Paul_MELAMPE_MORA
         {
 
             InitializeComponent();
-
-
 
             MainContent.Content = new UC.UClogin();
 

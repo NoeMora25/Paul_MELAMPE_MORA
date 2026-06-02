@@ -1,24 +1,16 @@
-
+using System; //  Ajouté
 using System.Collections.Generic;
 using System.Data;
-using System.Security.Cryptography.X509Certificates;
 using System.Windows;
 using Npgsql;
-using Paul_MELAMPE_MORA;
-
 
 namespace Paul_MELAMPE_MORA.Classes
 {
-
-    public  class DataAccess
+    public class DataAccess
     {
-        
         private static readonly string connectionString;
         private static NpgsqlConnection connection;
 
-       
-
-        
         static DataAccess()
         {
             MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
@@ -29,52 +21,46 @@ namespace Paul_MELAMPE_MORA.Classes
             }
             catch (Exception ex)
             {
-                LogError.Log(ex, "Pb à la connexion  \n" );
+                LogError.Log(ex, "Pb à la connexion  \n");
                 throw;
             }
         }
 
-
-        // pour récupérer la connexion (et l'ouvrir si nécessaire)
         public static NpgsqlConnection GetConnection()
         {
-
             if (connection.State == ConnectionState.Closed || connection.State == ConnectionState.Broken)
-
+            {
                 try
                 {
-                    connection.Open(); 
+                    connection.Open();
                 }
                 catch (Exception ex)
                 {
                     LogError.Log(ex, "Pb à la connexion  \n");
                     throw;
                 }
-        
+            }
             return connection;
         }
 
-      
         public static DataTable ExecuteSelect(NpgsqlCommand cmd)
         {
             DataTable dataTable = new DataTable();
             try
-            { 
+            {
                 cmd.Connection = GetConnection();
                 using (var adapter = new NpgsqlDataAdapter(cmd))
                 {
                     adapter.Fill(dataTable);
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 LogError.Log(ex, "Pb de executeSelect \n" + cmd.CommandText);
                 throw;
             }
-
             return dataTable;
         }
-
-        //   pour requêtes INSERT et renvoie l'ID généré
 
         public static int ExecuteInsert(NpgsqlCommand cmd)
         {
@@ -83,7 +69,6 @@ namespace Paul_MELAMPE_MORA.Classes
             {
                 cmd.Connection = GetConnection();
                 nb = (int)cmd.ExecuteScalar();
-
             }
             catch (Exception ex)
             {
@@ -91,13 +76,8 @@ namespace Paul_MELAMPE_MORA.Classes
                 throw;
             }
             return nb;
-
         }
 
-
-
-
-        //  pour requêtes UPDATE, DELETE
         public static int ExecuteSet(NpgsqlCommand cmd)
         {
             int nb = 0;
@@ -112,11 +92,9 @@ namespace Paul_MELAMPE_MORA.Classes
                 throw;
             }
             return nb;
-
         }
 
-        // pour requêtes avec une seule valeur retour  (ex : 1 colonne, ou COUNT, SUM) 
-        public static  string  ExecuteSelectOneValue(NpgsqlCommand cmd)
+        public static string ExecuteSelectOneValue(NpgsqlCommand cmd)
         {
             object res = null;
             try
@@ -130,10 +108,8 @@ namespace Paul_MELAMPE_MORA.Classes
                 throw;
             }
             return res.ToString();
-
         }
 
-        //  Fermer la connexion 
         public static void CloseConnection()
         {
             if (connection.State == ConnectionState.Open)
@@ -143,6 +119,3 @@ namespace Paul_MELAMPE_MORA.Classes
         }
     }
 }
-
-
-

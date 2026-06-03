@@ -1,111 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Npgsql;
+using System;
 
 namespace Paul_MELAMPE_MORA.Classes
 {
-    public class LigneCommande : ICrud<LigneCommande>
+    public class LigneCommande
     {
-        private int quantite;
-        private bool est_decoupe;
-        private Commande commande;
-        private Produit leProduit;
+        public int Quantite { get; set; }
+        public bool Est_decoupe { get; set; }
+        public Commande LaCommande { get; set; }
+        public Produit LeProduit { get; set; }
+        public int Commande_id { get; set; }
 
-        public LigneCommande()
-        {
-        }
-
-        public LigneCommande(int quantite, bool est_decoupe, Commande commande, Produit leProduit)
+        public LigneCommande(int quantite, bool est_decoupe, Commande laCommande, Produit leProduit)
         {
             this.Quantite = quantite;
             this.Est_decoupe = est_decoupe;
-            this.Commande = commande;
+            this.LaCommande = laCommande;
             this.LeProduit = leProduit;
-        }
-
-        public int Quantite
-        {
-            get
-            {
-                return this.quantite;
-            }
-
-            set
-            {
-                this.quantite = value;
-            }
-        }
-
-        public bool Est_decoupe
-        {
-            get
-            {
-                return this.est_decoupe;
-            }
-
-            set
-            {
-                this.est_decoupe = value;
-            }
-        }
-
-        public Commande Commande
-        {
-            get
-            {
-                return this.commande;
-            }
-
-            set
-            {
-                this.commande = value;
-            }
-        }
-
-        public Produit LeProduit
-        {
-            get
-            {
-                return this.leProduit;
-            }
-
-            set
-            {
-                this.leProduit = value;
-            }
         }
 
         public int Create()
         {
-            throw new NotImplementedException();
-        }
+            string sql = @"INSERT INTO ligne_commande (commande_id, produit_id, quantite, est_decoupe) 
+                   VALUES (@commande_id, @produit_id, @quantite, @est_decoupe);";
 
-        public int Delete()
-        {
-            throw new NotImplementedException();
-        }
+            using (NpgsqlCommand cmd = new NpgsqlCommand(sql))
+            {
+                cmd.Parameters.AddWithValue("@commande_id", this.Commande_id);
+                cmd.Parameters.AddWithValue("@produit_id", this.LeProduit.Produit_id);
+                cmd.Parameters.AddWithValue("@quantite", this.Quantite);
+                cmd.Parameters.AddWithValue("@est_decoupe", this.Est_decoupe);
 
-        public List<LigneCommande> FindAll()
-        {
-            throw new NotImplementedException();
+                return DataAccess.ExecuteSet(cmd);
+            }
         }
-
-        public List<LigneCommande> FindBySelection(string criteres)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Read()
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Update()
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }

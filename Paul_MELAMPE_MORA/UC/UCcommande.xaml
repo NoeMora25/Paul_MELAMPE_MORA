@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Paul_MELAMPE_MORA.UC"
              mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="950"
+             d:DesignHeight="750" d:DesignWidth="1000"
              Background="White">
 
     <Grid Margin="20">
@@ -14,7 +14,7 @@
             <ColumnDefinition Width="0.8*"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" Margin="0,0,15,0">
+        <Grid Grid.Column="0" Margin="0,0,20,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -71,7 +71,7 @@
 
                 <TextBlock Grid.Row="0" Text="Détails &amp; Facturation" FontSize="22" FontWeight="Bold" Foreground="#333333" Margin="0,0,0,20"/>
 
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="0,0,10,0">
                     <StackPanel>
 
                         <TextBlock Text="Client associé :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
@@ -119,45 +119,50 @@
                             </StackPanel>
                         </Grid>
 
-                        <Grid Margin="0,0,0,15">
+                        <StackPanel Margin="0,0,0,15">
+                            <TextBlock Text="Date de retrait prévue :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
+                            <DatePicker x:Name="dateRetrait" Padding="5"/>
+                        </StackPanel>
+
+                        <Grid Margin="0,0,0,20">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Column="0" Margin="0,0,5,0">
-                                <TextBlock Text="Date de retrait prévue :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
-                                <DatePicker x:Name="dateRetrait" Padding="5"/>
+                                <TextBlock Text="Nombre de personnes :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
+                                <TextBox x:Name="txtNbPersonnes" Text="1" Padding="6" TextAlignment="Center"/>
                             </StackPanel>
- 
+
+                            <StackPanel Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Bottom">
+                                <CheckBox x:Name="chkDemandeDecoupe" Content="Découpe des gâteaux" FontSize="13" Foreground="#333333" Margin="0,0,0,6" Cursor="Hand"/>
+                            </StackPanel>
                         </Grid>
-
-                        <TextBlock Text="Nombre de personnes pour l'événement :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
-                        <TextBox x:Name="txtNbPersonnes" Text="1" Margin="0,0,0,15" Padding="8"/>
-
-                        <CheckBox x:Name="chkDemandeDecoupe" Content="Demander la découpe des gâteaux (si possible)" 
-                                  FontSize="13" Foreground="#333333" Margin="0,5,0,15" Cursor="Hand"/>
-
-                        <TextBlock Text="Texte à écrire / Instructions personnalisées :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
-                        <TextBox x:Name="txtInstructions" Margin="0,0,0,20" Padding="8" Height="60" 
-                                 TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
 
                         <Separator Background="#DDDDDD" Margin="0,0,0,20"/>
 
-                        <Grid Margin="0,0,0,10">
-                            <TextBlock Text="Acompte requis (20%) :" FontSize="14" Foreground="#555555"/>
-                            <TextBlock x:Name="lblAcompte" Text="0,00 €" FontSize="14" FontWeight="SemiBold" HorizontalAlignment="Right" Foreground="#555555"/>
+                        <Grid Margin="0,0,0,8">
+                            <TextBlock Text="Prix total de la commande :" FontSize="14" Foreground="#555555"/>
+                            <TextBlock x:Name="lblTotal" Text="0,00 €" FontSize="14" FontWeight="SemiBold" HorizontalAlignment="Right" Foreground="#555555"/>
                         </Grid>
 
+                        <Grid Margin="0,0,0,12">
+                            <TextBlock Text="À PAYER MAINTENANT (25%) :" FontSize="14" FontWeight="Bold" Foreground="#333333" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="lblAcompte" Text="0,00 €" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" Foreground="#FF8C00"/>
+                        </Grid>
+
+                        <Separator Background="#EEEEEE" Margin="0,5,0,15"/>
+
                         <Grid Margin="0,0,0,10">
-                            <TextBlock Text="TOTAL À PAYER :" FontSize="20" FontWeight="Bold" Foreground="#333333"/>
-                            <TextBlock x:Name="lblTotal" Text="0,00 €" FontSize="22" FontWeight="Bold" HorizontalAlignment="Right" Foreground="#1E90FF"/>
+                            <TextBlock Text="RESTE À PAYER (Au retrait) :" FontSize="16" FontWeight="Bold" Foreground="#333333" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="lblResteAPayer" Text="0,00 €" FontSize="22" FontWeight="Bold" HorizontalAlignment="Right" Foreground="#1E90FF"/>
                         </Grid>
                     </StackPanel>
                 </ScrollViewer>
 
                 <StackPanel Grid.Row="2" Margin="0,15,0,0">
-                    <Button Content="Enregistrer la commande  " Background="#4CAF50" Foreground="White" 
+                    <Button Content="Enregistrer la commande" Background="#4CAF50" Foreground="White" 
                             BorderThickness="0" Padding="0,12" FontSize="16" FontWeight="Bold"
                             Click="BtnValiderCommande_Click" Cursor="Hand" Margin="0,0,0,10"/>
 

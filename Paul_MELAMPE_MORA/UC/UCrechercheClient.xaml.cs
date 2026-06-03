@@ -11,6 +11,9 @@ namespace Paul_MELAMPE_MORA.UC
     {
         public ObservableCollection<Client> LesClients { get; set; }
 
+        // Ajout de la propriété pour que UCcommande puisse récupérer le client sélectionné
+        public Client ClientChoisi { get; private set; }
+
         public UCrechercheClient()
         {
             InitializeComponent();
@@ -56,10 +59,23 @@ namespace Paul_MELAMPE_MORA.UC
         private void BtnSelectionner_Click(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
+
+            // Récupération du client lié au bouton cliqué dans ton interface
             Client clientSelectionne = btn.DataContext as Client;
+
             if (clientSelectionne != null)
             {
-                MessageBox.Show($"Client sélectionné : {clientSelectionne.Prenom} {clientSelectionne.Nom}");
+                // 1. On stocke le client dans notre propriété publique
+                ClientChoisi = clientSelectionne;
+
+                // 2. On récupère la fenêtre pop-up qui contient ce UserControl
+                Window fenetrePopup = Window.GetWindow(this);
+
+                // 3. On ferme la fenêtre pour retourner sur UCcommande
+                if (fenetrePopup != null)
+                {
+                    fenetrePopup.Close();
+                }
             }
         }
     }

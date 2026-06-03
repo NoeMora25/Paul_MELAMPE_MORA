@@ -12,7 +12,7 @@
     <Grid>
         <StackPanel Orientation="Horizontal">
 
-            <Grid VerticalAlignment="Center" Width="354">
+            <Grid VerticalAlignment="Center" Width="397">
 
                 <Label Content="Boulangerie Paul" FontSize="30" Foreground="White" Margin="8,77,41,293" FontFamily="Century" />
                 <Label Content="Login" HorizontalAlignment="Left" Margin="23,142,0,0" VerticalAlignment="Top" Height="43" Width="64" FontSize="18" Foreground="#FF927F00"/>
@@ -21,15 +21,15 @@
                 <Label Content="Mot de passe" HorizontalAlignment="Left" Margin="22,215,0,0" VerticalAlignment="Top" Height="43" Width="150" FontSize="18" Foreground="#FF927F00"/>
                 <TextBox x:Name="TxtMDP" HorizontalAlignment="Left" BorderBrush="Black" Margin="22,261,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="252" Background="#FFD0D0D0" AutomationProperties.HelpText="Mot de passe"/>
 
-                <Label x:Name="MsgErreur" Content="" Foreground="#FFD00000" Margin="19,300,52,79" />
+                <Label x:Name="MsgErreur" Content="" Foreground="#FFD00000" Margin="10,292,-430,76" />
 
-                <Border CornerRadius="20" Background="Black" Margin="181,337,41,37">
+                <Border CornerRadius="20" Background="Black" Margin="181,353,41,20">
                     <Button x:Name="ButConnecter" Content="Se connecter" Width="112" Foreground="#FF927F00" BorderBrush="Black" RenderTransformOrigin="1,0" Click="ButConnecter_Click" BorderThickness="1,1,1,1" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Black" Height="38" />
                 </Border>
             </Grid>
 
-            <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Image Source="/img/img_paul_illustration.png" Stretch="UniformToFill"/>
+            <Grid>
+                <Image Source="/img/img_paul_illustration.png" Stretch="UniformToFill" Margin="26,0,-27,0"/>
 
             </Grid>
 

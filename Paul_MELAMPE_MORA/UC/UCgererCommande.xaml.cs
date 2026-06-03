@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Paul_MELAMPE_MORA.Classes;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +22,30 @@ namespace Paul_MELAMPE_MORA.UC
     /// </summary>
     public partial class UCgererCommande : UserControl
     {
+        public ObservableCollection<Commande> LesCommandes { get; set; }
         public UCgererCommande()
         {
             InitializeComponent();
+            LesCommandes = new ObservableCollection<Commande>();
+            //this.DataContext = LesCommandes;
+            ChargerLesCommandes();
         }
+        private void ChargerLesCommandes()
+        {
+            LesCommandes.Clear();
+            Commande uneCommande = new Commande();
+            var listeCommandes = uneCommande.FindAll();
+
+            foreach (var elt in listeCommandes)
+            {
+                LesCommandes.Add(elt);
+                //if (!elt.Est_prete)
+                //{
+                //    LesCommandes.Add(elt);
+                //}
+            }
+        }
+
+
     }
 }

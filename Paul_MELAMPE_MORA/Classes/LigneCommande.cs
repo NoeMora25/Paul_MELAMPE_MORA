@@ -11,18 +11,18 @@ namespace Paul_MELAMPE_MORA.Classes
         private int quantite;
         private bool est_decoupe;
         private Commande commande;
-        private Produit produit;
+        private Produit leProduit;
 
         public LigneCommande()
         {
         }
 
-        public LigneCommande(int quantite, bool est_decoupe, Commande commande, Produit produit)
+        public LigneCommande(int quantite, bool est_decoupe, Commande commande, Produit leProduit)
         {
             this.Quantite = quantite;
             this.Est_decoupe = est_decoupe;
             this.Commande = commande;
-            this.Produit = produit;
+            this.LeProduit = leProduit;
         }
 
         public int Quantite
@@ -64,16 +64,16 @@ namespace Paul_MELAMPE_MORA.Classes
             }
         }
 
-        public Produit Produit
+        public Produit LeProduit
         {
             get
             {
-                return this.produit;
+                return this.leProduit;
             }
 
             set
             {
-                this.produit = value;
+                this.leProduit = value;
             }
         }
 

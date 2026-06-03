@@ -5,13 +5,14 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace Paul_MELAMPE_MORA.UC
 {
     public partial class UCproduit : UserControl
     {
-        public ObservableCollection<LignePanier> LePanier { get; set; }
         public ObservableCollection<Produit> LesProduits { get; set; }
+        public ObservableCollection<LigneCommande> LePanier { get; set; }
 
         public UCproduit()
         {
@@ -19,7 +20,7 @@ namespace Paul_MELAMPE_MORA.UC
 
             this.DataContext = this;
             LesProduits = new ObservableCollection<Produit>();
-            LePanier = new ObservableCollection<LignePanier>();
+            LePanier = new ObservableCollection<LigneCommande>();
 
             ChargerLesProduits();
         }
@@ -86,7 +87,6 @@ namespace Paul_MELAMPE_MORA.UC
                 return true;
 
             Produit unProduit = obj as Produit;
-
             return (unProduit.Recette.Recette_nom.Contains(txtBoxProduit.Text, StringComparison.OrdinalIgnoreCase));
         }
 
@@ -100,40 +100,81 @@ namespace Paul_MELAMPE_MORA.UC
             }
         }
 
-        private void BtnAjouter_Click(object sender, RoutedEventArgs e)
+        private void BtnPlus_Click(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
-            Produit produitClique = btn.DataContext as Produit;
-
-            if (produitClique != null)
+            StackPanel parent = VisualTreeHelper.GetParent(btn) as StackPanel;
+            if (parent != null)
             {
-                LignePanier ligneExistante = LePanier.FirstOrDefault(l => l.LeProduit.Produit_id == produitClique.Produit_id);
-
-                if (ligneExistante != null)
+                TextBlock txtQty = parent.Children.OfType<TextBlock>().FirstOrDefault(t => t.Name == "txtQuantiteSelectionnee");
+                if (txtQty != null)
                 {
-                    ligneExistante.Quantite++;
-                    int index = LePanier.IndexOf(ligneExistante);
-                    LePanier[index] = ligneExistante;
-                }
-                else
-                {
-                    LePanier.Add(new LignePanier { LeProduit = produitClique, Quantite = 1 });
+                    int qty = int.Parse(txtQty.Text);
+                    qty++;
+                    txtQty.Text = qty.ToString();
                 }
             }
         }
 
-        private void BtnMoins_Click(object sender, RoutedEventArgs e) { }
-        private void BtnPlus_Click(object sender, RoutedEventArgs e) { }
-
-        public class LignePanier
+        private void BtnMoins_Click(object sender, RoutedEventArgs e)
         {
-            public Produit LeProduit { get; set; }
-            public int Quantite { get; set; }
+            Button btn = sender as Button;
+            StackPanel parent = VisualTreeHelper.GetParent(btn) as StackPanel;
+            if (parent != null)
+            {
+                TextBlock txtQty = parent.Children.OfType<TextBlock>().FirstOrDefault(t => t.Name == "txtQuantiteSelectionnee");
+                if (txtQty != null)
+                {
+                    int qty = int.Parse(txtQty.Text);
+                    if (qty > 0)
+                    {
+                        qty--;
+                        txtQty.Text = qty.ToString();
+                    }
+                }
+            }
+        }
+
+        private void BtnAjouter_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            Produit produitClique = btn.DataContext as Produit;
+            StackPanel parent = VisualTreeHelper.GetParent(btn) as StackPanel;
+
+            if (produitClique != null && parent != null)
+            {
+                TextBlock txtQty = parent.Children.OfType<TextBlock>().FirstOrDefault(t => t.Name == "txtQuantiteSelectionnee");
+                if (txtQty != null)
+                {
+                    int quantiteAajouter = int.Parse(txtQty.Text);
+                    if (quantiteAajouter <= 0) return;
+
+                    LigneCommande ligneExistante = LePanier.FirstOrDefault(l => l.LeProduit != null && l.LeProduit.Produit_id == produitClique.Produit_id);
+
+                    if (ligneExistante != null)
+                    {
+                        ligneExistante.Quantite += quantiteAajouter;
+                        int index = LePanier.IndexOf(ligneExistante);
+                        LePanier[index] = ligneExistante;
+                    }
+                    else
+                    {
+                        LigneCommande nouvelleLigne = new LigneCommande(quantiteAajouter, false, null, produitClique);
+                        LePanier.Add(nouvelleLigne);
+                    }
+                    txtQty.Text = "0";
+                }
+            }
         }
 
         private void BtnVoirPanier_Click(object sender, RoutedEventArgs e)
         {
-
+            MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
+            UCcommande ecranCommande = new UCcommande();
+            ecranCommande.LePanier = this.LePanier;
+            ecranCommande.icPanierFinal.ItemsSource = ecranCommande.LePanier;
+            ecranCommande.RafraichirAffichage();
+            mainWindow.MainContent.Content = ecranCommande;
         }
     }
 }

@@ -119,14 +119,14 @@ namespace Paul_MELAMPE_MORA.Classes
             List<Produit> lesProduits = new List<Produit>();
 
             string sql = @"
-            SELECT p.produit_id, p.est_indisponible, p.nb_parts, p.prix, r.recette_id, r.recette_nom, r.recette_description, c.categorie_id, c.categorie_nom,
-            STRING_AGG(a.allergene_nom, ', ') AS liste_allergenes
+            select p.produit_id, p.est_indisponible, p.nb_parts, p.prix, r.recette_id, r.recette_nom, r.recette_description, c.categorie_id, c.categorie_nom,
+            string_agg(a.allergene_nom, ', ') as liste_allergenes
             FROM produit p
-            INNER JOIN recette r ON p.recette_id = r.recette_id
-            INNER JOIN categorie c ON r.categorie_id = c.categorie_id
-            LEFT JOIN recette_allergene ra ON r.recette_id = ra.recette_id
-            LEFT JOIN allergene a ON ra.allergene_id = a.allergene_id
-            GROUP BY p.produit_id, p.est_indisponible, p.nb_parts, p.prix, r.recette_id, r.recette_nom, r.recette_description, c.categorie_id, c.categorie_nom;";
+            left join recette r on p.recette_id = r.recette_id
+            left join categorie c on r.categorie_id = c.categorie_id
+            left join recette_allergene ra on r.recette_id = ra.recette_id
+            left join allergene a on ra.allergene_id = a.allergene_id
+            group by p.produit_id, p.est_indisponible, p.nb_parts, p.prix, r.recette_id, r.recette_nom, r.recette_description, c.categorie_id, c.categorie_nom;";
 
             using (NpgsqlCommand cmdSelect = new NpgsqlCommand(sql))
             {

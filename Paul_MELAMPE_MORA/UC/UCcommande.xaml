@@ -5,8 +5,114 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Paul_MELAMPE_MORA.UC"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             d:DesignHeight="600" d:DesignWidth="950"
+             Background="White">
+
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.2*"/>
+            <ColumnDefinition Width="0.8*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Margin="0,0,15,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Récapitulatif de la commande" FontSize="22" FontWeight="Bold" Foreground="#333333" Margin="0,0,0,15"/>
+
+            <Border Grid.Row="1" Background="#D6D6D6" CornerRadius="10" Padding="15">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl x:Name="icPanierFinal" ItemsSource="{Binding LePanier}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="#ABABAB" CornerRadius="8" Padding="15,10" Margin="0,0,0,12">
+                                    <Grid>
+                                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" MaxWidth="280">
+                                            <TextBlock Text="{Binding LeProduit.Recette.Recette_nom}" FontSize="16" FontWeight="Bold" TextWrapping="Wrap" Foreground="#222222"/>
+                                            <TextBlock Text="{Binding LeProduit.Nb_parts, StringFormat='{}{0} parts'}" FontSize="13" Foreground="#444444" FontStyle="Italic"/>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+
+                                            <Button Content="-" Width="30" Height="30" Background="White" BorderThickness="0" 
+                                                    Click="BtnMoinsUn_Click" Cursor="Hand" FontWeight="Bold"/>
+
+                                            <TextBlock Text="{Binding Quantite}" Width="40" TextAlignment="Center" VerticalAlignment="Center" 
+                                                       FontSize="16" FontWeight="Bold" Foreground="#222222"/>
+
+                                            <Button Content="+" Width="30" Height="30" Background="White" BorderThickness="0" 
+                                                    Click="BtnPlusUn_Click" Cursor="Hand" FontWeight="Bold" Margin="0,0,15,0"/>
+
+                                            <Button Content="🗑️" Width="35" Height="30" Background="#FF4444" Foreground="White" BorderThickness="0" 
+                                                    Click="BtnSupprimerLigne_Click" Cursor="Hand"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+
+            <Button Grid.Row="2" Content="Tout supprimer ❌" HorizontalAlignment="Left" Margin="0,15,0,0" Padding="15,8"
+                    Background="#CC0000" Foreground="White" BorderThickness="0"
+                    Click="BtnViderTout_Click" Cursor="Hand" FontWeight="SemiBold"/>
+        </Grid>
+
+        <Border Grid.Column="1" Background="#F9F9F9" BorderBrush="#DDDDDD" BorderThickness="1" CornerRadius="10" Padding="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Détails &amp; Facturation" FontSize="22" FontWeight="Bold" Foreground="#333333" Margin="0,0,0,20"/>
+
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="Client associé :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
+                        <Grid Margin="0,0,0,15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="txtClientAssocie" IsReadOnly="True" Text="Aucun client sélectionné" Padding="8" Background="#F0F0F0"/>
+                            <Button Grid.Column="1" Content="Rechercher 🔍" Padding="10,0" Margin="5,0,0,0" Click="BtnRechercherClient_Click"/>
+                        </Grid>
+
+                        <TextBlock Text="Date de retrait prévue :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
+                        <DatePicker x:Name="dateRetrait" Margin="0,0,0,15" Padding="5"/>
+
+                        <TextBlock Text="Nombre de personnes :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
+                        <TextBox x:Name="txtNbPersonnes" Text="1" Margin="0,0,0,20" Padding="8"/>
+
+                        <Separator Background="#DDDDDD" Margin="0,0,0,20"/>
+
+                        <Grid Margin="0,0,0,10">
+                            <TextBlock Text="Acompte requis (20%) :" FontSize="14" Foreground="#555555"/>
+                            <TextBlock x:Name="lblAcompte" Text="0,00 €" FontSize="14" FontWeight="SemiBold" HorizontalAlignment="Right" Foreground="#555555"/>
+                        </Grid>
+
+                        <Grid>
+                            <TextBlock Text="TOTAL À PAYER :" FontSize="20" FontWeight="Bold" Foreground="#333333"/>
+                            <TextBlock x:Name="lblTotal" Text="0,00 €" FontSize="22" FontWeight="Bold" HorizontalAlignment="Right" Foreground="#1E90FF"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <StackPanel Grid.Row="2" Margin="0,15,0,0">
+                    <Button Content="Enregistrer la commande  " Background="#4CAF50" Foreground="White" 
+                            BorderThickness="0" Padding="0,12" FontSize="16" FontWeight="Bold"
+                            Click="BtnValiderCommande_Click" Cursor="Hand" Margin="0,0,0,10"/>
+
+                    <Button Content="Retour au catalogue" Background="Transparent" Foreground="Gray" 
+                            BorderThickness="0" Click="BtnRetourCatalogue_Click" Cursor="Hand"/>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

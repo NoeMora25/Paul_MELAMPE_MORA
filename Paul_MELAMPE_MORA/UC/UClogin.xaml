@@ -7,34 +7,90 @@
              mc:Ignorable="d" Background="#FF2F2F2F" BorderBrush="Black" Foreground="White" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-
-
     <Grid>
-        <StackPanel Orientation="Horizontal">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-            <Grid VerticalAlignment="Center" Width="397">
+        <Grid Grid.Column="0">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="300">
 
-                <Label Content="Boulangerie Paul" FontSize="30" Foreground="White" Margin="8,77,41,293" FontFamily="Century" />
-                <Label Content="Login" HorizontalAlignment="Left" Margin="23,142,0,0" VerticalAlignment="Top" Height="43" Width="64" FontSize="18" Foreground="#FF927F00"/>
-                <TextBox x:Name="TxtLogin" HorizontalAlignment="Left" BorderBrush="Black" Margin="19,190,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="252" Background="#FFCECECE" RenderTransformOrigin="0.5,0.5" AutomationProperties.HelpText="Login"/>
+                <TextBlock Text="Boulangerie Paul" 
+                           FontSize="30" 
+                           Foreground="White" 
+                           FontFamily="Century" 
+                           TextAlignment="Center" 
+                           Margin="0,0,0,40" />
 
-                <Label Content="Mot de passe" HorizontalAlignment="Left" Margin="22,215,0,0" VerticalAlignment="Top" Height="43" Width="150" FontSize="18" Foreground="#FF927F00"/>
-                <TextBox x:Name="TxtMDP" HorizontalAlignment="Left" BorderBrush="Black" Margin="22,261,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="252" Background="#FFD0D0D0" AutomationProperties.HelpText="Mot de passe"/>
+                <TextBlock Text="Login" 
+                           FontSize="18" 
+                           Foreground="#FF927F00" 
+                           Margin="0,0,0,5" />
 
-                <Label x:Name="MsgErreur" Content="" Foreground="#FFD00000" Margin="10,292,-430,76" />
-
-                <Border CornerRadius="20" Background="Black" Margin="181,353,41,20">
-                    <Button x:Name="ButConnecter" Content="Se connecter" Width="112" Foreground="#FF927F00" BorderBrush="Black" RenderTransformOrigin="1,0" Click="ButConnecter_Click" BorderThickness="1,1,1,1" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Black" Height="38" />
+                <Border Background="#FFCECECE" CornerRadius="5" Height="35" Margin="0,0,0,20">
+                    <TextBox x:Name="TxtLogin" 
+                             Background="Transparent" 
+                             BorderThickness="0" 
+                             VerticalContentAlignment="Center" 
+                             Padding="10,0" 
+                             FontSize="16" 
+                             Foreground="Black" 
+                             AutomationProperties.HelpText="Login" />
                 </Border>
-            </Grid>
 
-            <Grid>
-                <Image Source="/img/img_paul_illustration.png" Stretch="UniformToFill" Margin="26,0,-27,0"/>
+                <TextBlock Text="Mot de passe" 
+                           FontSize="18" 
+                           Foreground="#FF927F00" 
+                           Margin="0,0,0,5" />
 
-            </Grid>
+                <Border Background="#FFD0D0D0" CornerRadius="5" Height="35" Margin="0,0,0,10">
+                    <TextBox x:Name="TxtMDP" 
+                             Background="Transparent" 
+                             BorderThickness="0" 
+                             VerticalContentAlignment="Center" 
+                             Padding="10,0" 
+                             FontSize="16" 
+                             Foreground="Black" 
+                             AutomationProperties.HelpText="Mot de passe" />
+                </Border>
 
-        </StackPanel>
+                <Label x:Name="MsgErreur" 
+                       Content="" 
+                       Foreground="#FFD00000" 
+                       FontSize="14" 
+                       HorizontalAlignment="Center" 
+                       MinHeight="25" 
+                       Margin="0,0,0,15" />
+
+                <Button x:Name="ButConnecter" 
+                        Click="ButConnecter_Click" 
+                        Height="45" 
+                        Width="200"
+                        Background="Black" 
+                        Foreground="#FF927F00" 
+                        BorderBrush="#FF927F00" 
+                        BorderThickness="1" 
+                        FontSize="16" 
+                        Cursor="Hand"
+                        HorizontalAlignment="Center">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="20"/>
+                        </Style>
+                    </Button.Resources>
+                    <TextBlock Text="Se connecter" VerticalAlignment="Center"/>
+                </Button>
+
+            </StackPanel>
+        </Grid>
+
+        <Border Grid.Column="1" CornerRadius="15,0,0,15" Margin="0,0,0,0">
+            <Border.Background>
+                <ImageBrush ImageSource="/img/img_paul_illustration.png" Stretch="UniformToFill"/>
+            </Border.Background>
+        </Border>
+
     </Grid>
-
 
 </UserControl>

@@ -50,10 +50,9 @@ namespace Paul_MELAMPE_MORA
             }
         }
 
-
-
-
-
-
+        private void ButDeconnecter_Click(object sender, RoutedEventArgs e)
+        {
+            MainContent.Content = new UClogin();
+        }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Paul_MELAMPE_MORA"
         mc:Ignorable="d"
-        Title="La Boulangerie de Paul" Height="450" Width="800" Background="#FF656565" 
+        Title="La Boulangerie de Paul" Height="450" Width="800" Background="#FF222222" 
         MinWidth="340" MinHeight="450" ResizeMode="NoResize" 
         WindowStartupLocation="CenterScreen" WindowState="Maximized">
 
@@ -15,10 +15,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" x:Name="Bandeau" Height="60" Background="#1A1A1A">
+        <!-- BANDEAU SUPERIEUR : Hauteur augmentée de 60 à 90 -->
+        <Grid Grid.Row="0" x:Name="Bandeau" Height="90" Background="#1A1A1A">
 
             <Grid.Effect>
-                <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.4" Direction="270" />
+                <DropShadowEffect BlurRadius="12" ShadowDepth="3" Opacity="0.5" Direction="270" />
             </Grid.Effect>
 
             <Grid.ColumnDefinitions>
@@ -27,15 +28,14 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Image Grid.Column="0" Source="/img/LogoPaul.png" Stretch="Uniform" Height="40" Margin="20,0,0,0" VerticalAlignment="Center"/>
-   
-            <Button Grid.Column="2" Content="&#x23FB;" Foreground="#FF927F00" Background="Transparent" BorderThickness="0" FontSize="28" FontFamily="Lucida Fax" VerticalAlignment="Center" Margin="0,0,20,0" Cursor="Hand"/>
+            <!-- Logo : Hauteur augmentée de 40 à 70 et marge gauche augmentée -->
+            <Image Grid.Column="0" Source="/img/LogoPaul.png" Stretch="Uniform" Height="70" Margin="30,0,0,0" VerticalAlignment="Center"/>
 
-            <Label HorizontalAlignment="Right" Content="&#x23FB;" VerticalAlignment="Center" Foreground="#FF927F00" Width="41" Height="42" FontSize="28" FontFamily="Lucida Fax" Margin="0,0,10,0" RenderTransformOrigin="0.768,0.571"/>
-            <Image Source="/img/LogoPaul.png" Stretch="Fill" HorizontalAlignment="Left" VerticalAlignment="Center" Width="65" Margin="20,0,0,0"/>
+            <!-- Bouton Quitter : FontSize augmentée de 28 à 40 -->
+            <Button x:Name="ButDeconnecter" Grid.Column="2" Content="&#x23FB;" Foreground="#FF927F00" Background="Transparent" BorderThickness="0" FontSize="40" FontFamily="Lucida Fax" VerticalAlignment="Center" Margin="0,0,30,0" Cursor="Hand" Click="ButDeconnecter_Click"/>
         </Grid>
 
-        <ContentControl Grid.Row="1" x:Name="MainContent" Margin="0,60,0,10" />
+        <ContentControl Grid.Row="1" x:Name="MainContent" Margin="0" />
 
     </Grid>
 </Window>

@@ -12,11 +12,13 @@ namespace Paul_MELAMPE_MORA.Classes
         private string nom;
         private ObservableCollection<Employe> lesEmployes;
         private ObservableCollection<Produit> lesProduits;
+        private ObservableCollection<Commande> lesCommandes;
 
         public Boulangerie(): this("")
         {
             this.LesEmployes = new ObservableCollection<Employe>(new Employe().FindAll());
             this.LesProduits = new ObservableCollection<Produit>(new Produit().FindAll());
+            this.LesCommandes = new ObservableCollection<Commande>(new Commande().FindAll());
         }
 
         public Boulangerie(string nom)
@@ -24,6 +26,7 @@ namespace Paul_MELAMPE_MORA.Classes
             this.Nom = nom;
             this.LesEmployes = new ObservableCollection<Employe>(new Employe().FindAll());
             this.LesProduits = new ObservableCollection<Produit>(new Produit().FindAll());
+            this.LesCommandes = new ObservableCollection<Commande>(new Commande().FindAll());
         }
 
         public string Nom
@@ -62,6 +65,19 @@ namespace Paul_MELAMPE_MORA.Classes
             set
             {
                 this.lesProduits = value;
+            }
+        }
+
+        public ObservableCollection<Commande> LesCommandes
+        {
+            get
+            {
+                return this.lesCommandes;
+            }
+
+            set
+            {
+                this.lesCommandes = value;
             }
         }
     }

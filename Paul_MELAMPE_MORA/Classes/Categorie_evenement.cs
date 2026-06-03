@@ -38,11 +38,22 @@ namespace Paul_MELAMPE_MORA.Classes
             this.Categorie_evenement_nom = categorie_evenement_nom;
         }
 
+        public Categorie_evenement(int categorie_evenement_id, string categorie_evenement_nom)
+        {
+            this.Categorie_evenement_id = categorie_evenement_id;
+            this.Categorie_evenement_nom = categorie_evenement_nom;
+        }
+
         public int Categorie_evenement_id
         {
             get
             {
                 return this.categorie_evenement_id;
+            }
+
+            set
+            {
+                this.categorie_evenement_id = value;
             }
 
 

@@ -31,9 +31,11 @@
    
             <Button Grid.Column="2" Content="&#x23FB;" Foreground="#FF927F00" Background="Transparent" BorderThickness="0" FontSize="28" FontFamily="Lucida Fax" VerticalAlignment="Center" Margin="0,0,20,0" Cursor="Hand"/>
 
+            <Label HorizontalAlignment="Right" Content="&#x23FB;" VerticalAlignment="Center" Foreground="#FF927F00" Width="41" Height="42" FontSize="28" FontFamily="Lucida Fax" Margin="0,0,10,0" RenderTransformOrigin="0.768,0.571"/>
+            <Image Source="/img/LogoPaul.png" Stretch="Fill" HorizontalAlignment="Left" VerticalAlignment="Center" Width="65" Margin="20,0,0,0"/>
         </Grid>
 
-        <ContentControl Grid.Row="1" x:Name="MainContent" Margin="10" />
+        <ContentControl Grid.Row="1" x:Name="MainContent" Margin="0,60,0,10" />
 
     </Grid>
 </Window>

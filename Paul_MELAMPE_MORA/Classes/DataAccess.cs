@@ -1,8 +1,6 @@
-using System; //  Ajouté
-using System.Collections.Generic;
+using Npgsql;
 using System.Data;
 using System.Windows;
-using Npgsql;
 
 namespace Paul_MELAMPE_MORA.Classes
 {

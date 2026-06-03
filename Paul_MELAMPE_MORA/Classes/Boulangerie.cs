@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 
 namespace Paul_MELAMPE_MORA.Classes
 {
@@ -14,7 +9,7 @@ namespace Paul_MELAMPE_MORA.Classes
         private ObservableCollection<Produit> lesProduits;
         private ObservableCollection<Commande> lesCommandes;
 
-        public Boulangerie(): this("")
+        public Boulangerie() : this("")
         {
             this.LesEmployes = new ObservableCollection<Employe>(new Employe().FindAll());
             this.LesProduits = new ObservableCollection<Produit>(new Produit().FindAll());

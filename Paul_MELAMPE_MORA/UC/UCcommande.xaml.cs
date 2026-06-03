@@ -1,7 +1,5 @@
 ﻿using Paul_MELAMPE_MORA.Classes;
-using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -158,6 +156,7 @@ namespace Paul_MELAMPE_MORA.UC
             nouvelleCommande.Acompte = acompteCommande;
             nouvelleCommande.Est_prete = false;
             nouvelleCommande.Est_recuperee = false;
+            nouvelleCommande.Date_evenement = DateOnly.FromDateTime(dateEvenement.SelectedDate ?? DateTime.MinValue);
             nouvelleCommande.Nb_personne = nbPersonnes;
             nouvelleCommande.Client = LeClientAssocie;
 

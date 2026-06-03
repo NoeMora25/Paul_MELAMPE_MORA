@@ -1,12 +1,4 @@
-﻿using Npgsql;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Paul_MELAMPE_MORA.Classes;
+﻿using System.ComponentModel;
 
 namespace Paul_MELAMPE_MORA.Classes
 {
@@ -27,7 +19,7 @@ namespace Paul_MELAMPE_MORA.Classes
         {
             this.Categorie_nom = categorie_nom;
         }
-        public Categorie(int categorie_id,string categorie_nom)
+        public Categorie(int categorie_id, string categorie_nom)
         {
             this.Categorie_nom = categorie_nom;
         }

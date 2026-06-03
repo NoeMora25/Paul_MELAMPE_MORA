@@ -118,12 +118,17 @@
                                 </ComboBox>
                             </StackPanel>
                         </Grid>
+                        
+                        <StackPanel Margin="0,0,0,15">
+                            <TextBlock Text="Date de évenement :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
+                            <DatePicker x:Name="dateEvenement" Padding="5"/>
+                        </StackPanel>
 
                         <StackPanel Margin="0,0,0,15">
                             <TextBlock Text="Date de retrait prévue :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
                             <DatePicker x:Name="dateRetrait" Padding="5"/>
                         </StackPanel>
-
+                                         
                         <Grid Margin="0,0,0,20">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>

@@ -24,17 +24,7 @@ namespace Paul_MELAMPE_MORA.Classes
             this.Telephone = telephone;
             this.Mail = mail;
         }
-
-        public Client(int id,string nom, string prenom, string telephone, string mail)
-        {
-            this.Id = id;
-            this.Nom = nom;
-            this.Prenom = prenom;
-            this.Telephone = telephone;
-            this.Mail = mail;
-        }
-
-        public int Id
+        public Client(int client_id, string nom, string prenom, string telephone, string mail)
         {
             this.Client_id = client_id;
             this.Nom = nom;
@@ -43,12 +33,10 @@ namespace Paul_MELAMPE_MORA.Classes
             this.Mail = mail;
         }
 
-            set
-            {
-                this.client_id = value;
-            }
-
-
+        public int Client_id
+        {
+            get { return this.client_id; }
+            set { this.client_id = value; }
         }
 
         public string Nom

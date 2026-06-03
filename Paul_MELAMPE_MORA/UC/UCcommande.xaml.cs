@@ -145,9 +145,15 @@ namespace Paul_MELAMPE_MORA.UC
             int nbPersonnes = 1;
             int.TryParse(txtNbPersonnes.Text, out nbPersonnes);
 
+            if (nbPersonnes <= 0)
+            {
+                MessageBox.Show("Le nombre de personnes doit être supérieur à 0. Veuillez corriger cette information.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             Commande nouvelleCommande = new Commande();
-            nouvelleCommande.Date_creation = DateTime.Now;
-            nouvelleCommande.Date_retrait = dateRetrait.SelectedDate.Value;
+            nouvelleCommande.Date_creation = DateOnly.FromDateTime(DateTime.Now);
+            nouvelleCommande.Date_retrait = DateOnly.FromDateTime(dateRetrait.SelectedDate.Value);
             nouvelleCommande.Total = totalCommande;
             nouvelleCommande.Acompte = acompteCommande;
             nouvelleCommande.Est_prete = false;

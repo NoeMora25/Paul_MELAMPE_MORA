@@ -14,14 +14,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" 
-                   Text="Gérer les commandes" 
-                   Margin="30,20,0,15" 
-                   HorizontalAlignment="Left" 
-                   FontSize="28" 
-                   Foreground="#2A2421" 
-                   FontFamily="Century" 
-                   FontWeight="Bold"/>
+        <TextBlock Grid.Row="0" Text="Gérer les commandes" Margin="30,20,0,15" HorizontalAlignment="Left" FontSize="28" Foreground="#2A2421" FontFamily="Century" FontWeight="Bold"/>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="0,0,15,0" Margin="15,0,5,10">
             <ItemsControl x:Name="icProduits" ItemsSource="{Binding LesCommandes}">
@@ -36,13 +29,7 @@
                                 </Border.Effect>
                             </Border>
 
-                            <Border Background="#F6F4F0" 
-                                    BorderBrush="#D5CFC4" 
-                                    BorderThickness="1" 
-                                    CornerRadius="8" 
-                                    Padding="15"
-                                    TextOptions.TextFormattingMode="Display"
-                                    TextOptions.TextRenderingMode="ClearType">
+                            <Border Background="#F6F4F0" BorderBrush="#D5CFC4" BorderThickness="1" CornerRadius="8" Padding="15" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType">
 
                                 <StackPanel HorizontalAlignment="Stretch">
 
@@ -117,16 +104,7 @@
 
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
 
-                                        <Button x:Name="BtnModifier" 
-                                                Content="Modifier" 
-                                                Foreground="#3E3631" 
-                                                Background="Transparent" 
-                                                BorderBrush="#A99F93" 
-                                                BorderThickness="1" 
-                                                Cursor="Hand" 
-                                                Padding="12,5" 
-                                                Margin="0,0,10,0" 
-                                                FontWeight="SemiBold">
+                                        <Button x:Name="BtnModifier" Content="Modifier" Foreground="#3E3631" Background="Transparent" BorderBrush="#A99F93" BorderThickness="1" Cursor="Hand" Padding="12,5" Margin="0,0,10,0" FontWeight="SemiBold">
                                             <Button.Resources>
                                                 <Style TargetType="Border">
                                                     <Setter Property="CornerRadius" Value="4"/>
@@ -134,12 +112,7 @@
                                             </Button.Resources>
                                         </Button>
 
-                                        <Button x:Name="BtnFinaliser" 
-        BorderThickness="0" 
-        Padding="25,10" 
-        FontSize="14"
-        FontWeight="ExtraBold" 
-        Click="BtnFinaliser_Click">
+                                        <Button x:Name="BtnFinaliser" BorderThickness="0" Padding="25,10" FontSize="14" FontWeight="ExtraBold" Click="BtnFinaliser_Click">
                                             <Button.Style>
                                                 <Style TargetType="Button">
                                                     <Setter Property="Content" Value="FINALISER" />
@@ -151,8 +124,8 @@
                                                         <Setter.Value>
                                                             <ControlTemplate TargetType="Button">
                                                                 <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="6"
-                                Padding="{TemplateBinding Padding}">
+                                                                        CornerRadius="6"
+                                                                        Padding="{TemplateBinding Padding}">
                                                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                                 </Border>
                                                                 <ControlTemplate.Triggers>

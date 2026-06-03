@@ -43,6 +43,7 @@ namespace Paul_MELAMPE_MORA
             }
             catch (Exception ex)
             {
+                Npgsql.NpgsqlConnection.ClearAllPools();
                 throw new Exception("Identifiant ou mot de passe invalide");
                 //MessageBox.Show("Impossible de charger les données. Voir votre admin.");
                 //Application.Current.Shutdown();
@@ -52,6 +53,8 @@ namespace Paul_MELAMPE_MORA
 
         private void ButDeconnecter_Click(object sender, RoutedEventArgs e)
         {
+            mdp_user = "";
+            loginuser = "";
             MainContent.Content = new UClogin();
         }
     }

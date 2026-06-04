@@ -131,7 +131,35 @@ namespace Paul_MELAMPE_MORA.Classes
 
         public int Create()
         {
-            throw new NotImplementedException();
+            string sql = @"
+                         INSERT INTO commande (date_creation, date_retrait, acompte, est_prete,  est_recuperee, total, date_evenement, nb_personne, client_id, categorie_evenement_id) 
+                         VALUES ( @date_creation, @date_retrait, @acompte, @est_prete, @est_recuperee, @total, @date_evenement, @nb_personne, @client_id, @categorie_evenement_id)
+                         RETURNING commande_id;";
+
+            using (NpgsqlCommand cmd = new NpgsqlCommand(sql))
+            {
+                cmd.Parameters.AddWithValue("@date_creation", this.Date_creation);
+                cmd.Parameters.AddWithValue("@date_retrait", this.Date_retrait);
+                cmd.Parameters.AddWithValue("@acompte", this.Acompte);
+                cmd.Parameters.AddWithValue("@est_prete", this.Est_prete);
+                cmd.Parameters.AddWithValue("@est_recuperee", this.Est_recuperee);
+                cmd.Parameters.AddWithValue("@total", this.Total);
+                cmd.Parameters.AddWithValue("@client_id", this.Client.Client_id);
+                cmd.Parameters.AddWithValue("@date_evenement", this.Date_evenement.HasValue ? (object)this.Date_evenement.Value : DBNull.Value);
+                cmd.Parameters.AddWithValue("@nb_personne", this.Nb_personne.HasValue ? (object)this.Nb_personne.Value : DBNull.Value);
+                cmd.Parameters.AddWithValue("@categorie_evenement_id", this.Categorie_evenement != null ? (object)this.Categorie_evenement.Categorie_evenement_id : DBNull.Value);
+
+                try
+                {
+                    int nouvelId = DataAccess.ExecuteInsert(cmd);
+                    this.Id = nouvelId;
+                    return nouvelId;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Erreur lors de la création de la commande : " + ex.Message);
+                }
+            }
         }
 
         public void Read()

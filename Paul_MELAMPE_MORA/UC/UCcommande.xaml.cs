@@ -152,6 +152,17 @@ namespace Paul_MELAMPE_MORA.UC
                 return;
             }
 
+            int categorieEvenement = 0;
+            if (comboCategorieEvenement.SelectedIndex == 1)
+            { 
+                    categorieEvenement = 1; // Familial
+            }
+            else if (comboCategorieEvenement.SelectedIndex == 2)
+            {
+                    categorieEvenement = 2; // Professionel
+            }
+
+
             Commande nouvelleCommande = new Commande();
             nouvelleCommande.Date_creation = DateOnly.FromDateTime(DateTime.Now);
             nouvelleCommande.Date_retrait = DateOnly.FromDateTime(dateRetrait.SelectedDate.Value);
@@ -159,9 +170,10 @@ namespace Paul_MELAMPE_MORA.UC
             nouvelleCommande.Acompte = acompteCommande;
             nouvelleCommande.Est_prete = false;
             nouvelleCommande.Est_recuperee = false;
-            nouvelleCommande.Date_evenement = DateOnly.FromDateTime(dateEvenement.SelectedDate ?? DateTime.MinValue);
+            nouvelleCommande.Date_evenement = dateEvenement.SelectedDate.HasValue ? DateOnly.FromDateTime(dateEvenement.SelectedDate.Value) : null;
             nouvelleCommande.Nb_personne = nbPersonnes;
             nouvelleCommande.Client = LeClientAssocie;
+            nouvelleCommande.Categorie_evenement = categorieEvenement > 0 ? new Categorie_evenement { Categorie_evenement_id = categorieEvenement } : null; 
 
             try
             {

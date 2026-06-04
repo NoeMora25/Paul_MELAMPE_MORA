@@ -6,150 +6,192 @@
              xmlns:local="clr-namespace:Paul_MELAMPE_MORA.UC"
              mc:Ignorable="d" 
              d:DesignHeight="750" d:DesignWidth="1000"
-             Background="White">
+             Background="#E8E2D9" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType">
 
-    <Grid Margin="20">
+    <Grid Margin="30,20,30,20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.2*"/>
             <ColumnDefinition Width="0.8*"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" Margin="0,0,20,0">
+        <Grid Grid.Column="0" Margin="0,0,25,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Text="Récapitulatif de la commande" FontSize="22" FontWeight="Bold" Foreground="#333333" Margin="0,0,0,15"/>
+            <TextBlock Grid.Row="0" Text="Récapitulatif" FontSize="28" FontFamily="Century" Foreground="#2A2421" FontWeight="Bold" Margin="0,0,0,15"/>
 
-            <Border Grid.Row="1" Background="#D6D6D6" CornerRadius="10" Padding="15">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ItemsControl x:Name="icPanierFinal" ItemsSource="{Binding LePanier}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border Background="#ABABAB" CornerRadius="8" Padding="15,10" Margin="0,0,0,12">
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="5,5,15,5">
+                <ItemsControl x:Name="icPanierFinal" ItemsSource="{Binding LePanier}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,0,0,12">
+                                <Border Background="#F6F4F0" CornerRadius="8">
+                                    <Border.Effect>
+                                        <DropShadowEffect BlurRadius="4" ShadowDepth="1" Opacity="0.1" Direction="270" Color="#2A2421" />
+                                    </Border.Effect>
+                                </Border>
+                                <Border Background="#F6F4F0" BorderBrush="#D5CFC4" BorderThickness="1" CornerRadius="8" Padding="15,10">
                                     <Grid>
                                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" MaxWidth="280">
-                                            <TextBlock Text="{Binding LeProduit.Recette.Recette_nom}" FontSize="16" FontWeight="Bold" TextWrapping="Wrap" Foreground="#222222"/>
-                                            <TextBlock Text="{Binding LeProduit.Nb_parts, StringFormat='{}{0} parts'}" FontSize="13" Foreground="#444444" FontStyle="Italic"/>
+                                            <TextBlock Text="{Binding LeProduit.Recette.Recette_nom}" FontSize="16" FontWeight="Bold" TextWrapping="Wrap" Foreground="#2A2421"/>
+                                            <TextBlock Text="{Binding LeProduit.Nb_parts, StringFormat='{}{0} parts'}" FontSize="13" Foreground="#7A6D61" FontStyle="Italic"/>
                                         </StackPanel>
 
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                                            <Button Content="-" Width="30" Height="30" Background="White" BorderThickness="0" 
-                                                    Click="BtnMoinsUn_Click" Cursor="Hand" FontWeight="Bold"/>
+                                            <Button Content="-" Width="28" Height="28" Background="#E8E2D9" Foreground="#3E3631" BorderThickness="0" Click="BtnMoinsUn_Click" Cursor="Hand" FontWeight="Bold">
+                                                <Button.Resources>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="CornerRadius" Value="4"/>
+                                                    </Style>
+                                                </Button.Resources>
+                                            </Button>
 
-                                            <TextBlock Text="{Binding Quantite}" Width="40" TextAlignment="Center" VerticalAlignment="Center" 
-                                                       FontSize="16" FontWeight="Bold" Foreground="#222222"/>
+                                            <TextBlock Text="{Binding Quantite}" Width="40" TextAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Foreground="#2A2421"/>
 
-                                            <Button Content="+" Width="30" Height="30" Background="White" BorderThickness="0" 
-                                                    Click="BtnPlusUn_Click" Cursor="Hand" FontWeight="Bold" Margin="0,0,15,0"/>
+                                            <Button Content="+" Width="28" Height="28" Background="#E8E2D9" Foreground="#3E3631" BorderThickness="0" Click="BtnPlusUn_Click" Cursor="Hand" FontWeight="Bold" Margin="0,0,15,0">
+                                                <Button.Resources>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="CornerRadius" Value="4"/>
+                                                    </Style>
+                                                </Button.Resources>
+                                            </Button>
 
-                                            <Button Content="🗑️" Width="35" Height="30" Background="#FF4444" Foreground="White" BorderThickness="0" 
-                                                    Click="BtnSupprimerLigne_Click" Cursor="Hand"/>
+                                            <Button Content="🗑️" Width="32" Height="30" Background="#B71C1C" Foreground="White" BorderThickness="0" Click="BtnSupprimerLigne_Click" Cursor="Hand">
+                                                <Button.Resources>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="CornerRadius" Value="4"/>
+                                                    </Style>
+                                                </Button.Resources>
+                                            </Button>
                                         </StackPanel>
                                     </Grid>
                                 </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </ScrollViewer>
-            </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
 
-            <Button Grid.Row="2" Content="Tout supprimer ❌" HorizontalAlignment="Left" Margin="0,15,0,0" Padding="15,8"
-                    Background="#CC0000" Foreground="White" BorderThickness="0"
-                    Click="BtnViderTout_Click" Cursor="Hand" FontWeight="SemiBold"/>
+            <Button Grid.Row="2" Content="Vider le panier ❌" HorizontalAlignment="Left" Margin="5,15,0,0" Padding="15,8" Background="Transparent" Foreground="#B71C1C" BorderBrush="#B71C1C" BorderThickness="1" Click="BtnViderTout_Click" Cursor="Hand" FontWeight="SemiBold">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="6"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
         </Grid>
 
-        <Border Grid.Column="1" Background="#F9F9F9" BorderBrush="#DDDDDD" BorderThickness="1" CornerRadius="10" Padding="20">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+        <Grid Grid.Column="1">
+            <Border Background="#F6F4F0" CornerRadius="10">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="8" ShadowDepth="1.5" Opacity="0.15" Direction="270" Color="#2A2421" />
+                </Border.Effect>
+            </Border>
+            <Border Background="#F6F4F0" BorderBrush="#D5CFC4" BorderThickness="1" CornerRadius="10" Padding="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Text="Détails &amp; Facturation" FontSize="22" FontWeight="Bold" Foreground="#333333" Margin="0,0,0,20"/>
+                    <TextBlock Grid.Row="0" Text="Facturation" FontSize="28" FontFamily="Century" FontWeight="Bold" Foreground="#2A2421" Margin="0,0,0,20"/>
 
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="0,0,10,0">
-                    <StackPanel>
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="0,0,10,0">
+                        <StackPanel>
 
-                        <TextBlock Text="Client associé :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
-                        <Grid Margin="0,0,0,5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock x:Name="txtClientStatus" Text="Veuillez sélectionner un client" Foreground="#AA0000" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                            <Button Grid.Column="1" Content="Rechercher 🔍" Padding="10,5" Click="BtnRechercherClient_Click" Cursor="Hand"/>
-                        </Grid>
+                            <TextBlock Text="Client associé :" FontSize="13" Foreground="#7A6D61" Margin="0,0,0,5"/>
+                            <Grid Margin="0,0,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock x:Name="txtClientStatus" Text="Veuillez sélectionner un client" Foreground="#B71C1C" FontWeight="SemiBold" VerticalAlignment="Center"/>
 
-                        <Border Background="#EDEDED" CornerRadius="5" Padding="10" Margin="0,0,0,15">
-                            <StackPanel>
-                                <TextBlock x:Name="txtClientNomPrenom" Text="- Aucun client -" FontSize="14" FontWeight="Bold" Foreground="#333333" Margin="0,0,0,3"/>
-                                <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
-                                    <TextBlock Text="📞 " Foreground="Gray" FontSize="11"/>
-                                    <TextBlock x:Name="txtClientTel" Text="---" Foreground="#555555" Margin="0,0,15,0" FontSize="12"/>
-                                    <TextBlock Text="✉️ " Foreground="Gray" FontSize="11"/>
-                                    <TextBlock x:Name="txtClientMail" Text="---" Foreground="#555555" FontSize="12"/>
+                                <Button Grid.Column="1" Height="32" Padding="15,0" Background="Transparent" Foreground="#3E3631" BorderBrush="#A99F93" BorderThickness="1" Click="BtnRechercherClient_Click" Cursor="Hand" FontWeight="SemiBold">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="4"/>
+                                        </Style>
+                                    </Button.Resources>
+                                    <TextBlock Text="Rechercher" VerticalAlignment="Center"/>
+                                </Button>
+                            </Grid>
+
+                            <Border Background="#E8E2D9" CornerRadius="6" Padding="12" Margin="0,0,0,20">
+                                <StackPanel>
+                                    <TextBlock x:Name="txtClientNomPrenom" Text="- Aucun client -" FontSize="15" FontWeight="Bold" Foreground="#3E3631" Margin="0,0,0,4"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                                        <TextBlock Text="📞 " Foreground="#A99F93" FontSize="11"/>
+                                        <TextBlock x:Name="txtClientTel" Text="---" Foreground="#7A6D61" Margin="0,0,15,0" FontSize="12" FontWeight="SemiBold"/>
+                                        <TextBlock Text="✉️ " Foreground="#A99F93" FontSize="11"/>
+                                        <TextBlock x:Name="txtClientMail" Text="---" Foreground="#7A6D61" FontSize="12" FontWeight="SemiBold"/>
+                                    </StackPanel>
                                 </StackPanel>
+                            </Border>
+
+                            <StackPanel Margin="0,0,0,15">
+                                <TextBlock Text="Catégorie d'événement :" FontSize="13" Foreground="#7A6D61" Margin="0,0,0,5"/>
+                                <ComboBox x:Name="comboCategorieEvenement" Padding="6" Background="#FFFFFF" BorderBrush="#D5CFC4">
+                                    <ComboBoxItem Content="Aucun événement" IsSelected="True"/>
+                                    <ComboBoxItem Content="Familial"/>
+                                    <ComboBoxItem Content="Professionnel"/>
+                                </ComboBox>
                             </StackPanel>
-                        </Border>
 
-                        <StackPanel Margin="0,0,0,15">
-                            <TextBlock Text="Catégorie d'événement :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
-                            <ComboBox x:Name="comboCategorieEvenement" Padding="6">
-                                <ComboBoxItem Content="Aucun événement" IsSelected="True"/>
-                                <ComboBoxItem Content="Familial"/>
-                                <ComboBoxItem Content="Professionnel"/>
-                            </ComboBox>
+                            <StackPanel Margin="0,0,0,15">
+                                <TextBlock Text="Date de l'événement :" FontSize="13" Foreground="#7A6D61" Margin="0,0,0,5"/>
+                                <DatePicker x:Name="dateEvenement" Padding="5" Background="#FFFFFF" BorderBrush="#D5CFC4"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="0,0,0,15">
+                                <TextBlock Text="Date de retrait prévue :" FontSize="13" Foreground="#7A6D61" Margin="0,0,0,5"/>
+                                <DatePicker x:Name="dateRetrait" Padding="5" Background="#FFFFFF" BorderBrush="#D5CFC4"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="0,0,0,20">
+                                <TextBlock Text="Nombre de personnes :" FontSize="13" Foreground="#7A6D61" Margin="0,0,0,5"/>
+                                <TextBox x:Name="txtNbPersonnes" Text="1" Padding="6" TextAlignment="Center" Background="#FFFFFF" BorderBrush="#D5CFC4" BorderThickness="1" FontSize="14"/>
+                            </StackPanel>
+
+                            <Separator Background="#D5CFC4" Margin="0,0,0,20"/>
+
+                            <Grid Margin="0,0,0,8">
+                                <TextBlock Text="Prix total :" FontSize="14" Foreground="#7A6D61"/>
+                                <TextBlock x:Name="lblTotal" Text="0,00 €" FontSize="14" FontWeight="SemiBold" HorizontalAlignment="Right" Foreground="#3E3631"/>
+                            </Grid>
+
+                            <Grid Margin="0,0,0,12">
+                                <TextBlock Text="À PAYER MAINTENANT (25%) :" FontSize="13" FontWeight="Bold" Foreground="#3E3631" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="lblAcompte" Text="0,00 €" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" Foreground="#C29227"/>
+                            </Grid>
+
+                            <Separator Background="#D5CFC4" Margin="0,5,0,15"/>
+
+                            <Grid Margin="0,0,0,10">
+                                <TextBlock Text="RESTE À PAYER (Retrait) :" FontSize="15" FontWeight="Bold" Foreground="#2A2421" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="lblResteAPayer" Text="0,00 €" FontSize="22" FontWeight="ExtraBold" HorizontalAlignment="Right" Foreground="#B88E2F"/>
+                            </Grid>
                         </StackPanel>
+                    </ScrollViewer>
 
-                        <StackPanel Margin="0,0,0,15">
-                            <TextBlock Text="Date de évenement :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
-                            <DatePicker x:Name="dateEvenement" Padding="5"/>
-                        </StackPanel>
+                    <StackPanel Grid.Row="2" Margin="0,20,0,0">
+                        <Button Click="BtnValiderCommande_Click" Cursor="Hand" Margin="0,0,0,12" Height="45" Background="#C29227" Foreground="White" BorderThickness="0">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="6"/>
+                                </Style>
+                            </Button.Resources>
+                            <TextBlock Text="ENREGISTRER LA COMMANDE" FontSize="14" FontWeight="ExtraBold" VerticalAlignment="Center"/>
+                        </Button>
 
-                        <StackPanel Margin="0,0,0,15">
-                            <TextBlock Text="Date de retrait prévue :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
-                            <DatePicker x:Name="dateRetrait" Padding="5"/>
-                        </StackPanel>
-
-                        <StackPanel Margin="0,0,0,20">
-                            <TextBlock Text="Nombre de personnes :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
-                            <TextBox x:Name="txtNbPersonnes" Text="1" Padding="6" TextAlignment="Center"/>
-                        </StackPanel>
-
-                        <Separator Background="#DDDDDD" Margin="0,0,0,20"/>
-
-                        <Grid Margin="0,0,0,8">
-                            <TextBlock Text="Prix total de la commande :" FontSize="14" Foreground="#555555"/>
-                            <TextBlock x:Name="lblTotal" Text="0,00 €" FontSize="14" FontWeight="SemiBold" HorizontalAlignment="Right" Foreground="#555555"/>
-                        </Grid>
-
-                        <Grid Margin="0,0,0,12">
-                            <TextBlock Text="À PAYER MAINTENANT (25%) :" FontSize="14" FontWeight="Bold" Foreground="#333333" VerticalAlignment="Center"/>
-                            <TextBlock x:Name="lblAcompte" Text="0,00 €" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" Foreground="#FF8C00"/>
-                        </Grid>
-
-                        <Separator Background="#EEEEEE" Margin="0,5,0,15"/>
-
-                        <Grid Margin="0,0,0,10">
-                            <TextBlock Text="RESTE À PAYER (Au retrait) :" FontSize="16" FontWeight="Bold" Foreground="#333333" VerticalAlignment="Center"/>
-                            <TextBlock x:Name="lblResteAPayer" Text="0,00 €" FontSize="22" FontWeight="Bold" HorizontalAlignment="Right" Foreground="#1E90FF"/>
-                        </Grid>
+                        <Button Content="Retour au catalogue" Background="Transparent" Foreground="#7A6D61" BorderThickness="0" Click="BtnRetourCatalogue_Click" Cursor="Hand" FontSize="14" FontWeight="SemiBold"/>
                     </StackPanel>
-                </ScrollViewer>
-
-                <StackPanel Grid.Row="2" Margin="0,15,0,0">
-                    <Button Content="Enregistrer la commande" Background="#4CAF50" Foreground="White" 
-                            BorderThickness="0" Padding="0,12" FontSize="16" FontWeight="Bold"
-                            Click="BtnValiderCommande_Click" Cursor="Hand" Margin="0,0,0,10"/>
-
-                    <Button Content="Retour au catalogue" Background="Transparent" Foreground="Gray" 
-                            BorderThickness="0" Click="BtnRetourCatalogue_Click" Cursor="Hand"/>
-                </StackPanel>
-            </Grid>
-        </Border>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>

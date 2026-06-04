@@ -12,7 +12,7 @@ namespace Paul_MELAMPE_MORA.UC
         public ObservableCollection<LigneCommande> LePanier { get; set; }
         public Client LeClientAssocie { get; set; }
 
-        public Commande CommandeChoisie { get; private set; }
+        public Commande CommandeAModifier { get; set; } = null;
 
         public UCcommande()
         {
@@ -120,12 +120,17 @@ namespace Paul_MELAMPE_MORA.UC
 
         private void BtnValiderCommande_Click(object sender, RoutedEventArgs e)
         {
-            if (LeClientAssocie == null)
+            // 1. VÉRIFICATION DU CLIENT
+            Client clientFinal = CommandeAModifier != null ? CommandeAModifier.Client : LeClientAssocie;
+            if (LeClientAssocie != null) clientFinal = LeClientAssocie;
+
+            if (clientFinal == null)
             {
                 MessageBox.Show("Impossible de valider : Vous devez sélectionner un client.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
+            // 2. VÉRIFICATION DU PANIER ET DE LA DATE
             if (LePanier.Count == 0)
             {
                 MessageBox.Show("Impossible de valider : Le panier est vide.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -138,6 +143,7 @@ namespace Paul_MELAMPE_MORA.UC
                 return;
             }
 
+            // 3. CALCULS FINANCIERS
             decimal totalCommande = 0;
             foreach (var ligne in LePanier)
             {
@@ -145,13 +151,19 @@ namespace Paul_MELAMPE_MORA.UC
             }
             decimal acompteCommande = totalCommande * 0.25m;
 
-            int nbPersonnes = 1;
-            int.TryParse(txtNbPersonnes.Text, out nbPersonnes);
-
-            if (nbPersonnes <= 0)
+            // 4. GESTION DES VALEURS OPTIONNELLES
+            int? nbPersonnes = null;
+            if (!string.IsNullOrWhiteSpace(txtNbPersonnes.Text))
             {
-                MessageBox.Show("Le nombre de personnes doit être supérieur à 0. Veuillez corriger cette information.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                if (int.TryParse(txtNbPersonnes.Text, out int parsedNb) && parsedNb > 0)
+                {
+                    nbPersonnes = parsedNb;
+                }
+                else
+                {
+                    MessageBox.Show("Le nombre de personnes doit être supérieur à 0.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
             }
 
             int categorieEvenement = 0;
@@ -188,23 +200,51 @@ namespace Paul_MELAMPE_MORA.UC
             nouvelleCommande.Client = LeClientAssocie;
             nouvelleCommande.Categorie_evenement = categorieEvenement > 0 ? new Categorie_evenement { Categorie_evenement_id = categorieEvenement } : null; 
 
-            try
-            {
-                int idCommandeGenere = nouvelleCommande.Create();
+                    int idCommandeGenere = nouvelleCommande.Create();
 
-                if (idCommandeGenere <= 0)
-                {
-                    MessageBox.Show("Erreur lors de la création de la commande en base.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
+                    if (idCommandeGenere <= 0)
+                    {
+                        MessageBox.Show("Erreur lors de la création de la commande en base.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
+                    foreach (var ligne in LePanier)
+                    {
+                        ligne.Commande_id = idCommandeGenere;
+                        ligne.Create();
+                    }
+
+                    MessageBox.Show("Commande enregistrée avec succès !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // SÉCURITÉ DE NAVIGATION
+                    Window parentWindow = Window.GetWindow(this);
+                    if (parentWindow is MainWindow mainWindow)
+                    {
+                        mainWindow.MainContent.Content = new UCproduit();
+                    }
                 }
-                foreach (var ligne in LePanier)
+                else
                 {
-                    ligne.Commande_id = idCommandeGenere;
-                    ligne.Create();
+                    // MODE MODIFICATION
+                    CommandeAModifier.Client = clientFinal;
+                    CommandeAModifier.Date_retrait = DateOnly.FromDateTime(dateRetrait.SelectedDate.Value);
+                    CommandeAModifier.Total = totalCommande;
+                    CommandeAModifier.Acompte = acompteCommande;
+                    CommandeAModifier.Date_evenement = dateEvenement.SelectedDate.HasValue ? DateOnly.FromDateTime(dateEvenement.SelectedDate.Value) : null;
+                    CommandeAModifier.Nb_personne = nbPersonnes;
+                    CommandeAModifier.Categorie_evenement = categorieEvenement > 0 ? new Categorie_evenement { Categorie_evenement_id = categorieEvenement } : null;
+
+                    CommandeAModifier.Update();
+
+                    MessageBox.Show("La commande a été mise à jour avec succès !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // On ferme le pop-up
+                    Window popup = Window.GetWindow(this);
+                    if (popup != null)
+                    {
+                        popup.Close();
+                    }
                 }
-                MessageBox.Show("Commande enregistrée avec succès !", "", MessageBoxButton.OK, MessageBoxImage.Information);
-                MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
-                mainWindow.MainContent.Content = new UCproduit();
             }
             catch (Exception ex)
             {
@@ -214,8 +254,18 @@ namespace Paul_MELAMPE_MORA.UC
 
         private void BtnRetourCatalogue_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
-            mainWindow.MainContent.Content = new UCproduit();
+            Window parentWindow = Window.GetWindow(this);
+
+            // Si on est dans l'écran principal, on retourne au catalogue
+            if (parentWindow is MainWindow mainWindow)
+            {
+                mainWindow.MainContent.Content = new UCproduit();
+            }
+            // Si on est dans la Pop-up de modification, ce bouton ferme la fenêtre !
+            else if (parentWindow != null)
+            {
+                parentWindow.Close();
+            }
         }
 
         private void CalculerTotaux()
@@ -234,6 +284,54 @@ namespace Paul_MELAMPE_MORA.UC
             lblTotal.Text = string.Format("{0:N2} €", total);
             lblAcompte.Text = string.Format("{0:N2} €", acompte);
             lblResteAPayer.Text = string.Format("{0:N2} €", reste);
+        }
+
+        public void ChargerPourModification(Commande laCommande)
+        {
+            this.CommandeAModifier = laCommande;
+
+            // CORRECTION DU TEXTE DU BOUTON ICI (utilise le x:Name que l'on vient de rajouter)
+            txtBtnValider.Text = "METTRE À JOUR LA COMMANDE";
+
+            txtClientStatus.Visibility = Visibility.Collapsed;
+
+            txtClientNomPrenom.Text = laCommande.Client.Nom + " " + laCommande.Client.Prenom;
+            txtClientTel.Text = string.IsNullOrEmpty(laCommande.Client.Telephone) ? "Non renseigné" : laCommande.Client.Telephone;
+            txtClientMail.Text = string.IsNullOrEmpty(laCommande.Client.Mail) ? "Non renseigné" : laCommande.Client.Mail;
+
+            dateRetrait.SelectedDate = laCommande.Date_retrait.ToDateTime(TimeOnly.MinValue);
+
+            if (laCommande.Date_evenement != null)
+            {
+                dateEvenement.SelectedDate = laCommande.Date_evenement.Value.ToDateTime(TimeOnly.MinValue);
+            }
+
+            txtNbPersonnes.Text = laCommande.Nb_personne?.ToString() ?? "";
+
+            if (laCommande.Categorie_evenement != null)
+            {
+                if (laCommande.Categorie_evenement.Categorie_evenement_nom == "Familial")
+                    comboCategorieEvenement.SelectedIndex = 1;
+                else if (laCommande.Categorie_evenement.Categorie_evenement_nom == "Professionnel")
+                    comboCategorieEvenement.SelectedIndex = 2;
+            }
+
+            lblTotal.Text = laCommande.Total.ToString("0.00") + " €";
+            lblAcompte.Text = laCommande.Acompte.ToString("0.00") + " €";
+            lblResteAPayer.Text = (laCommande.Total - laCommande.Acompte).ToString("0.00") + " €";
+
+            LePanier.Clear();
+
+            LigneCommande outilRecherche = new LigneCommande();
+            var lignesDeCetteCommande = outilRecherche.FindBySelection(laCommande.Id);
+
+            foreach (var ligne in lignesDeCetteCommande)
+            {
+                LePanier.Add(ligne);
+            }
+
+            // Rafraîchir l'interface graphique et recalculer les totaux (25% acompte, etc.)
+            RafraichirAffichage();
         }
     }
 }

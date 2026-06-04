@@ -182,16 +182,25 @@ namespace Paul_MELAMPE_MORA.UC
                 categorieEvenement = 2; // Professionnel
             }
 
-            if (dateEvenement.SelectedDate.HasValue && dateEvenement.SelectedDate.Value < DateTime.Now)
+            if (dateEvenement.SelectedDate.HasValue && dateEvenement.SelectedDate.Value.Date < DateTime.Today)
             {
                 MessageBox.Show("La date de l'événement ne peut pas être dans le passé. Veuillez corriger cette information.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            if (dateEvenement.SelectedDate.HasValue && dateEvenement.SelectedDate.Value < dateRetrait.SelectedDate.Value)
+            if (dateEvenement.SelectedDate.HasValue && dateEvenement.SelectedDate.Value.Date < dateRetrait.SelectedDate.Value.Date)
             {
-                MessageBox.Show("La date de l'événement doit être postérieure à la date de retrait. Veuillez corriger cette information.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("La date de l'événement doit être postérieure ou égale à la date de retrait. Veuillez corriger cette information.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
+            }
+
+            if (dateRetrait.SelectedDate.HasValue && dateRetrait.SelectedDate.Value.Date < DateTime.Today)
+            {
+                if (CommandeAModifier == null)
+                {
+                    MessageBox.Show("Impossible de créer une commande avec une date de retrait dans le passé.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
             }
 
 

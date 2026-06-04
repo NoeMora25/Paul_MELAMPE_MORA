@@ -73,6 +73,9 @@
                 </StackPanel>
             </StackPanel>
 
+
+ 
+
             <Button Grid.Column="1" VerticalAlignment="Bottom" Height="45" Width="55" Background="#C29227" BorderThickness="0" Click="BtnVoirPanier_Click" Cursor="Hand">
                 <Button.Resources>
                     <Style TargetType="Border">

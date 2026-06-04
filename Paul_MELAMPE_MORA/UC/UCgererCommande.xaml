@@ -6,7 +6,9 @@
              xmlns:local="clr-namespace:Paul_MELAMPE_MORA.UC"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="900" 
-             Background="#E8E2D9">
+             Background="#E8E2D9"
+             TextOptions.TextFormattingMode="Display" 
+             TextOptions.TextRenderingMode="ClearType">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -14,29 +16,39 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Gérer les commandes" Margin="30,20,0,15" HorizontalAlignment="Left" FontSize="28" Foreground="#2A2421" FontFamily="Century" FontWeight="Bold"/>
+        <StackPanel Grid.Row="0" Margin="30,20,30,15">
+            <TextBlock Text="Gérer les commandes" FontSize="28" Foreground="#2A2421" FontFamily="Century" FontWeight="Bold" Margin="0,0,0,15"/>
+
+            <WrapPanel Orientation="Horizontal">
+                <StackPanel Margin="0,0,20,10">
+                    <TextBlock Text="Recherche par nom du client :" FontSize="13" Foreground="#7A6D61" Margin="0,0,0,5"/>
+                    <TextBox x:Name="txtBoxNomClient" Width="220" Padding="6" TextChanged="Filtre_ModifieCommande" Background="#F6F4F0" BorderBrush="#D5CFC4" BorderThickness="1" FontSize="14" Foreground="#2A2421"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,10">
+                    <TextBlock Text="Recherche par nom de produit :" FontSize="13" Foreground="#7A6D61" Margin="0,0,0,5"/>
+                    <TextBox x:Name="txtBoxNomProduit" Width="220" Padding="6" TextChanged="Filtre_ModifieCommande" Background="#F6F4F0" BorderBrush="#D5CFC4" BorderThickness="1" FontSize="14" Foreground="#2A2421"/>
+                </StackPanel>
+            </WrapPanel>
+        </StackPanel>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="0,0,15,0" Margin="15,0,5,10">
-            <ItemsControl x:Name="icProduits" ItemsSource="{Binding LesCommandes}">
+            <ItemsControl x:Name="icCommandes" ItemsSource="{Binding LesCommandes}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-
                         <Grid Margin="15,0,15,10">
-
                             <Border Background="#F6F4F0" CornerRadius="8">
                                 <Border.Effect>
                                     <DropShadowEffect BlurRadius="8" ShadowDepth="1.5" Opacity="0.15" Direction="270" Color="#2A2421" />
                                 </Border.Effect>
                             </Border>
 
-                            <Border Background="#F6F4F0" BorderBrush="#D5CFC4" BorderThickness="1" CornerRadius="8" Padding="15" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType">
-
+                            <Border Background="#F6F4F0" BorderBrush="#D5CFC4" BorderThickness="1" CornerRadius="8" Padding="15">
                                 <StackPanel x:Name="CelluleCommande" HorizontalAlignment="Stretch">
 
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                                         <TextBlock Text="{Binding Client.Nom}" FontSize="18" FontWeight="Bold" Foreground="#2A2421" TextWrapping="Wrap" />
                                         <TextBlock Text="  •  " FontSize="16" Foreground="#A99F93" VerticalAlignment="Center"/>
-                                        <!-- Ajout des valeurs de repli pour la catégorie null -->
                                         <TextBlock Text="{Binding Categorie_evenement.Categorie_evenement_nom, TargetNullValue='Standard', FallbackValue='Standard'}" FontSize="14" FontWeight="SemiBold" Foreground="#7A6D61" VerticalAlignment="Center"/>
                                     </StackPanel>
 
@@ -50,7 +62,6 @@
 
                                     <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
                                         <TextBlock Text="Est prête : " FontSize="13" Foreground="#7A6D61" VerticalAlignment="Center"/>
-
                                         <TextBlock FontSize="13" FontWeight="Bold" Margin="0,0,20,0" VerticalAlignment="Center">
                                             <TextBlock.Style>
                                                 <Style TargetType="TextBlock">
@@ -67,7 +78,6 @@
                                         </TextBlock>
 
                                         <TextBlock Text="A été récupérée : " FontSize="13" Foreground="#7A6D61" VerticalAlignment="Center"/>
-
                                         <TextBlock FontSize="13" FontWeight="Bold" VerticalAlignment="Center">
                                             <TextBlock.Style>
                                                 <Style TargetType="TextBlock">
@@ -94,16 +104,32 @@
 
                                     <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
                                         <TextBlock Text="Date de l'évènement : " FontSize="13" Foreground="#7A6D61" />
-                                        <!-- Ajout des valeurs de repli pour la date d'événement null -->
                                         <TextBlock Text="{Binding Date_evenement, StringFormat=\{0:dd/MM/yyyy\}, TargetNullValue='Non définie', FallbackValue='Non définie'}" FontSize="13" Foreground="#3E3631" FontWeight="SemiBold" Margin="0,0,20,0"/>
 
                                         <TextBlock Text="Nombre de personnes : " FontSize="13" Foreground="#7A6D61"/>
-                                        <!-- Le format de nombre de personnes permet de pallier une valeur nulle -->
                                         <TextBlock Text="{Binding Nb_personne, TargetNullValue='-', FallbackValue='-'}" FontSize="13" Foreground="#3E3631" FontWeight="SemiBold"/>
                                     </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                                    <Border Background="#FFFFFF" BorderBrush="#D5CFC4" BorderThickness="1" CornerRadius="6" Padding="12" Margin="0,12,0,0">
+                                        <StackPanel>
+                                            <TextBlock Text="Contenu de la commande :" FontSize="13" Foreground="#7A6D61" FontStyle="Italic" Margin="0,0,0,8"/>
 
+                                            <ItemsControl ItemsSource="{Binding LignesCommande}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                                                            <TextBlock Text="{Binding Quantite}" FontWeight="ExtraBold" Foreground="#C29227" FontSize="14"/>
+                                                            <TextBlock Text=" x " FontWeight="ExtraBold" Foreground="#C29227" FontSize="14"/>
+                                                            <TextBlock Text="{Binding LeProduit.Recette.Recette_nom}" FontWeight="Bold" Foreground="#3E3631" FontSize="14"/>
+                                                            <TextBlock Text="{Binding LeProduit.Nb_parts, StringFormat='{} ({0} parts)'}" Foreground="#A99F93" FontSize="13" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
                                         <Button x:Name="BtnModifier" Content="Modifier" Foreground="#3E3631" Background="Transparent" BorderBrush="#A99F93" BorderThickness="1" Cursor="Hand" Padding="12,5" Margin="0,0,10,0" FontWeight="SemiBold" Click="BtnModifier_Click">
                                             <Button.Resources>
                                                 <Style TargetType="Border">
@@ -119,13 +145,10 @@
                                                     <Setter Property="Background" Value="#C29227" />
                                                     <Setter Property="Foreground" Value="White" />
                                                     <Setter Property="Cursor" Value="Hand" />
-
                                                     <Setter Property="Template">
                                                         <Setter.Value>
                                                             <ControlTemplate TargetType="Button">
-                                                                <Border Background="{TemplateBinding Background}" 
-                                                                        CornerRadius="6"
-                                                                        Padding="{TemplateBinding Padding}">
+                                                                <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
                                                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                                 </Border>
                                                                 <ControlTemplate.Triggers>
@@ -136,7 +159,6 @@
                                                             </ControlTemplate>
                                                         </Setter.Value>
                                                     </Setter>
-
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding Est_prete}" Value="True">
                                                             <Setter Property="Content" Value="FINALISÉ" />
@@ -148,17 +170,13 @@
                                                 </Style>
                                             </Button.Style>
                                         </Button>
-
                                     </StackPanel>
-
                                 </StackPanel>
                             </Border>
                         </Grid>
-
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-
     </Grid>
 </UserControl>

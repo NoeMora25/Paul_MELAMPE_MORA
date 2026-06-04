@@ -1,4 +1,5 @@
 ﻿using Paul_MELAMPE_MORA.Classes;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -79,6 +80,7 @@ namespace Paul_MELAMPE_MORA.UC
             }
             CalculerTotaux();
         }
+
         private void BtnRechercherClient_Click(object sender, RoutedEventArgs e)
         {
             UCrechercheClient ucRecherche = new UCrechercheClient();
@@ -100,6 +102,7 @@ namespace Paul_MELAMPE_MORA.UC
                 SelectionnerClient(ucRecherche.ClientChoisi);
             }
         }
+
         public void SelectionnerClient(Client clientSelectionne)
         {
             if (clientSelectionne != null)
@@ -172,7 +175,6 @@ namespace Paul_MELAMPE_MORA.UC
                 foreach (var ligne in LePanier)
                 {
                     ligne.Commande_id = idCommandeGenere;
-                    ligne.Est_decoupe = chkDemandeDecoupe.IsChecked == true;
                     ligne.Create();
                 }
                 MessageBox.Show("Commande enregistrée avec succès !", "", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -207,44 +209,6 @@ namespace Paul_MELAMPE_MORA.UC
             lblTotal.Text = string.Format("{0:N2} €", total);
             lblAcompte.Text = string.Format("{0:N2} €", acompte);
             lblResteAPayer.Text = string.Format("{0:N2} €", reste);
-        }
-
-        private void ComboCategorieEvenement_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (comboCategorieEvenement == null || comboNomEvenement == null) return;
-
-            ComboBoxItem selection = comboCategorieEvenement.SelectedItem as ComboBoxItem;
-
-            if (selection != null)
-            {
-                string choix = selection.Content.ToString();
-                comboNomEvenement.Items.Clear();
-
-                if (choix == "Familial")
-                {
-                    comboNomEvenement.IsEnabled = true;
-                    foreach (string evt in Categorie_evenement.SousCategories[CategoriePrincipale.Familial])
-                    {
-                        comboNomEvenement.Items.Add(evt);
-                    }
-                    comboNomEvenement.SelectedIndex = 0;
-                }
-                else if (choix == "Professionnel")
-                {
-                    comboNomEvenement.IsEnabled = true;
-                    foreach (string evt in Categorie_evenement.SousCategories[CategoriePrincipale.Professionnel])
-                    {
-                        comboNomEvenement.Items.Add(evt);
-                    }
-                    comboNomEvenement.SelectedIndex = 0;
-                }
-                else
-                {
-                    comboNomEvenement.IsEnabled = false;
-                    comboNomEvenement.Items.Add("-");
-                    comboNomEvenement.SelectedIndex = 0;
-                }
-            }
         }
     }
 }

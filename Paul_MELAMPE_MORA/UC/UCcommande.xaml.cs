@@ -14,7 +14,6 @@ namespace Paul_MELAMPE_MORA.UC
 
         public Commande CommandeAModifier { get; set; } = null;
 
-
         public UCcommande()
         {
             InitializeComponent();
@@ -122,10 +121,7 @@ namespace Paul_MELAMPE_MORA.UC
         private void BtnValiderCommande_Click(object sender, RoutedEventArgs e)
         {
             // 1. VÉRIFICATION DU CLIENT
-            // Si on modifie, le client est celui de la commande. Si on crée, c'est LeClientAssocie.
             Client clientFinal = CommandeAModifier != null ? CommandeAModifier.Client : LeClientAssocie;
-
-            // Si l'utilisateur a recherché un nouveau client pendant la modification, on le prend
             if (LeClientAssocie != null) clientFinal = LeClientAssocie;
 
             if (clientFinal == null)
@@ -155,7 +151,7 @@ namespace Paul_MELAMPE_MORA.UC
             }
             decimal acompteCommande = totalCommande * 0.25m;
 
-            // 4. GESTION DES VALEURS OPTIONNELLES (Nullables)
+            // 4. GESTION DES VALEURS OPTIONNELLES
             int? nbPersonnes = null;
             if (!string.IsNullOrWhiteSpace(txtNbPersonnes.Text))
             {
@@ -171,27 +167,25 @@ namespace Paul_MELAMPE_MORA.UC
             }
 
             int categorieEvenement = 0;
-            if (comboCategorieEvenement.SelectedIndex == 1)
-            { 
-                    categorieEvenement = 1; // Familial
-            }
-            else if (comboCategorieEvenement.SelectedIndex == 2)
+            if (comboCategorieEvenement.SelectedIndex == 1) categorieEvenement = 1; // Familial
+            else if (comboCategorieEvenement.SelectedIndex == 2) categorieEvenement = 2; // Professionnel
+
+            try
             {
-                    categorieEvenement = 2; // Professionel
-            }
-
-
-            Commande nouvelleCommande = new Commande();
-            nouvelleCommande.Date_creation = DateOnly.FromDateTime(DateTime.Now);
-            nouvelleCommande.Date_retrait = DateOnly.FromDateTime(dateRetrait.SelectedDate.Value);
-            nouvelleCommande.Total = totalCommande;
-            nouvelleCommande.Acompte = acompteCommande;
-            nouvelleCommande.Est_prete = false;
-            nouvelleCommande.Est_recuperee = false;
-            nouvelleCommande.Date_evenement = dateEvenement.SelectedDate.HasValue ? DateOnly.FromDateTime(dateEvenement.SelectedDate.Value) : null;
-            nouvelleCommande.Nb_personne = nbPersonnes;
-            nouvelleCommande.Client = LeClientAssocie;
-            nouvelleCommande.Categorie_evenement = categorieEvenement > 0 ? new Categorie_evenement { Categorie_evenement_id = categorieEvenement } : null; 
+                if (CommandeAModifier == null)
+                {
+                    // MODE CRÉATION
+                    Commande nouvelleCommande = new Commande();
+                    nouvelleCommande.Date_creation = DateOnly.FromDateTime(DateTime.Now);
+                    nouvelleCommande.Date_retrait = DateOnly.FromDateTime(dateRetrait.SelectedDate.Value);
+                    nouvelleCommande.Total = totalCommande;
+                    nouvelleCommande.Acompte = acompteCommande;
+                    nouvelleCommande.Est_prete = false;
+                    nouvelleCommande.Est_recuperee = false;
+                    nouvelleCommande.Date_evenement = dateEvenement.SelectedDate.HasValue ? DateOnly.FromDateTime(dateEvenement.SelectedDate.Value) : null;
+                    nouvelleCommande.Nb_personne = nbPersonnes;
+                    nouvelleCommande.Client = clientFinal;
+                    nouvelleCommande.Categorie_evenement = categorieEvenement > 0 ? new Categorie_evenement { Categorie_evenement_id = categorieEvenement } : null;
 
                     int idCommandeGenere = nouvelleCommande.Create();
 
@@ -201,7 +195,6 @@ namespace Paul_MELAMPE_MORA.UC
                         return;
                     }
 
-                    // Sauvegarde des produits (Lignes_Commande)
                     foreach (var ligne in LePanier)
                     {
                         ligne.Commande_id = idCommandeGenere;
@@ -210,30 +203,25 @@ namespace Paul_MELAMPE_MORA.UC
 
                     MessageBox.Show("Commande enregistrée avec succès !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    // On retourne à l'écran produit
-                    MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
-                    mainWindow.MainContent.Content = new UCproduit();
+                    // SÉCURITÉ DE NAVIGATION
+                    Window parentWindow = Window.GetWindow(this);
+                    if (parentWindow is MainWindow mainWindow)
+                    {
+                        mainWindow.MainContent.Content = new UCproduit();
+                    }
                 }
                 else
                 {
-                    // ==================================================
-                    // MODE : MODIFICATION D'UNE COMMANDE EXISTANTE
-                    // ==================================================
+                    // MODE MODIFICATION
                     CommandeAModifier.Client = clientFinal;
                     CommandeAModifier.Date_retrait = DateOnly.FromDateTime(dateRetrait.SelectedDate.Value);
                     CommandeAModifier.Total = totalCommande;
                     CommandeAModifier.Acompte = acompteCommande;
-                    CommandeAModifier.Date_evenement = dateEvt;
+                    CommandeAModifier.Date_evenement = dateEvenement.SelectedDate.HasValue ? DateOnly.FromDateTime(dateEvenement.SelectedDate.Value) : null;
                     CommandeAModifier.Nb_personne = nbPersonnes;
-                    CommandeAModifier.Categorie_evenement = categorieFinal;
+                    CommandeAModifier.Categorie_evenement = categorieEvenement > 0 ? new Categorie_evenement { Categorie_evenement_id = categorieEvenement } : null;
 
-                    // Mise à jour de la table Commande
                     CommandeAModifier.Update();
-
-                    // NOTE POUR LES PRODUITS : 
-                    // Si vous autorisez la modification des produits du panier, il faudra coder une méthode
-                    // dans LigneCommande pour supprimer les anciennes lignes de cette commande
-                    // et faire un "ligne.Create()" pour insérer le nouveau panier.
 
                     MessageBox.Show("La commande a été mise à jour avec succès !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -253,8 +241,18 @@ namespace Paul_MELAMPE_MORA.UC
 
         private void BtnRetourCatalogue_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
-            mainWindow.MainContent.Content = new UCproduit();
+            Window parentWindow = Window.GetWindow(this);
+
+            // Si on est dans l'écran principal, on retourne au catalogue
+            if (parentWindow is MainWindow mainWindow)
+            {
+                mainWindow.MainContent.Content = new UCproduit();
+            }
+            // Si on est dans la Pop-up de modification, ce bouton ferme la fenêtre !
+            else if (parentWindow != null)
+            {
+                parentWindow.Close();
+            }
         }
 
         private void CalculerTotaux()
@@ -275,19 +273,19 @@ namespace Paul_MELAMPE_MORA.UC
             lblResteAPayer.Text = string.Format("{0:N2} €", reste);
         }
 
-
         public void ChargerPourModification(Commande laCommande)
         {
             this.CommandeAModifier = laCommande;
 
-            BtnValiderCommande.Content = "Mettre à jour la commande";
-            txtClientStatus.Visibility = Visibility.Collapsed; 
+            // CORRECTION DU TEXTE DU BOUTON ICI (utilise le x:Name que l'on vient de rajouter)
+            txtBtnValider.Text = "METTRE À JOUR LA COMMANDE";
+
+            txtClientStatus.Visibility = Visibility.Collapsed;
 
             txtClientNomPrenom.Text = laCommande.Client.Nom + " " + laCommande.Client.Prenom;
             txtClientTel.Text = string.IsNullOrEmpty(laCommande.Client.Telephone) ? "Non renseigné" : laCommande.Client.Telephone;
             txtClientMail.Text = string.IsNullOrEmpty(laCommande.Client.Mail) ? "Non renseigné" : laCommande.Client.Mail;
 
-            // (WPF utilise DateTime, donc on convertit les DateOnly en DateTime)
             dateRetrait.SelectedDate = laCommande.Date_retrait.ToDateTime(TimeOnly.MinValue);
 
             if (laCommande.Date_evenement != null)
@@ -295,7 +293,6 @@ namespace Paul_MELAMPE_MORA.UC
                 dateEvenement.SelectedDate = laCommande.Date_evenement.Value.ToDateTime(TimeOnly.MinValue);
             }
 
-            // --- On remplit les informations de l'évènement ---
             txtNbPersonnes.Text = laCommande.Nb_personne?.ToString() ?? "";
 
             if (laCommande.Categorie_evenement != null)
@@ -306,15 +303,22 @@ namespace Paul_MELAMPE_MORA.UC
                     comboCategorieEvenement.SelectedIndex = 2;
             }
 
-            // --- On remplit les totaux financiers ---
             lblTotal.Text = laCommande.Total.ToString("0.00") + " €";
             lblAcompte.Text = laCommande.Acompte.ToString("0.00") + " €";
             lblResteAPayer.Text = (laCommande.Total - laCommande.Acompte).ToString("0.00") + " €";
 
+            LePanier.Clear();
 
-            // IMPORTANT : Ici, vous devrez également coder la logique pour remplir 
-            // votre variable 'LePanier' avec les Lignes_Commande de cette commande 
-            // pour que les produits s'affichent à gauche !
+            LigneCommande outilRecherche = new LigneCommande();
+            var lignesDeCetteCommande = outilRecherche.FindBySelection(laCommande.Id);
+
+            foreach (var ligne in lignesDeCetteCommande)
+            {
+                LePanier.Add(ligne);
+            }
+
+            // Rafraîchir l'interface graphique et recalculer les totaux (25% acompte, etc.)
+            RafraichirAffichage();
         }
     }
 }

@@ -185,7 +185,7 @@
                                     <Setter Property="CornerRadius" Value="6"/>
                                 </Style>
                             </Button.Resources>
-                            <TextBlock Text="ENREGISTRER LA COMMANDE" FontSize="14" FontWeight="ExtraBold" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="txtBtnValider" Text="ENREGISTRER LA COMMANDE" FontSize="14" FontWeight="ExtraBold" VerticalAlignment="Center"/>
                         </Button>
 
                         <Button Content="Retour au catalogue" Background="Transparent" Foreground="#7A6D61" BorderThickness="0" Click="BtnRetourCatalogue_Click" Cursor="Hand" FontSize="14" FontWeight="SemiBold"/>

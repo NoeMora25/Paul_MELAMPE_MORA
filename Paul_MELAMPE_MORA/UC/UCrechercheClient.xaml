@@ -5,66 +5,90 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Paul_MELAMPE_MORA.UC"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-             Background="White">
+             d:DesignHeight="550" d:DesignWidth="850"
+             Background="#E8E2D9" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="20,20,20,15">
+        <!-- EN-TÊTE ET FILTRES DE RECHERCHE -->
+        <Grid Grid.Row="0" Margin="30,25,30,15">
             <StackPanel>
-                <TextBlock Text="Clients" FontSize="24" FontWeight="Bold" Foreground="#333333" Margin="0,0,0,15"/>
+                <TextBlock Text="Rechercher un Client" FontSize="28" FontFamily="Century" FontWeight="Bold" Foreground="#2A2421" Margin="0,0,0,20"/>
+
                 <StackPanel Orientation="Horizontal">
-                    <StackPanel Margin="0,0,10,0">
-                        <TextBlock Text="Recherche par nom :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
-                        <TextBox x:Name="txtNom" Width="160" Padding="5" TextChanged="Filtre_Modifie"/>
+                    <StackPanel Margin="0,0,15,0">
+                        <TextBlock Text="Nom :" FontSize="13" Foreground="#7A6D61" Margin="0,0,0,5"/>
+                        <TextBox x:Name="txtNom" Width="150" Padding="6" Background="#F6F4F0" BorderBrush="#D5CFC4" BorderThickness="1" FontSize="14" Foreground="#2A2421" TextChanged="Filtre_Modifie"/>
                     </StackPanel>
-                    <StackPanel Margin="10,0,0,0">
-                        <TextBlock Text="Recherche par prénom :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
-                        <TextBox x:Name="txtPrenom" Width="160" Padding="5" TextChanged="Filtre_Modifie"/>
+
+                    <StackPanel Margin="10,0,15,0">
+                        <TextBlock Text="Prénom :" FontSize="13" Foreground="#7A6D61" Margin="0,0,0,5"/>
+                        <TextBox x:Name="txtPrenom" Width="150" Padding="6" Background="#F6F4F0" BorderBrush="#D5CFC4" BorderThickness="1" FontSize="14" Foreground="#2A2421" TextChanged="Filtre_Modifie"/>
                     </StackPanel>
-                    <StackPanel Margin="10,0,0,0">
-                        <TextBlock Text="Recherche par tel :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
-                        <TextBox x:Name="txtTel" Width="160" Padding="5" TextChanged="Filtre_Modifie"/>
+
+                    <StackPanel Margin="10,0,15,0">
+                        <TextBlock Text="Téléphone :" FontSize="13" Foreground="#7A6D61" Margin="0,0,0,5"/>
+                        <TextBox x:Name="txtTel" Width="150" Padding="6" Background="#F6F4F0" BorderBrush="#D5CFC4" BorderThickness="1" FontSize="14" Foreground="#2A2421" TextChanged="Filtre_Modifie"/>
                     </StackPanel>
+
                     <StackPanel Margin="10,0,0,0">
-                        <TextBlock Text="Recherche par mail :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
-                        <TextBox x:Name="txtMail" Width="160" Padding="5" TextChanged="Filtre_Modifie"/>
+                        <TextBlock Text="Email :" FontSize="13" Foreground="#7A6D61" Margin="0,0,0,5"/>
+                        <TextBox x:Name="txtMail" Width="180" Padding="6" Background="#F6F4F0" BorderBrush="#D5CFC4" BorderThickness="1" FontSize="14" Foreground="#2A2421" TextChanged="Filtre_Modifie"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
         </Grid>
 
-        <Border Grid.Row="1" Background="#D6D6D6" CornerRadius="10" Padding="15" Margin="20,5,20,20">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ItemsControl x:Name="icClients" ItemsSource="{Binding LesClients}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border Background="#ABABAB" CornerRadius="8" Padding="15,10" Margin="0,0,0,15">
+        <!-- ZONE PRINCIPALE (RÉSULTATS DE RECHERCHE) -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="30,5,15,20">
+            <ItemsControl x:Name="icClients" ItemsSource="{Binding LesClients}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,0,15,15">
+
+                            <!-- Ombre portée de la carte -->
+                            <Border Background="#F6F4F0" CornerRadius="8">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="6" ShadowDepth="1.5" Opacity="0.1" Direction="270" Color="#2A2421" />
+                                </Border.Effect>
+                            </Border>
+
+                            <Border Background="#F6F4F0" BorderBrush="#D5CFC4" BorderThickness="1" CornerRadius="8" Padding="20,15">
                                 <Grid>
+                                    <!-- Informations du client -->
                                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Nom}" FontSize="18" FontWeight="Bold" Foreground="#222222"/>
-                                            <TextBlock Text="{Binding Prenom}" FontSize="18" FontWeight="Bold" Foreground="#222222" Margin="5,0,0,0"/>
+                                            <TextBlock Text="{Binding Nom}" FontSize="18" FontWeight="Bold" Foreground="#2A2421"/>
+                                            <TextBlock Text="{Binding Prenom}" FontSize="18" FontWeight="Bold" Foreground="#2A2421" Margin="6,0,0,0"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                                            <TextBlock Text="{Binding Telephone}" FontSize="14" Foreground="#444444"/>
-                                            <TextBlock Text=" - " FontSize="14" Foreground="#444444"/>
-                                            <TextBlock Text="{Binding Mail}" FontSize="14" Foreground="#444444" FontStyle="Italic"/>
+                                            <TextBlock Text="📞 " Foreground="#A99F93" FontSize="12" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding Telephone}" FontSize="14" Foreground="#7A6D61" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                            <TextBlock Text="   ✉️ " Foreground="#A99F93" FontSize="12" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding Mail}" FontSize="14" Foreground="#7A6D61" FontStyle="Italic" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </StackPanel>
 
-                                    <Button Content="Sélectionner" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                            Background="#4CAF50" Foreground="White" BorderThickness="0" Padding="15,8" 
-                                            Click="BtnSelectionner_Click" Cursor="Hand" FontWeight="SemiBold"/>
+                                    <!-- Bouton Sélectionner -->
+                                    <Button Content="SÉLECTIONNER" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                            Background="#C29227" Foreground="White" BorderThickness="0" Padding="15,10" 
+                                            Click="BtnSelectionner_Click" Cursor="Hand" FontWeight="Bold" FontSize="13">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="6"/>
+                                            </Style>
+                                        </Button.Resources>
+                                    </Button>
+
                                 </Grid>
                             </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-        </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </UserControl>

@@ -103,7 +103,6 @@ namespace Paul_MELAMPE_MORA.UC
                     WindowStartupLocation = WindowStartupLocation.CenterScreen,
                     ResizeMode = ResizeMode.NoResize,
                     WindowStyle = WindowStyle.ToolWindow,
-                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E8E2D9"))
                 };
 
                 popupCommande.ShowDialog();

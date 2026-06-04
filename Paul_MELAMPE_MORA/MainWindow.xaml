@@ -27,11 +27,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-
-            <!-- Logo : Hauteur augmentée de 40 à 70 et marge gauche augmentée -->
-            <Image Grid.Column="0" Source="/img/LogoPaul.png" Stretch="Uniform" Height="70" Margin="30,0,0,0" VerticalAlignment="Center"/>
-
-            <!-- Bouton Quitter : FontSize augmentée de 28 à 40 -->
+            <Image Grid.Column="0" Source="/img/LogoPaul.jpg" Stretch="Uniform" Height="70" Margin="30,0,0,0" VerticalAlignment="Center"/>
             <Button x:Name="ButDeconnecter" Grid.Column="2" Content="&#x23FB;" Foreground="#FF927F00" Background="Transparent" BorderThickness="0" FontSize="40" FontFamily="Lucida Fax" VerticalAlignment="Center" Margin="0,0,30,0" Cursor="Hand" Click="ButDeconnecter_Click"/>
         </Grid>
 

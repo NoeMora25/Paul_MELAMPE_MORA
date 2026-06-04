@@ -170,30 +170,28 @@ namespace Paul_MELAMPE_MORA.UC
                 }
             }
 
-            Categorie_evenement categorieFinal = null;
-            if (comboCategorieEvenement.SelectedIndex == 1) categorieFinal = new Categorie_evenement(1, "Familial");
-            if (comboCategorieEvenement.SelectedIndex == 2) categorieFinal = new Categorie_evenement(2, "Professionnel");
-
-            DateOnly? dateEvt = dateEvenement.SelectedDate.HasValue ? DateOnly.FromDateTime(dateEvenement.SelectedDate.Value) : null;
-
-            try
+            int categorieEvenement = 0;
+            if (comboCategorieEvenement.SelectedIndex == 1)
+            { 
+                    categorieEvenement = 1; // Familial
+            }
+            else if (comboCategorieEvenement.SelectedIndex == 2)
             {
-                if (CommandeAModifier == null)
-                {
-                    // ==================================================
-                    // MODE : CRÉATION D'UNE NOUVELLE COMMANDE
-                    // ==================================================
-                    Commande nouvelleCommande = new Commande();
-                    nouvelleCommande.Date_creation = DateOnly.FromDateTime(DateTime.Now);
-                    nouvelleCommande.Date_retrait = DateOnly.FromDateTime(dateRetrait.SelectedDate.Value);
-                    nouvelleCommande.Total = totalCommande;
-                    nouvelleCommande.Acompte = acompteCommande;
-                    nouvelleCommande.Est_prete = false;
-                    nouvelleCommande.Est_recuperee = false;
-                    nouvelleCommande.Date_evenement = dateEvt;
-                    nouvelleCommande.Nb_personne = nbPersonnes;
-                    nouvelleCommande.Client = clientFinal;
-                    nouvelleCommande.Categorie_evenement = categorieFinal;
+                    categorieEvenement = 2; // Professionel
+            }
+
+
+            Commande nouvelleCommande = new Commande();
+            nouvelleCommande.Date_creation = DateOnly.FromDateTime(DateTime.Now);
+            nouvelleCommande.Date_retrait = DateOnly.FromDateTime(dateRetrait.SelectedDate.Value);
+            nouvelleCommande.Total = totalCommande;
+            nouvelleCommande.Acompte = acompteCommande;
+            nouvelleCommande.Est_prete = false;
+            nouvelleCommande.Est_recuperee = false;
+            nouvelleCommande.Date_evenement = dateEvenement.SelectedDate.HasValue ? DateOnly.FromDateTime(dateEvenement.SelectedDate.Value) : null;
+            nouvelleCommande.Nb_personne = nbPersonnes;
+            nouvelleCommande.Client = LeClientAssocie;
+            nouvelleCommande.Categorie_evenement = categorieEvenement > 0 ? new Categorie_evenement { Categorie_evenement_id = categorieEvenement } : null; 
 
                     int idCommandeGenere = nouvelleCommande.Create();
 

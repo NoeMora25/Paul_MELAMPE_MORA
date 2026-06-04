@@ -6,11 +6,20 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>img\LogoPaul.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="img\img_paul_illustration.png" />
+    <None Remove="img\LogoPaul.ico" />
+    <None Remove="img\LogoPaul.jpg" />
     <None Remove="img\LogoPaul.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\LogoPaul.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -22,7 +31,7 @@
     <Resource Include="img\img_paul_illustration.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="img\LogoPaul.png">
+    <Resource Include="img\LogoPaul.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -58,5 +58,9 @@ namespace Paul_MELAMPE_MORA
         {
             MainContent.Content = new UCrechercheClient(false);
         }
+        private void BtnMenuHistorique_Click(object sender, RoutedEventArgs e)
+        {
+            MainContent.Content = new UChistorique();
+        }
     }
 }

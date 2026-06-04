@@ -5,56 +5,173 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Paul_MELAMPE_MORA.UC"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"  Background="#FF2F2F2F">
-    <Grid Margin="0,85,0,10">
-        <Border Grid.Column="0" Background="#D6D6D6" CornerRadius="10" Padding="15" Margin="5">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ItemsControl x:Name="icProduits" ItemsSource="{Binding LesCommandes}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border Background="#ABABAB" CornerRadius="8" Padding="15,10" Margin="0,0,0,15">
+             d:DesignHeight="600" d:DesignWidth="900"
+             Background="#E8E2D9" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType">
+
+    <Grid Margin="30,20,30,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Historique des Commandes" FontSize="28" FontFamily="Century" FontWeight="Bold" Foreground="#2A2421" VerticalAlignment="Center"/>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Date :" FontSize="14" Foreground="#7A6D61" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <DatePicker x:Name="dateFiltre" Padding="5" Width="130" Background="#F6F4F0" BorderBrush="#D5CFC4" SelectedDateChanged="DateFiltre_SelectedDateChanged"/>
+            </StackPanel>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="5,5,15,5">
+            <ItemsControl x:Name="icHistorique" ItemsSource="{Binding LesCommandes}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,0,0,15">
+
+                            <Border Background="#F6F4F0" CornerRadius="8">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="6" ShadowDepth="1.5" Opacity="0.1" Direction="270" Color="#2A2421" />
+                                </Border.Effect>
+                            </Border>
+
+                            <Border Background="#F6F4F0" BorderBrush="#D5CFC4" BorderThickness="1" CornerRadius="8" Padding="20">
                                 <Grid>
-                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" MaxWidth="400">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                            <TextBlock Text="{Binding Client.Nom}" FontSize="18" FontWeight="Bold" Foreground="#2A2421"/>
+                                            <TextBlock Text="{Binding Client.Prenom}" FontSize="18" FontWeight="Bold" Foreground="#2A2421" Margin="5,0,0,0"/>
+                                            <TextBlock Text="  •  " FontSize="16" Foreground="#A99F93" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding Date_retrait, StringFormat='{}Retrait le {0:dd/MM/yyyy}'}" FontSize="14" Foreground="#C29227" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                        </StackPanel>
 
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Client.Nom}" FontSize="18" FontWeight="Bold" TextWrapping="Wrap" Foreground="#222222"/>
-                                            <TextBlock Text="{Binding Categorie_evenement.Categorie_evenement_nom}" FontSize="16" FontWeight="SemiBold" Foreground="#333333" VerticalAlignment="Center" Margin="2,0,0,0"/>
+                                            <TextBlock Text="Total : " FontSize="14" Foreground="#7A6D61" VerticalAlignment="Bottom"/>
+                                            <TextBlock Text="{Binding Total, StringFormat='{}{0:0.00} €'}" FontSize="16" FontWeight="ExtraBold" Foreground="#B88E2F" Margin="0,0,25,0" VerticalAlignment="Bottom"/>
+
+                                            <TextBlock Text="Acompte payé : " FontSize="13" Foreground="#7A6D61" VerticalAlignment="Bottom"/>
+                                            <TextBlock Text="{Binding Acompte, StringFormat='{}{0:0.00} €'}" FontSize="14" FontWeight="SemiBold" Foreground="#3E3631" VerticalAlignment="Bottom"/>
                                         </StackPanel>
-
-                                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                                            <TextBlock Text="{Binding Date_creation}" FontSize="14" Foreground="#444444" FontStyle="Italic"/>
-                                            <TextBlock Text=" - " FontSize="14" Foreground="#444444"/>
-                                            <TextBlock Text="{Binding Date_retrait}" FontSize="14" FontWeight="Bold" Foreground="#1E90FF"/>
-                                        </StackPanel>
-
-
-                                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                                            <TextBlock Text="{Binding Est_prete}" FontSize="14" Foreground="#444444" FontStyle="Italic"/>
-                                            <TextBlock Text=" - " FontSize="14" Foreground="#444444"/>
-                                            <TextBlock Text="{Binding Est_recuperee}" FontSize="14" FontWeight="Bold" Foreground="#1E90FF"/>
-                                        </StackPanel>
-
-                                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                                            <TextBlock Text="{Binding Acompte}" FontSize="14" Foreground="#444444" FontStyle="Italic"/>
-                                            <TextBlock Text=" - " FontSize="14" Foreground="#444444"/>
-                                            <TextBlock Text="{Binding Total}" FontSize="14" FontWeight="Bold" Foreground="#1E90FF"/>
-                                        </StackPanel>
-
-                                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                                            <TextBlock Text="{Binding Date_evenement}" FontSize="14" Foreground="#444444" FontStyle="Italic"/>
-                                            <TextBlock Text=" - " FontSize="14" Foreground="#444444"/>
-                                            <TextBlock Text="{Binding Nb_personne}" FontSize="14" FontWeight="Bold" Foreground="#1E90FF"/>
-                                        </StackPanel>
-
                                     </StackPanel>
 
- 
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,10">
+
+                                            <Border CornerRadius="15" Padding="15,6" Margin="0,0,10,0">
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="Background" Value="#FFEBEE"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Est_prete}" Value="True">
+                                                                <Setter Property="Background" Value="#E8F5E9"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
+                                                <TextBlock FontSize="12" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="Text" Value="EN PRÉPARATION"/>
+                                                            <Setter Property="Foreground" Value="#C62828"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Est_prete}" Value="True">
+                                                                    <Setter Property="Text" Value="PRÊTE"/>
+                                                                    <Setter Property="Foreground" Value="#2E7D32"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </Border>
+
+                                            <Border CornerRadius="15" Padding="15,6">
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="Background" Value="#FFF3E0"/>
+
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Est_prete}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+
+                                                            <DataTrigger Binding="{Binding Est_recuperee}" Value="True">
+                                                                <Setter Property="Background" Value="#E8F5E9"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
+                                                <TextBlock FontSize="12" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="Text" Value="À RÉCUPÉRER"/>
+                                                            <Setter Property="Foreground" Value="#E65100"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Est_recuperee}" Value="True">
+                                                                    <Setter Property="Text" Value="DÉLIVRÉE"/>
+                                                                    <Setter Property="Foreground" Value="#2E7D32"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </Border>
+                                        </StackPanel>
+
+                                        <Button x:Name="BtnRestituer" Click="BtnRestituer_Click" BorderThickness="0" Padding="20,8" FontSize="13" FontWeight="Bold" HorizontalAlignment="Right" Cursor="Hand">
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Background" Value="#C29227" />
+                                                    <Setter Property="Foreground" Value="White" />
+                                                    <Setter Property="Content" Value="RESTITUER LA COMMANDE" />
+
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="Button">
+                                                                <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Style.Triggers>
+
+                                                        <DataTrigger Binding="{Binding Est_prete}" Value="True">
+                                                            <Setter Property="Visibility" Value="Visible" />
+                                                        </DataTrigger>
+
+                                                        <DataTrigger Binding="{Binding Est_recuperee}" Value="True">
+                                                            <Setter Property="IsEnabled" Value="False" />
+                                                            <Setter Property="Background" Value="#D5CFC4" />
+                                                            <Setter Property="Foreground" Value="#7A6D61" />
+                                                            <Setter Property="Content" Value="DÉJÀ RESTITUÉE" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
+
+                                    </StackPanel>
                                 </Grid>
                             </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-        </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </UserControl>

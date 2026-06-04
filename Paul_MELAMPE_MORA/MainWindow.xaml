@@ -53,11 +53,14 @@
 
             <Image Grid.Column="0" Source="/img/LogoPaul.jpg" Stretch="Uniform" Height="70" Margin="30,0,0,0" VerticalAlignment="Center"/>
 
-            <StackPanel x:Name="MenuVendeur" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+            <StackPanel x:Name="MenuVendeur" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" Cursor="">
 
                 <Button x:Name="BtnMenuCommande" Content="Prendre une Commande" Style="{StaticResource MenuButtonStyle}" Margin="0,0,20,0" Click="BtnMenuCommande_Click"/>
 
                 <Button x:Name="BtnMenuClient" Content="Gérer les Clients" Style="{StaticResource MenuButtonStyle}" Click="BtnMenuClient_Click" Cursor="Hand"/>
+                
+                <Button x:Name="BtnMenuHistorique" Content="Commande du jour" Style="{StaticResource MenuButtonStyle}" Click="BtnMenuHistorique_Click" Cursor="Hand"/>
+
 
             </StackPanel>
 

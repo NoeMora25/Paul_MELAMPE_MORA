@@ -1,4 +1,5 @@
 ﻿using Paul_MELAMPE_MORA.Classes;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +13,7 @@ namespace Paul_MELAMPE_MORA.UC
         public Client ClientChoisi { get; private set; }
 
         public Visibility VisibiliteBouton { get; set; }
+        public Visibility VisibiliteBoutonCommande { get; set; }
 
         public UCrechercheClient(bool estModeSelection = true)
         {
@@ -20,10 +22,12 @@ namespace Paul_MELAMPE_MORA.UC
             if (estModeSelection == false)
             {
                 VisibiliteBouton = Visibility.Collapsed;
+                VisibiliteBoutonCommande = Visibility.Visible;
             }
             else
             {
                 VisibiliteBouton = Visibility.Visible;
+                VisibiliteBoutonCommande = Visibility.Collapsed;
             }
 
             this.DataContext = this;
@@ -89,6 +93,21 @@ namespace Paul_MELAMPE_MORA.UC
             if (fenetre.ShowDialog() == true)
             {
                 ChargerLesClients();
+            }
+        }
+
+        private void BtnVoirCommandes_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            Client clientChoisi = btn.DataContext as Client;
+
+            if (clientChoisi != null)
+            {
+                Window nouvelletWindow = Window.GetWindow(this);
+                if (nouvelletWindow is MainWindow mainWindow)
+                {
+                    mainWindow.MainContent.Content = new UChistorique(clientChoisi);
+                }
             }
         }
     }

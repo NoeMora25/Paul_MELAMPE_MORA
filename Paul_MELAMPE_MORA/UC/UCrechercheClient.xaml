@@ -88,9 +88,20 @@
                                     </StackPanel>
 
                                     <Button x:Name="btnSelectionner" Content="SÉLECTIONNER" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                            Background="#C29227" Foreground="White" BorderThickness="0" Padding="15,10" 
-                                            Click="BtnSelectionner_Click" Cursor="Hand" FontWeight="Bold" FontSize="13" 
-                                            Visibility="{Binding VisibiliteBouton, ElementName=ucRechercheClient}">
+                                        Background="#C29227" Foreground="White" BorderThickness="0" Padding="15,10" 
+                                        Click="BtnSelectionner_Click" Cursor="Hand" FontWeight="Bold" FontSize="13" 
+                                        Visibility="{Binding VisibiliteBouton, ElementName=ucRechercheClient}">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="6"/>
+                                            </Style>
+                                        </Button.Resources>
+                                    </Button>
+
+                                    <Button x:Name="btnCommande" Content="VOIR COMMANDES" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                        Background="#3E3631" Foreground="White" BorderThickness="0" Padding="15,10" 
+                                        Click="BtnVoirCommandes_Click" Cursor="Hand" FontWeight="Bold" FontSize="13" 
+                                        Visibility="{Binding VisibiliteBoutonCommande, ElementName=ucRechercheClient}">
                                         <Button.Resources>
                                             <Style TargetType="Border">
                                                 <Setter Property="CornerRadius" Value="6"/>

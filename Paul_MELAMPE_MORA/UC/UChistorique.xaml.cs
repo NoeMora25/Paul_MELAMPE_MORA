@@ -18,6 +18,29 @@ namespace Paul_MELAMPE_MORA.UC
             this.DataContext = this;
             dateFiltre.SelectedDate = DateTime.Today;
         }
+        public UChistorique(Client clientSpecifique)
+        {
+            InitializeComponent();
+            LesCommandes = new ObservableCollection<Commande>();
+            this.DataContext = this;
+
+            ChargerHistoriqueClient(clientSpecifique);
+        }
+        private void ChargerHistoriqueClient(Client clientSpecifique)
+        {
+            LesCommandes.Clear();
+            Commande lesCommandes = new Commande();
+
+            var listeToutesCommandes = lesCommandes.FindAll();
+
+            foreach (var cmd in listeToutesCommandes)
+            {
+                if (cmd.Client != null && cmd.Client.Client_id == clientSpecifique.Client_id)
+                {
+                    LesCommandes.Add(cmd);
+                }
+            }
+        }
 
         private void ChargerLesCommandesDuJour(DateTime dateChoisie)
         {

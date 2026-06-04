@@ -61,7 +61,33 @@ namespace Paul_MELAMPE_MORA.Classes
             set { this.mail = value; }
         }
 
-        public int Create() { throw new NotImplementedException(); }
+        public int Create()
+        {
+            string sql = @"
+                 INSERT INTO client (nom, prenom, telephone, mail) 
+                 VALUES (@nom, @prenom, @telephone, @mail)
+                 RETURNING client_id;";
+
+            using (NpgsqlCommand cmd = new NpgsqlCommand(sql))
+            {
+                cmd.Parameters.AddWithValue("@nom", this.Nom);
+                cmd.Parameters.AddWithValue("@telephone", this.Telephone);
+
+                cmd.Parameters.AddWithValue("@prenom", string.IsNullOrWhiteSpace(this.Prenom) ? DBNull.Value : this.Prenom);
+                cmd.Parameters.AddWithValue("@mail", string.IsNullOrWhiteSpace(this.Mail) ? DBNull.Value : this.Mail);
+
+                try
+                {
+                    int nouvelId = DataAccess.ExecuteInsert(cmd);
+                    this.Client_id = nouvelId;
+                    return nouvelId;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Erreur lors de la création du client : " + ex.Message);
+                }
+            }
+        }
         public int Delete() { throw new NotImplementedException(); }
 
         public List<Client> FindAll()

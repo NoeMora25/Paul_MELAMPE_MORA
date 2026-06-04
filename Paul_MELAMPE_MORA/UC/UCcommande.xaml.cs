@@ -1,5 +1,4 @@
 ﻿using Paul_MELAMPE_MORA.Classes;
-using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -126,7 +125,7 @@ namespace Paul_MELAMPE_MORA.UC
 
         private void BtnValiderCommande_Click(object sender, RoutedEventArgs e)
         {
-            // 1. VÉRIFICATION DU CLIENT
+
             Client clientFinal = CommandeAModifier != null ? CommandeAModifier.Client : LeClientAssocie;
             if (LeClientAssocie != null) clientFinal = LeClientAssocie;
 
@@ -136,7 +135,7 @@ namespace Paul_MELAMPE_MORA.UC
                 return;
             }
 
-            // 2. VÉRIFICATION DU PANIER ET DE LA DATE
+
             if (LePanier.Count == 0)
             {
                 MessageBox.Show("Impossible de valider : Le panier est vide.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -149,7 +148,6 @@ namespace Paul_MELAMPE_MORA.UC
                 return;
             }
 
-            // 3. CALCULS FINANCIERS
             decimal totalCommande = 0;
             foreach (var ligne in LePanier)
             {
@@ -160,7 +158,6 @@ namespace Paul_MELAMPE_MORA.UC
             }
             decimal acompteCommande = totalCommande * 0.25m;
 
-            // 4. GESTION DES VALEURS OPTIONNELLES
             int? nbPersonnes = null;
             if (!string.IsNullOrWhiteSpace(txtNbPersonnes.Text))
             {
@@ -197,10 +194,10 @@ namespace Paul_MELAMPE_MORA.UC
                 return;
             }
 
-            // DÉBUT DU BLOC TRY (qui manquait)
+
             try
             {
-                // DÉBUT DU IF POUR LA CRÉATION (qui manquait)
+
                 if (CommandeAModifier == null)
                 {
                     Commande nouvelleCommande = new Commande();
@@ -231,7 +228,6 @@ namespace Paul_MELAMPE_MORA.UC
 
                     MessageBox.Show("Commande enregistrée avec succès !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    // SÉCURITÉ DE NAVIGATION
                     Window parentWindow = Window.GetWindow(this);
                     if (parentWindow is MainWindow mainWindow)
                     {
@@ -249,27 +245,21 @@ namespace Paul_MELAMPE_MORA.UC
                     CommandeAModifier.Nb_personne = nbPersonnes;
                     CommandeAModifier.Categorie_evenement = categorieEvenement > 0 ? new Categorie_evenement { Categorie_evenement_id = categorieEvenement } : null;
 
-                    // 1. On met à jour l'en-tête de la commande (prix total, dates, etc.)
                     CommandeAModifier.Update();
 
-                    // 2. MISE À JOUR DU PANIER :
-                    // a. On crée un objet "outil" pour appeler notre nouvelle méthode Delete
                     LigneCommande outilSuppression = new LigneCommande();
-                    outilSuppression.Commande_id = CommandeAModifier.Id; // On lui donne l'ID de la commande à vider
+                    outilSuppression.Commande_id = CommandeAModifier.Id; 
 
-                    // b. On supprime l'ancien panier en BDD
                     outilSuppression.Delete();
 
-                    // c. On insère le tout nouveau panier (celui affiché à l'écran)
                     foreach (var ligne in LePanier)
                     {
-                        ligne.Commande_id = CommandeAModifier.Id; // On lie le produit à la commande
-                        ligne.Create(); // On insère en BDD
+                        ligne.Commande_id = CommandeAModifier.Id;
+                        ligne.Create();
                     }
 
                     MessageBox.Show("La commande a été mise à jour avec succès !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    // On ferme le pop-up
                     Window popup = Window.GetWindow(this);
                     if (popup != null)
                     {
@@ -302,7 +292,7 @@ namespace Paul_MELAMPE_MORA.UC
             decimal total = 0;
             foreach (var ligne in LePanier)
             {
-                // SÉCURITÉ AJOUTÉE ICI : On s'assure que le produit est bien chargé avant de calculer
+
                 if (ligne.LeProduit != null)
                 {
                     total += ligne.LeProduit.Prix * ligne.Quantite;
@@ -365,13 +355,12 @@ namespace Paul_MELAMPE_MORA.UC
             RafraichirAffichage();
         }
 
-        // Méthode pour aller chercher les produits en base de données et remplir le menu
+
         private void ChargerListeProduitsDeroulante()
         {
             Produit outilRecherche = new Produit();
             var tousLesProduits = outilRecherche.FindAll();
 
-            // On crée une liste temporaire pour ne garder que les produits disponibles
             var produitsDispos = new System.Collections.Generic.List<Produit>();
 
             foreach (var p in tousLesProduits)
@@ -382,17 +371,16 @@ namespace Paul_MELAMPE_MORA.UC
                 }
             }
 
-            // On donne cette liste au menu déroulant
             comboNouveauProduit.ItemsSource = produitsDispos;
         }
 
-        // Méthode quand on clique sur le bouton "➕ Ajouter"
+
         private void BtnAjouterNouveauProduit_Click(object sender, RoutedEventArgs e)
         {
-            // On vérifie qu'un produit a bien été sélectionné
+
             if (comboNouveauProduit.SelectedItem is Produit produitSelectionne)
             {
-                // On cherche si le produit est déjà dans le panier
+
                 LigneCommande ligneExistante = null;
                 foreach (var ligne in LePanier)
                 {
@@ -405,22 +393,18 @@ namespace Paul_MELAMPE_MORA.UC
 
                 if (ligneExistante != null)
                 {
-                    // S'il est déjà là, on fait juste +1 à la quantité
                     ligneExistante.Quantite++;
                     int index = LePanier.IndexOf(ligneExistante);
-                    LePanier[index] = ligneExistante; // Force WPF à voir la modification
+                    LePanier[index] = ligneExistante; 
                 }
                 else
                 {
-                    // S'il n'y est pas, on crée une nouvelle ligne avec une quantité de 1
                     LigneCommande nouvelleLigne = new LigneCommande(1, false, null, produitSelectionne);
                     LePanier.Add(nouvelleLigne);
                 }
 
-                // On met à jour les totaux et l'affichage
                 RafraichirAffichage();
 
-                // On vide le menu déroulant pour la prochaine action
                 comboNouveauProduit.SelectedIndex = -1;
             }
             else

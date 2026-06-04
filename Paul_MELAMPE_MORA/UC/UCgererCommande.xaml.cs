@@ -1,12 +1,7 @@
 ﻿using Paul_MELAMPE_MORA.Classes;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace Paul_MELAMPE_MORA.UC
 {
@@ -20,7 +15,6 @@ namespace Paul_MELAMPE_MORA.UC
         {
             InitializeComponent();
             LesCommandes = new ObservableCollection<Commande>();
-            //this.DataContext = LesCommandes;
             ChargerLesCommandes();
         }
         private void ChargerLesCommandes()
@@ -40,31 +34,23 @@ namespace Paul_MELAMPE_MORA.UC
 
         private void BtnFinaliser_Click(object sender, RoutedEventArgs e)
         {
-            // 1. On récupère le bouton cliqué
             Button boutonClique = sender as Button;
 
-            // 2. On extrait la commande liée à ce bouton
             if (boutonClique != null && boutonClique.DataContext is Commande commandeSelectionnee)
             {
                 try
                 {
-                    // 3. On modifie l'objet en mémoire
                     commandeSelectionnee.Est_prete = true;
 
-                    // 4. On lance la sauvegarde dans la base de données
                     commandeSelectionnee.Update();
 
-                    // 5. On rafraîchit la VRAIE liste affichée à l'écran
                     if (this.DataContext is Boulangerie maBoulangerie)
                     {
-                        // On vide la liste regardée par le XAML
                         maBoulangerie.LesCommandes.Clear();
 
-                        // On va rechercher les nouvelles données en base
                         Commande uneCommande = new Commande();
                         var listeCommandes = uneCommande.FindAll();
 
-                        // On reremplit la liste
                         foreach (var elt in listeCommandes)
                         {
                             maBoulangerie.LesCommandes.Add(elt);
@@ -75,7 +61,6 @@ namespace Paul_MELAMPE_MORA.UC
                 }
                 catch (Exception ex)
                 {
-                    // IMPORTANT : Si la BDD refuse la modification (erreur SQL), ce message s'affichera
                     MessageBox.Show("Erreur lors de la mise à jour en base de données : " + ex.Message, "Erreur BDD", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
@@ -87,13 +72,10 @@ namespace Paul_MELAMPE_MORA.UC
 
             if (boutonClique != null && boutonClique.DataContext is Commande commandeChoisie)
             {
-                // 1. On crée le UserControl de la commande
                 UCcommande uneCommandeUC = new UCcommande();
 
-                // 2. MAGIE : On lui dit de se pré-remplir avec la commande cliquée !
                 uneCommandeUC.ChargerPourModification(commandeChoisie);
 
-                // 3. On ouvre le Pop-up
                 Window popupCommande = new Window
                 {
                     Title = "Modifier la commande de " + commandeChoisie.Client.Nom,
@@ -107,12 +89,10 @@ namespace Paul_MELAMPE_MORA.UC
 
                 popupCommande.ShowDialog();
 
-                // 4. Une fois le Pop-up fermé, on rafraîchit la liste principale 
-                // au cas où l'utilisateur aurait modifié des prix ou des dates.
                 ChargerLesCommandes();
             }
         }
-    
+
 
     }
 

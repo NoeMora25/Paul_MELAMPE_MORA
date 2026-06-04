@@ -15,7 +15,25 @@
 
         <Grid Grid.Row="0" Margin="30,25,30,15">
             <StackPanel>
-                <TextBlock Text="Rechercher un Client" FontSize="28" FontFamily="Century" FontWeight="Bold" Foreground="#2A2421" Margin="0,0,0,20"/>
+
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="Rechercher un Client" FontSize="28" FontFamily="Century" FontWeight="Bold" Foreground="#2A2421" VerticalAlignment="Center"/>
+
+                    <Button x:Name="BtnCreeClient" Grid.Column="1" Content="CRÉER UN CLIENT" 
+                            Background="#C29227" Foreground="White" BorderThickness="0" Padding="15,10" 
+                            Click="BtnCreeClient_Click" Cursor="Hand" FontWeight="Bold" FontSize="13" VerticalAlignment="Center">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="6"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
 
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Margin="0,0,15,0">
@@ -68,7 +86,6 @@
                                             <TextBlock Text="{Binding Mail}" FontSize="14" Foreground="#7A6D61" FontStyle="Italic" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </StackPanel>
-
 
                                     <Button x:Name="btnSelectionner" Content="SÉLECTIONNER" HorizontalAlignment="Right" VerticalAlignment="Center"
                                             Background="#C29227" Foreground="White" BorderThickness="0" Padding="15,10" 

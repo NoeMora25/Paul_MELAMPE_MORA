@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System; // N'oublie pas le using System pour StringComparison
 
 namespace Paul_MELAMPE_MORA.UC
 {
@@ -12,15 +11,12 @@ namespace Paul_MELAMPE_MORA.UC
         public ObservableCollection<Client> LesClients { get; set; }
         public Client ClientChoisi { get; private set; }
 
-        // La propriété qui gère l'affichage du bouton
         public Visibility VisibiliteBouton { get; set; }
 
-        // Ajout du paramètre "estModeSelection" avec true par défaut
         public UCrechercheClient(bool estModeSelection = true)
         {
             InitializeComponent();
 
-            // On cache ou on affiche le bouton selon d'où l'on vient
             if (estModeSelection == false)
             {
                 VisibiliteBouton = Visibility.Collapsed;
@@ -83,6 +79,16 @@ namespace Paul_MELAMPE_MORA.UC
                 {
                     fenetrePopup.Close();
                 }
+            }
+        }
+
+        private void BtnCreeClient_Click(object sender, RoutedEventArgs e)
+        {
+            FenetreCreeClient fenetre = new FenetreCreeClient();
+
+            if (fenetre.ShowDialog() == true)
+            {
+                ChargerLesClients();
             }
         }
     }

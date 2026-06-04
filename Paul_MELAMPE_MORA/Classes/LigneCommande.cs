@@ -1,6 +1,4 @@
 ﻿using Npgsql;
-using System;
-using System.Collections.Generic;
 using System.Data;
 
 namespace Paul_MELAMPE_MORA.Classes
@@ -13,7 +11,6 @@ namespace Paul_MELAMPE_MORA.Classes
         public Produit LeProduit { get; set; }
         public int Commande_id { get; set; }
 
-        // AJOUT : Constructeur vide indispensable pour utiliser les méthodes de recherche
         public LigneCommande()
         {
         }
@@ -86,50 +83,48 @@ namespace Paul_MELAMPE_MORA.Classes
             List<LigneCommande> listeLignes = new List<LigneCommande>();
 
             string sql = @"
-                SELECT lc.commande_id, lc.produit_id, lc.quantite, lc.est_decoupe,
+                select lc.commande_id, lc.produit_id, lc.quantite, lc.est_decoupe,
                        p.nb_parts, p.prix, p.est_indisponible,
                        r.recette_id, r.recette_nom, r.recette_description,
                        c.categorie_id, c.categorie_nom
-                FROM ligne_commande lc
-                left JOIN produit p ON lc.produit_id = p.produit_id
-                left JOIN recette r ON p.recette_id = r.recette_id
-                left JOIN categorie c ON r.categorie_id = c.categorie_id
-                WHERE lc.commande_id = @id;";
+                from ligne_commande lc
+                left JOIN produit p on lc.produit_id = p.produit_id
+                left JOIN recette r on p.recette_id = r.recette_id
+                left JOIN categorie c on r.categorie_id = c.categorie_id
+                where lc.commande_id = @id;";
 
             using (NpgsqlCommand cmdSelect = new NpgsqlCommand(sql))
             {
                 cmdSelect.Parameters.AddWithValue("@id", idCommande);
                 DataTable dt = DataAccess.ExecuteSelect(cmdSelect);
-                
+
                 foreach (DataRow dr in dt.Rows)
                 {
                     Categorie laCat = new Categorie(
-                        (int)dr["categorie_id"], 
+                        (int)dr["categorie_id"],
                         dr["categorie_nom"].ToString()
                     );
-                    
-                    // On met "Aucun" pour les allergènes car on n'en a pas besoin dans le panier
+
                     Recette laRecette = new Recette(
-                        (int)dr["recette_id"], 
-                        dr["recette_nom"].ToString(), 
-                        dr["recette_description"].ToString(), 
+                        (int)dr["recette_id"],
+                        dr["recette_nom"].ToString(),
+                        dr["recette_description"].ToString(),
                         laCat,
-                        "Aucun" 
+                        "Aucun"
                     );
 
                     Produit leProduit = new Produit(
-                        (int)dr["produit_id"], 
-                        laRecette, 
-                        (bool)dr["est_indisponible"], 
-                        (int)dr["nb_parts"], 
+                        (int)dr["produit_id"],
+                        laRecette,
+                        (bool)dr["est_indisponible"],
+                        (int)dr["nb_parts"],
                         (decimal)dr["prix"]
                     );
 
-                    // Création de la ligne avec votre constructeur (LaCommande est null, on met juste l'ID)
                     LigneCommande laLigne = new LigneCommande(
                         (int)dr["quantite"],
                         (bool)dr["est_decoupe"],
-                        null, 
+                        null,
                         leProduit
                     );
                     laLigne.Commande_id = idCommande;

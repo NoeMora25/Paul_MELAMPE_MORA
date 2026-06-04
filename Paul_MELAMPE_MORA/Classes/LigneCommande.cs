@@ -54,7 +54,21 @@ namespace Paul_MELAMPE_MORA.Classes
 
         public int Delete()
         {
-            throw new NotImplementedException();
+            string sql = "DELETE FROM ligne_commande WHERE commande_id = @commande_id;";
+
+            using (NpgsqlCommand cmd = new NpgsqlCommand(sql))
+            {
+                cmd.Parameters.AddWithValue("@commande_id", this.Commande_id);
+
+                try
+                {
+                    return DataAccess.ExecuteSet(cmd);
+                }
+                catch (Exception)
+                {
+                    return 0;
+                }
+            }
         }
 
         public List<LigneCommande> FindAll()
@@ -77,9 +91,9 @@ namespace Paul_MELAMPE_MORA.Classes
                        r.recette_id, r.recette_nom, r.recette_description,
                        c.categorie_id, c.categorie_nom
                 FROM ligne_commande lc
-                INNER JOIN produit p ON lc.produit_id = p.produit_id
-                INNER JOIN recette r ON p.recette_id = r.recette_id
-                INNER JOIN categorie c ON r.categorie_id = c.categorie_id
+                left JOIN produit p ON lc.produit_id = p.produit_id
+                left JOIN recette r ON p.recette_id = r.recette_id
+                left JOIN categorie c ON r.categorie_id = c.categorie_id
                 WHERE lc.commande_id = @id;";
 
             using (NpgsqlCommand cmdSelect = new NpgsqlCommand(sql))

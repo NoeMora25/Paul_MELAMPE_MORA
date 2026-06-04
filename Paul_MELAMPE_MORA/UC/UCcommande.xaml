@@ -75,13 +75,50 @@
                 </ItemsControl>
             </ScrollViewer>
 
-            <Button Grid.Row="2" Content="Vider le panier ❌" HorizontalAlignment="Left" Margin="5,15,0,0" Padding="15,8" Background="Transparent" Foreground="#B71C1C" BorderBrush="#B71C1C" BorderThickness="1" Click="BtnViderTout_Click" Cursor="Hand" FontWeight="SemiBold">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="6"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
+            <Grid Grid.Row="2" Margin="5,15,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <ComboBox x:Name="comboNouveauProduit" Width="280" Padding="5" 
+          Background="#FFFFFF" BorderBrush="#D5CFC4"
+          ToolTip="Sélectionnez un produit à ajouter">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Recette.Recette_nom}" FontWeight="Bold" Foreground="#2A2421"/>
+
+                                    <TextBlock Text="{Binding Nb_parts, StringFormat='{} ({0} parts) - '}" Foreground="#7A6D61" FontStyle="Italic" Margin="4,0,0,0"/>
+
+                                    <TextBlock Text="{Binding Prix, StringFormat='{}{0:0.00} €'}" FontWeight="SemiBold" Foreground="#C29227"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <Button Content="➕ Ajouter" Margin="10,0,0,0" Padding="15,5" 
+                Background="#2A2421" Foreground="White" BorderThickness="0" 
+                Cursor="Hand" FontWeight="Bold" Click="BtnAjouterNouveauProduit_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="4"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+
+                <Button Grid.Column="1" Content="Vider le panier ❌" Padding="15,8" 
+            Background="Transparent" Foreground="#B71C1C" BorderBrush="#B71C1C" 
+            BorderThickness="1" Click="BtnViderTout_Click" Cursor="Hand" FontWeight="SemiBold">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="6"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
         </Grid>
 
         <Grid Grid.Column="1">

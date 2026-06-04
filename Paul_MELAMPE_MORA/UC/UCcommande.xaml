@@ -37,7 +37,12 @@
                                     <Grid>
                                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" MaxWidth="280">
                                             <TextBlock Text="{Binding LeProduit.Recette.Recette_nom}" FontSize="16" FontWeight="Bold" TextWrapping="Wrap" Foreground="#2A2421"/>
-                                            <TextBlock Text="{Binding LeProduit.Nb_parts, StringFormat='{}{0} parts'}" FontSize="13" Foreground="#7A6D61" FontStyle="Italic"/>
+
+                                            <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                                <TextBlock Text="{Binding LeProduit.Nb_parts, StringFormat='{}{0} parts'}" FontSize="13" Foreground="#7A6D61" FontStyle="Italic" Margin="0,0,15,0" VerticalAlignment="Center"/>
+                                                <CheckBox Content="Découpé / Tranché" IsChecked="{Binding Est_decoupe, Mode=TwoWay}" Foreground="#C29227" FontSize="13" FontWeight="Bold" VerticalAlignment="Center" Cursor="Hand"/>
+                                            </StackPanel>
+
                                         </StackPanel>
 
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">

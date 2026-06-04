@@ -168,37 +168,43 @@ namespace Paul_MELAMPE_MORA.UC
 
             int categorieEvenement = 0;
             if (comboCategorieEvenement.SelectedIndex == 1)
-            { 
-                    categorieEvenement = 1; // Familial
+            {
+                categorieEvenement = 1; // Familial
             }
             else if (comboCategorieEvenement.SelectedIndex == 2)
             {
-                    categorieEvenement = 2; // Professionel
+                categorieEvenement = 2; // Professionnel
             }
 
-            if(dateEvenement.SelectedDate.HasValue && dateEvenement.SelectedDate.Value < DateTime.Now)
+            if (dateEvenement.SelectedDate.HasValue && dateEvenement.SelectedDate.Value < DateTime.Now)
             {
                 MessageBox.Show("La date de l'événement ne peut pas être dans le passé. Veuillez corriger cette information.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            if(dateEvenement.SelectedDate.HasValue && dateEvenement.SelectedDate.Value < dateRetrait.SelectedDate.Value)
+            if (dateEvenement.SelectedDate.HasValue && dateEvenement.SelectedDate.Value < dateRetrait.SelectedDate.Value)
             {
                 MessageBox.Show("La date de l'événement doit être postérieure à la date de retrait. Veuillez corriger cette information.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            Commande nouvelleCommande = new Commande();
-            nouvelleCommande.Date_creation = DateOnly.FromDateTime(DateTime.Now);
-            nouvelleCommande.Date_retrait = DateOnly.FromDateTime(dateRetrait.SelectedDate.Value);
-            nouvelleCommande.Total = totalCommande;
-            nouvelleCommande.Acompte = acompteCommande;
-            nouvelleCommande.Est_prete = false;
-            nouvelleCommande.Est_recuperee = false;
-            nouvelleCommande.Date_evenement = dateEvenement.SelectedDate.HasValue ? DateOnly.FromDateTime(dateEvenement.SelectedDate.Value) : null;
-            nouvelleCommande.Nb_personne = nbPersonnes;
-            nouvelleCommande.Client = LeClientAssocie;
-            nouvelleCommande.Categorie_evenement = categorieEvenement > 0 ? new Categorie_evenement { Categorie_evenement_id = categorieEvenement } : null; 
+            // DÉBUT DU BLOC TRY (qui manquait)
+            try
+            {
+                // DÉBUT DU IF POUR LA CRÉATION (qui manquait)
+                if (CommandeAModifier == null)
+                {
+                    Commande nouvelleCommande = new Commande();
+                    nouvelleCommande.Date_creation = DateOnly.FromDateTime(DateTime.Now);
+                    nouvelleCommande.Date_retrait = DateOnly.FromDateTime(dateRetrait.SelectedDate.Value);
+                    nouvelleCommande.Total = totalCommande;
+                    nouvelleCommande.Acompte = acompteCommande;
+                    nouvelleCommande.Est_prete = false;
+                    nouvelleCommande.Est_recuperee = false;
+                    nouvelleCommande.Date_evenement = dateEvenement.SelectedDate.HasValue ? DateOnly.FromDateTime(dateEvenement.SelectedDate.Value) : null;
+                    nouvelleCommande.Nb_personne = nbPersonnes;
+                    nouvelleCommande.Client = clientFinal;
+                    nouvelleCommande.Categorie_evenement = categorieEvenement > 0 ? new Categorie_evenement { Categorie_evenement_id = categorieEvenement } : null;
 
                     int idCommandeGenere = nouvelleCommande.Create();
 

@@ -34,11 +34,10 @@ namespace Paul_MELAMPE_MORA.Classes
                 {
                     LogError.Log(ex, "Pb à la connexion  \n");
 
-                    // SÉCURITÉ : On vide le cache des connexions de Npgsql pour éviter 
-                    // que la base de données ne garde l'erreur en mémoire
+                    // Vide le cache de NGSQL
                     NpgsqlConnection.ClearAllPools();
 
-                    throw; // On renvoie l'erreur pour que l'UClogin l'affiche en rouge
+                    throw;
                 }
             }
             return connection;

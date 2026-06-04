@@ -142,7 +142,7 @@
                 </ScrollViewer>
 
                 <StackPanel Grid.Row="2" Margin="0,15,0,0">
-                    <Button Content="Enregistrer la commande" Background="#4CAF50" Foreground="White" 
+                    <Button x:Name="BtnValiderCommande" Content="Enregistrer la commande" Background="#4CAF50" Foreground="White" 
                             BorderThickness="0" Padding="0,12" FontSize="16" FontWeight="Bold"
                             Click="BtnValiderCommande_Click" Cursor="Hand" Margin="0,0,0,10"/>
 

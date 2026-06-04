@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Paul_MELAMPE_MORA.UC
 {
@@ -86,16 +87,19 @@ namespace Paul_MELAMPE_MORA.UC
 
             if (boutonClique != null && boutonClique.DataContext is Commande commandeChoisie)
             {
+                // 1. On crée le UserControl de la commande
                 UCcommande uneCommandeUC = new UCcommande();
-        
-                uneCommandeUC.DataContext = commandeChoisie;
 
+                // 2. MAGIE : On lui dit de se pré-remplir avec la commande cliquée !
+                uneCommandeUC.ChargerPourModification(commandeChoisie);
+
+                // 3. On ouvre le Pop-up
                 Window popupCommande = new Window
                 {
                     Title = "Modifier la commande de " + commandeChoisie.Client.Nom,
                     Content = uneCommandeUC,
-                    Width = 800,
-                    Height = 550,
+                    Width = 1000,
+                    Height = 750,
                     WindowStartupLocation = WindowStartupLocation.CenterScreen,
                     ResizeMode = ResizeMode.NoResize,
                     WindowStyle = WindowStyle.ToolWindow,
@@ -104,22 +108,12 @@ namespace Paul_MELAMPE_MORA.UC
 
                 popupCommande.ShowDialog();
 
-                // 7. Quand l'utilisateur ferme le pop-up, on rafraîchit la liste principale
-                // au cas où il aurait modifié des choses (comme la date, le prix, etc.)
-                if (this.DataContext is Boulangerie maBoulangerie)
-                {
-                    maBoulangerie.LesCommandes.Clear();
-                    Commande uneCommande = new Commande();
-                    var listeCommandes = uneCommande.FindAll();
-                    foreach (var elt in listeCommandes)
-                    {
-                        maBoulangerie.LesCommandes.Add(elt);
-                    }
-                }
+                // 4. Une fois le Pop-up fermé, on rafraîchit la liste principale 
+                // au cas où l'utilisateur aurait modifié des prix ou des dates.
+                ChargerLesCommandes();
             }
         }
-
-
+    
 
     }
 

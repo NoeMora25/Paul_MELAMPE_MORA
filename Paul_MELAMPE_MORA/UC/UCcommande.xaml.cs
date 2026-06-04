@@ -12,7 +12,8 @@ namespace Paul_MELAMPE_MORA.UC
         public ObservableCollection<LigneCommande> LePanier { get; set; }
         public Client LeClientAssocie { get; set; }
 
-        public Commande CommandeChoisie { get; private set; }
+        public Commande CommandeAModifier { get; set; } = null;
+
 
         public UCcommande()
         {
@@ -120,12 +121,20 @@ namespace Paul_MELAMPE_MORA.UC
 
         private void BtnValiderCommande_Click(object sender, RoutedEventArgs e)
         {
-            if (LeClientAssocie == null)
+            // 1. VÉRIFICATION DU CLIENT
+            // Si on modifie, le client est celui de la commande. Si on crée, c'est LeClientAssocie.
+            Client clientFinal = CommandeAModifier != null ? CommandeAModifier.Client : LeClientAssocie;
+
+            // Si l'utilisateur a recherché un nouveau client pendant la modification, on le prend
+            if (LeClientAssocie != null) clientFinal = LeClientAssocie;
+
+            if (clientFinal == null)
             {
                 MessageBox.Show("Impossible de valider : Vous devez sélectionner un client.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
+            // 2. VÉRIFICATION DU PANIER ET DE LA DATE
             if (LePanier.Count == 0)
             {
                 MessageBox.Show("Impossible de valider : Le panier est vide.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -138,6 +147,7 @@ namespace Paul_MELAMPE_MORA.UC
                 return;
             }
 
+            // 3. CALCULS FINANCIERS
             decimal totalCommande = 0;
             foreach (var ligne in LePanier)
             {
@@ -145,43 +155,97 @@ namespace Paul_MELAMPE_MORA.UC
             }
             decimal acompteCommande = totalCommande * 0.25m;
 
-            int nbPersonnes = 1;
-            int.TryParse(txtNbPersonnes.Text, out nbPersonnes);
-
-            if (nbPersonnes <= 0)
+            // 4. GESTION DES VALEURS OPTIONNELLES (Nullables)
+            int? nbPersonnes = null;
+            if (!string.IsNullOrWhiteSpace(txtNbPersonnes.Text))
             {
-                MessageBox.Show("Le nombre de personnes doit être supérieur à 0. Veuillez corriger cette information.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                if (int.TryParse(txtNbPersonnes.Text, out int parsedNb) && parsedNb > 0)
+                {
+                    nbPersonnes = parsedNb;
+                }
+                else
+                {
+                    MessageBox.Show("Le nombre de personnes doit être supérieur à 0.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
             }
 
-            Commande nouvelleCommande = new Commande();
-            nouvelleCommande.Date_creation = DateOnly.FromDateTime(DateTime.Now);
-            nouvelleCommande.Date_retrait = DateOnly.FromDateTime(dateRetrait.SelectedDate.Value);
-            nouvelleCommande.Total = totalCommande;
-            nouvelleCommande.Acompte = acompteCommande;
-            nouvelleCommande.Est_prete = false;
-            nouvelleCommande.Est_recuperee = false;
-            nouvelleCommande.Date_evenement = DateOnly.FromDateTime(dateEvenement.SelectedDate ?? DateTime.MinValue);
-            nouvelleCommande.Nb_personne = nbPersonnes;
-            nouvelleCommande.Client = LeClientAssocie;
+            Categorie_evenement categorieFinal = null;
+            if (comboCategorieEvenement.SelectedIndex == 1) categorieFinal = new Categorie_evenement(1, "Familial");
+            if (comboCategorieEvenement.SelectedIndex == 2) categorieFinal = new Categorie_evenement(2, "Professionnel");
+
+            DateOnly? dateEvt = dateEvenement.SelectedDate.HasValue ? DateOnly.FromDateTime(dateEvenement.SelectedDate.Value) : null;
 
             try
             {
-                int idCommandeGenere = nouvelleCommande.Create();
+                if (CommandeAModifier == null)
+                {
+                    // ==================================================
+                    // MODE : CRÉATION D'UNE NOUVELLE COMMANDE
+                    // ==================================================
+                    Commande nouvelleCommande = new Commande();
+                    nouvelleCommande.Date_creation = DateOnly.FromDateTime(DateTime.Now);
+                    nouvelleCommande.Date_retrait = DateOnly.FromDateTime(dateRetrait.SelectedDate.Value);
+                    nouvelleCommande.Total = totalCommande;
+                    nouvelleCommande.Acompte = acompteCommande;
+                    nouvelleCommande.Est_prete = false;
+                    nouvelleCommande.Est_recuperee = false;
+                    nouvelleCommande.Date_evenement = dateEvt;
+                    nouvelleCommande.Nb_personne = nbPersonnes;
+                    nouvelleCommande.Client = clientFinal;
+                    nouvelleCommande.Categorie_evenement = categorieFinal;
 
-                if (idCommandeGenere <= 0)
-                {
-                    MessageBox.Show("Erreur lors de la création de la commande en base.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
+                    int idCommandeGenere = nouvelleCommande.Create();
+
+                    if (idCommandeGenere <= 0)
+                    {
+                        MessageBox.Show("Erreur lors de la création de la commande en base.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
+                    // Sauvegarde des produits (Lignes_Commande)
+                    foreach (var ligne in LePanier)
+                    {
+                        ligne.Commande_id = idCommandeGenere;
+                        ligne.Create();
+                    }
+
+                    MessageBox.Show("Commande enregistrée avec succès !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // On retourne à l'écran produit
+                    MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
+                    mainWindow.MainContent.Content = new UCproduit();
                 }
-                foreach (var ligne in LePanier)
+                else
                 {
-                    ligne.Commande_id = idCommandeGenere;
-                    ligne.Create();
+                    // ==================================================
+                    // MODE : MODIFICATION D'UNE COMMANDE EXISTANTE
+                    // ==================================================
+                    CommandeAModifier.Client = clientFinal;
+                    CommandeAModifier.Date_retrait = DateOnly.FromDateTime(dateRetrait.SelectedDate.Value);
+                    CommandeAModifier.Total = totalCommande;
+                    CommandeAModifier.Acompte = acompteCommande;
+                    CommandeAModifier.Date_evenement = dateEvt;
+                    CommandeAModifier.Nb_personne = nbPersonnes;
+                    CommandeAModifier.Categorie_evenement = categorieFinal;
+
+                    // Mise à jour de la table Commande
+                    CommandeAModifier.Update();
+
+                    // NOTE POUR LES PRODUITS : 
+                    // Si vous autorisez la modification des produits du panier, il faudra coder une méthode
+                    // dans LigneCommande pour supprimer les anciennes lignes de cette commande
+                    // et faire un "ligne.Create()" pour insérer le nouveau panier.
+
+                    MessageBox.Show("La commande a été mise à jour avec succès !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // On ferme le pop-up
+                    Window popup = Window.GetWindow(this);
+                    if (popup != null)
+                    {
+                        popup.Close();
+                    }
                 }
-                MessageBox.Show("Commande enregistrée avec succès !", "", MessageBoxButton.OK, MessageBoxImage.Information);
-                MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
-                mainWindow.MainContent.Content = new UCproduit();
             }
             catch (Exception ex)
             {
@@ -211,6 +275,48 @@ namespace Paul_MELAMPE_MORA.UC
             lblTotal.Text = string.Format("{0:N2} €", total);
             lblAcompte.Text = string.Format("{0:N2} €", acompte);
             lblResteAPayer.Text = string.Format("{0:N2} €", reste);
+        }
+
+
+        public void ChargerPourModification(Commande laCommande)
+        {
+            this.CommandeAModifier = laCommande;
+
+            BtnValiderCommande.Content = "Mettre à jour la commande";
+            txtClientStatus.Visibility = Visibility.Collapsed; 
+
+            txtClientNomPrenom.Text = laCommande.Client.Nom + " " + laCommande.Client.Prenom;
+            txtClientTel.Text = string.IsNullOrEmpty(laCommande.Client.Telephone) ? "Non renseigné" : laCommande.Client.Telephone;
+            txtClientMail.Text = string.IsNullOrEmpty(laCommande.Client.Mail) ? "Non renseigné" : laCommande.Client.Mail;
+
+            // (WPF utilise DateTime, donc on convertit les DateOnly en DateTime)
+            dateRetrait.SelectedDate = laCommande.Date_retrait.ToDateTime(TimeOnly.MinValue);
+
+            if (laCommande.Date_evenement != null)
+            {
+                dateEvenement.SelectedDate = laCommande.Date_evenement.Value.ToDateTime(TimeOnly.MinValue);
+            }
+
+            // --- On remplit les informations de l'évènement ---
+            txtNbPersonnes.Text = laCommande.Nb_personne?.ToString() ?? "";
+
+            if (laCommande.Categorie_evenement != null)
+            {
+                if (laCommande.Categorie_evenement.Categorie_evenement_nom == "Familial")
+                    comboCategorieEvenement.SelectedIndex = 1;
+                else if (laCommande.Categorie_evenement.Categorie_evenement_nom == "Professionnel")
+                    comboCategorieEvenement.SelectedIndex = 2;
+            }
+
+            // --- On remplit les totaux financiers ---
+            lblTotal.Text = laCommande.Total.ToString("0.00") + " €";
+            lblAcompte.Text = laCommande.Acompte.ToString("0.00") + " €";
+            lblResteAPayer.Text = (laCommande.Total - laCommande.Acompte).ToString("0.00") + " €";
+
+
+            // IMPORTANT : Ici, vous devrez également coder la logique pour remplir 
+            // votre variable 'LePanier' avec les Lignes_Commande de cette commande 
+            // pour que les produits s'affichent à gauche !
         }
     }
 }

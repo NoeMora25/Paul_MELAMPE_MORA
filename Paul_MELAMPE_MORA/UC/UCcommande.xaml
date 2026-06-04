@@ -96,49 +96,29 @@
                             </StackPanel>
                         </Border>
 
-                        <Grid Margin="0,0,0,15">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                        <StackPanel Margin="0,0,0,15">
+                            <TextBlock Text="Catégorie d'événement :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
+                            <ComboBox x:Name="comboCategorieEvenement" Padding="6">
+                                <ComboBoxItem Content="Aucun événement" IsSelected="True"/>
+                                <ComboBoxItem Content="Familial"/>
+                                <ComboBoxItem Content="Professionnel"/>
+                            </ComboBox>
+                        </StackPanel>
 
-                            <StackPanel Grid.Column="0" Margin="0,0,5,0">
-                                <TextBlock Text="Catégorie d'événement :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
-                                <ComboBox x:Name="comboCategorieEvenement" Padding="6" SelectionChanged="ComboCategorieEvenement_SelectionChanged">
-                                    <ComboBoxItem Content="Aucun événement" IsSelected="True"/>
-                                    <ComboBoxItem Content="Familial"/>
-                                    <ComboBoxItem Content="Professionnel"/>
-                                </ComboBox>
-                            </StackPanel>
-
-                            <StackPanel Grid.Column="1" Margin="5,0,0,0">
-                                <TextBlock Text="Nom de l'événement :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
-                                <ComboBox x:Name="comboNomEvenement" Padding="6" IsEnabled="False">
-                                    <ComboBoxItem Content="-" IsSelected="True"/>
-                                </ComboBox>
-                            </StackPanel>
-                        </Grid>
+                        <StackPanel Margin="0,0,0,15">
+                            <TextBlock Text="Date de évenement :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
+                            <DatePicker x:Name="dateEvenement" Padding="5"/>
+                        </StackPanel>
 
                         <StackPanel Margin="0,0,0,15">
                             <TextBlock Text="Date de retrait prévue :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
                             <DatePicker x:Name="dateRetrait" Padding="5"/>
                         </StackPanel>
 
-                        <Grid Margin="0,0,0,20">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <StackPanel Grid.Column="0" Margin="0,0,5,0">
-                                <TextBlock Text="Nombre de personnes :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
-                                <TextBox x:Name="txtNbPersonnes" Text="1" Padding="6" TextAlignment="Center"/>
-                            </StackPanel>
-
-                            <StackPanel Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Bottom">
-                                <CheckBox x:Name="chkDemandeDecoupe" Content="Découpe des gâteaux" FontSize="13" Foreground="#333333" Margin="0,0,0,6" Cursor="Hand"/>
-                            </StackPanel>
-                        </Grid>
+                        <StackPanel Margin="0,0,0,20">
+                            <TextBlock Text="Nombre de personnes :" FontSize="12" Foreground="Gray" Margin="0,0,0,5"/>
+                            <TextBox x:Name="txtNbPersonnes" Text="1" Padding="6" TextAlignment="Center"/>
+                        </StackPanel>
 
                         <Separator Background="#DDDDDD" Margin="0,0,0,20"/>
 

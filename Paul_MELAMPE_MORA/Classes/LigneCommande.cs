@@ -1,5 +1,4 @@
 ﻿using Npgsql;
-using System;
 
 namespace Paul_MELAMPE_MORA.Classes
 {

@@ -1,6 +1,4 @@
 ﻿using Npgsql;
-using System;
-using System.Collections.Generic;
 using System.Data;
 
 namespace Paul_MELAMPE_MORA.Classes

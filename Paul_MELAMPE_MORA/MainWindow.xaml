@@ -9,15 +9,38 @@
         MinWidth="340" MinHeight="450" ResizeMode="NoResize" 
         WindowStartupLocation="CenterScreen" WindowState="Maximized">
 
+    <Window.Resources>
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="#FFD0D0D0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" Padding="20,10" CornerRadius="8" BorderThickness="0">
+                            <TextBlock Text="{TemplateBinding Content}" FontSize="20" FontFamily="Century" FontWeight="Bold" 
+                                       Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#FF927F00"/>
+                    <Setter Property="Background" Value="#333333"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- BANDEAU SUPERIEUR : Hauteur augmentée de 60 à 90 -->
         <Grid Grid.Row="0" x:Name="Bandeau" Height="90" Background="#1A1A1A">
-
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="12" ShadowDepth="3" Opacity="0.5" Direction="270" />
             </Grid.Effect>
@@ -27,8 +50,20 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
+
             <Image Grid.Column="0" Source="/img/LogoPaul.jpg" Stretch="Uniform" Height="70" Margin="30,0,0,0" VerticalAlignment="Center"/>
-            <Button x:Name="ButDeconnecter" Grid.Column="2" Content="&#x23FB;" Foreground="#FF927F00" Background="Transparent" BorderThickness="0" FontSize="40" FontFamily="Lucida Fax" VerticalAlignment="Center" Margin="0,0,30,0" Cursor="Hand" Click="ButDeconnecter_Click"/>
+
+            <StackPanel x:Name="MenuVendeur" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+
+                <Button x:Name="BtnMenuCommande" Content="Prendre une Commande" Style="{StaticResource MenuButtonStyle}" Margin="0,0,20,0" Click="BtnMenuCommande_Click"/>
+
+                <Button x:Name="BtnMenuClient" Content="Gérer les Clients" Style="{StaticResource MenuButtonStyle}" Click="BtnMenuClient_Click" Cursor="Hand"/>
+
+            </StackPanel>
+
+            <Button x:Name="ButDeconnecter" Grid.Column="2" Content="&#x23FB;"
+                    Foreground="#FF927F00" Background="Transparent" BorderThickness="0" FontSize="40" FontFamily="Lucida Fax" 
+                    VerticalAlignment="Center" Margin="0,0,30,0" Cursor="Hand" Click="ButDeconnecter_Click" Visibility="Collapsed"/>
         </Grid>
 
         <ContentControl Grid.Row="1" x:Name="MainContent" Margin="0" />

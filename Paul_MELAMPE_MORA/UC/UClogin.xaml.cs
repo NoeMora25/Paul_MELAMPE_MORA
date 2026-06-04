@@ -30,10 +30,13 @@ namespace Paul_MELAMPE_MORA.UC
                     if (mainWindow.roleUser == "Chef")
                     {
                         mainWindow.MainContent.Content = new UCgererCommande();
+                        mainWindow.ButDeconnecter.Visibility = Visibility.Visible;
                     }
                     else if (mainWindow.roleUser == "Vendeur")
                     {
                         mainWindow.MainContent.Content = new UCproduit();
+                        mainWindow.MenuVendeur.Visibility = Visibility.Visible;
+                        mainWindow.ButDeconnecter.Visibility = Visibility.Visible;
                     }
                     else
                     {

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Paul_MELAMPE_MORA.UC.UCrechercheClient"
+﻿<UserControl x:Name="ucRechercheClient" x:Class="Paul_MELAMPE_MORA.UC.UCrechercheClient"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -13,7 +13,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- EN-TÊTE ET FILTRES DE RECHERCHE -->
         <Grid Grid.Row="0" Margin="30,25,30,15">
             <StackPanel>
                 <TextBlock Text="Rechercher un Client" FontSize="28" FontFamily="Century" FontWeight="Bold" Foreground="#2A2421" Margin="0,0,0,20"/>
@@ -42,14 +41,12 @@
             </StackPanel>
         </Grid>
 
-        <!-- ZONE PRINCIPALE (RÉSULTATS DE RECHERCHE) -->
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="30,5,15,20">
             <ItemsControl x:Name="icClients" ItemsSource="{Binding LesClients}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,0,15,15">
 
-                            <!-- Ombre portée de la carte -->
                             <Border Background="#F6F4F0" CornerRadius="8">
                                 <Border.Effect>
                                     <DropShadowEffect BlurRadius="6" ShadowDepth="1.5" Opacity="0.1" Direction="270" Color="#2A2421" />
@@ -58,7 +55,7 @@
 
                             <Border Background="#F6F4F0" BorderBrush="#D5CFC4" BorderThickness="1" CornerRadius="8" Padding="20,15">
                                 <Grid>
-                                    <!-- Informations du client -->
+
                                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="{Binding Nom}" FontSize="18" FontWeight="Bold" Foreground="#2A2421"/>
@@ -72,10 +69,11 @@
                                         </StackPanel>
                                     </StackPanel>
 
-                                    <!-- Bouton Sélectionner -->
-                                    <Button Content="SÉLECTIONNER" HorizontalAlignment="Right" VerticalAlignment="Center"
+
+                                    <Button x:Name="btnSelectionner" Content="SÉLECTIONNER" HorizontalAlignment="Right" VerticalAlignment="Center"
                                             Background="#C29227" Foreground="White" BorderThickness="0" Padding="15,10" 
-                                            Click="BtnSelectionner_Click" Cursor="Hand" FontWeight="Bold" FontSize="13">
+                                            Click="BtnSelectionner_Click" Cursor="Hand" FontWeight="Bold" FontSize="13" 
+                                            Visibility="{Binding VisibiliteBouton, ElementName=ucRechercheClient}">
                                         <Button.Resources>
                                             <Style TargetType="Border">
                                                 <Setter Property="CornerRadius" Value="6"/>

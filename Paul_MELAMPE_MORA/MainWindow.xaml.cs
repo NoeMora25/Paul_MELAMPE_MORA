@@ -46,6 +46,17 @@ namespace Paul_MELAMPE_MORA
             mdp_user = "";
             loginuser = "";
             MainContent.Content = new UClogin();
+            MenuVendeur.Visibility = Visibility.Collapsed;
+            ButDeconnecter.Visibility = Visibility.Collapsed;
+        }
+        private void BtnMenuCommande_Click(object sender, RoutedEventArgs e)
+        {
+            MainContent.Content = new UCproduit();
+        }
+
+        private void BtnMenuClient_Click(object sender, RoutedEventArgs e)
+        {
+            MainContent.Content = new UCrechercheClient(false);
         }
     }
 }

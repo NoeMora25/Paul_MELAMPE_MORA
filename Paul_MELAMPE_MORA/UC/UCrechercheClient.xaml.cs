@@ -3,19 +3,33 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System; // N'oublie pas le using System pour StringComparison
 
 namespace Paul_MELAMPE_MORA.UC
 {
     public partial class UCrechercheClient : UserControl
     {
         public ObservableCollection<Client> LesClients { get; set; }
-
-        // Ajout de la propriété pour que UCcommande puisse récupérer le client sélectionné
         public Client ClientChoisi { get; private set; }
 
-        public UCrechercheClient()
+        // La propriété qui gère l'affichage du bouton
+        public Visibility VisibiliteBouton { get; set; }
+
+        // Ajout du paramètre "estModeSelection" avec true par défaut
+        public UCrechercheClient(bool estModeSelection = true)
         {
             InitializeComponent();
+
+            // On cache ou on affiche le bouton selon d'où l'on vient
+            if (estModeSelection == false)
+            {
+                VisibiliteBouton = Visibility.Collapsed;
+            }
+            else
+            {
+                VisibiliteBouton = Visibility.Visible;
+            }
+
             this.DataContext = this;
             LesClients = new ObservableCollection<Client>();
             ChargerLesClients();
@@ -58,19 +72,13 @@ namespace Paul_MELAMPE_MORA.UC
         private void BtnSelectionner_Click(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
-
-            // Récupération du client lié au bouton cliqué dans ton interface
             Client clientSelectionne = btn.DataContext as Client;
 
             if (clientSelectionne != null)
             {
-                // 1. On stocke le client dans notre propriété publique
                 ClientChoisi = clientSelectionne;
-
-                // 2. On récupère la fenêtre pop-up qui contient ce UserControl
                 Window fenetrePopup = Window.GetWindow(this);
 
-                // 3. On ferme la fenêtre pour retourner sur UCcommande
                 if (fenetrePopup != null)
                 {
                     fenetrePopup.Close();

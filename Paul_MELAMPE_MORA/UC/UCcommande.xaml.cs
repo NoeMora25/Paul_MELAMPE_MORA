@@ -164,6 +164,17 @@ namespace Paul_MELAMPE_MORA.UC
                     categorieEvenement = 2; // Professionel
             }
 
+            if(dateEvenement.SelectedDate.HasValue && dateEvenement.SelectedDate.Value < DateTime.Now)
+            {
+                MessageBox.Show("La date de l'événement ne peut pas être dans le passé. Veuillez corriger cette information.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if(dateEvenement.SelectedDate.HasValue && dateEvenement.SelectedDate.Value < dateRetrait.SelectedDate.Value)
+            {
+                MessageBox.Show("La date de l'événement doit être postérieure à la date de retrait. Veuillez corriger cette information.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
             Commande nouvelleCommande = new Commande();
             nouvelleCommande.Date_creation = DateOnly.FromDateTime(DateTime.Now);

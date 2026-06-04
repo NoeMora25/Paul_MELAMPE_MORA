@@ -12,6 +12,8 @@ namespace Paul_MELAMPE_MORA.UC
         public ObservableCollection<LigneCommande> LePanier { get; set; }
         public Client LeClientAssocie { get; set; }
 
+        public Commande CommandeChoisie { get; private set; }
+
         public UCcommande()
         {
             InitializeComponent();

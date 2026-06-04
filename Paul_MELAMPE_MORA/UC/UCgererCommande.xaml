@@ -31,7 +31,7 @@
 
                             <Border Background="#F6F4F0" BorderBrush="#D5CFC4" BorderThickness="1" CornerRadius="8" Padding="15" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType">
 
-                                <StackPanel HorizontalAlignment="Stretch">
+                                <StackPanel x:Name="CelluleCommande" HorizontalAlignment="Stretch">
 
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                                         <TextBlock Text="{Binding Client.Nom}" FontSize="18" FontWeight="Bold" Foreground="#2A2421" TextWrapping="Wrap" />
@@ -104,7 +104,7 @@
 
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
 
-                                        <Button x:Name="BtnModifier" Content="Modifier" Foreground="#3E3631" Background="Transparent" BorderBrush="#A99F93" BorderThickness="1" Cursor="Hand" Padding="12,5" Margin="0,0,10,0" FontWeight="SemiBold">
+                                        <Button x:Name="BtnModifier" Content="Modifier" Foreground="#3E3631" Background="Transparent" BorderBrush="#A99F93" BorderThickness="1" Cursor="Hand" Padding="12,5" Margin="0,0,10,0" FontWeight="SemiBold" Click="BtnModifier_Click">
                                             <Button.Resources>
                                                 <Style TargetType="Border">
                                                     <Setter Property="CornerRadius" Value="4"/>

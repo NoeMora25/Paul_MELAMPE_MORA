@@ -73,7 +73,7 @@
                         BorderThickness="1" 
                         FontSize="16" 
                         Cursor="Hand"
-                        HorizontalAlignment="Center">
+                        HorizontalAlignment="Center" IsDefault="True">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="20"/>

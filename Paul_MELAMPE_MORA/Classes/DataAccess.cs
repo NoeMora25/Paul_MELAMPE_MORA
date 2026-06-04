@@ -1,4 +1,5 @@
-using Npgsql;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Windows;
 
@@ -6,26 +7,22 @@ namespace Paul_MELAMPE_MORA.Classes
 {
     public class DataAccess
     {
-        private static readonly string connectionString;
+        private static string connectionString;
         private static NpgsqlConnection connection;
 
-        static DataAccess()
-        {
-            MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
-            connectionString = $"Host=srv-peda-new;Port=5433;Username={mainWindow.loginuser};Password={mainWindow.mdp_user};Database=S201_MORA_MELAMPE;Options='-c search_path=melampel'";
-            try
-            {
-                connection = new NpgsqlConnection(connectionString);
-            }
-            catch (Exception ex)
-            {
-                LogError.Log(ex, "Pb à la connexion  \n");
-                throw;
-            }
-        }
 
         public static NpgsqlConnection GetConnection()
         {
+            MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+
+            string currentConnectionString = $"Host=srv-peda-new;Port=5433;Username={mainWindow.loginuser};Password={mainWindow.mdp_user};Database=S201_MORA_MELAMPE;Options='-c search_path=melampel'";
+
+            if (connection == null || connectionString != currentConnectionString)
+            {
+                connectionString = currentConnectionString;
+                connection = new NpgsqlConnection(connectionString);
+            }
+
             if (connection.State == ConnectionState.Closed || connection.State == ConnectionState.Broken)
             {
                 try
@@ -35,7 +32,12 @@ namespace Paul_MELAMPE_MORA.Classes
                 catch (Exception ex)
                 {
                     LogError.Log(ex, "Pb à la connexion  \n");
-                    throw;
+
+                    // SÉCURITÉ : On vide le cache des connexions de Npgsql pour éviter 
+                    // que la base de données ne garde l'erreur en mémoire
+                    NpgsqlConnection.ClearAllPools();
+
+                    throw; // On renvoie l'erreur pour que l'UClogin l'affiche en rouge
                 }
             }
             return connection;
@@ -110,7 +112,7 @@ namespace Paul_MELAMPE_MORA.Classes
 
         public static void CloseConnection()
         {
-            if (connection.State == ConnectionState.Open)
+            if (connection != null && connection.State == ConnectionState.Open)
             {
                 connection.Close();
             }

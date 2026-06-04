@@ -26,11 +26,10 @@ namespace Paul_MELAMPE_MORA.UC
 
             foreach (var elt in listeCommandes)
             {
-                LesCommandes.Add(elt);
-                //if (!elt.Est_prete)
-                //{
-                //    LesCommandes.Add(elt);
-                //}
+                if (!elt.Est_recuperee)
+                {
+                    LesCommandes.Add(elt);
+                }
             }
         }
 

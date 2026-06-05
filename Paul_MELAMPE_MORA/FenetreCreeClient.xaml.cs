@@ -14,18 +14,14 @@ namespace Paul_MELAMPE_MORA
 
         private string FormaterPropre(string texte)
         {
-            // Si le texte est vide ou ne contient que des espaces, on renvoie du vide
             if (string.IsNullOrWhiteSpace(texte))
                 return string.Empty;
 
-            // On enlève les espaces en trop au début et à la fin
             texte = texte.Trim();
 
-            // S'il n'y a qu'une seule lettre, on la met juste en majuscule
             if (texte.Length == 1)
                 return texte.ToUpper();
 
-            // Sinon : 1ère lettre en Majuscule + Le reste en minuscule
             return char.ToUpper(texte[0]) + texte.Substring(1).ToLower();
         }
 

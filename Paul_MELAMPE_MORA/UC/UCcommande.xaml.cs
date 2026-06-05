@@ -17,10 +17,8 @@ namespace Paul_MELAMPE_MORA.UC
         {
             InitializeComponent();
 
-            // 1. ON CRÉE LA LISTE EN PREMIER
             LePanier = new ObservableCollection<LigneCommande>();
 
-            // 2. ENSUITE SEULEMENT ON LIE L'ÉCRAN AUX DONNÉES
             this.DataContext = this;
 
             ChargerListeProduitsDeroulante();
@@ -257,7 +255,7 @@ namespace Paul_MELAMPE_MORA.UC
                     CommandeAModifier.Update();
 
                     LigneCommande outilSuppression = new LigneCommande();
-                    outilSuppression.Commande_id = CommandeAModifier.Id; 
+                    outilSuppression.Commande_id = CommandeAModifier.Id;
 
                     outilSuppression.Delete();
 
@@ -404,7 +402,7 @@ namespace Paul_MELAMPE_MORA.UC
                 {
                     ligneExistante.Quantite++;
                     int index = LePanier.IndexOf(ligneExistante);
-                    LePanier[index] = ligneExistante; 
+                    LePanier[index] = ligneExistante;
                 }
                 else
                 {

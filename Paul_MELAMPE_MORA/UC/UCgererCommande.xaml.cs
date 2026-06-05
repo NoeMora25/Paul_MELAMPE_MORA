@@ -1,6 +1,4 @@
 ﻿using Paul_MELAMPE_MORA.Classes;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,7 +15,6 @@ namespace Paul_MELAMPE_MORA.UC
             InitializeComponent();
             LesCommandes = new ObservableCollection<Commande>();
 
-            // INDISPENSABLE pour que la liste et les filtres fonctionnent
             this.DataContext = this;
 
             ChargerLesCommandes();
@@ -35,13 +32,10 @@ namespace Paul_MELAMPE_MORA.UC
             {
                 if (!elt.Est_recuperee)
                 {
-                    // 1. On va chercher les produits de la commande en BDD
                     var produitsDeLaCommande = outilLigne.FindBySelection(elt.Id);
 
-                    // 2. On les met dans l'ObservableCollection de LA commande
                     elt.LignesCommande = new ObservableCollection<LigneCommande>(produitsDeLaCommande);
 
-                    // 3. On ajoute la commande finale à l'écran
                     LesCommandes.Add(elt);
                 }
             }
@@ -55,13 +49,11 @@ namespace Paul_MELAMPE_MORA.UC
             {
                 try
                 {
-                    // On met à jour la commande en BDD
                     commandeSelectionnee.Est_prete = true;
                     commandeSelectionnee.Update();
 
                     MessageBox.Show("La commande a été marquée comme prête !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    // On recharge simplement la liste depuis la base de données
                     ChargerLesCommandes();
                 }
                 catch (Exception ex)
@@ -79,7 +71,6 @@ namespace Paul_MELAMPE_MORA.UC
             {
                 UCcommande uneCommandeUC = new UCcommande();
 
-                // On lui dit de se pré-remplir avec la commande cliquée
                 uneCommandeUC.ChargerPourModification(commandeChoisie);
 
                 Window popupCommande = new Window
@@ -95,7 +86,6 @@ namespace Paul_MELAMPE_MORA.UC
 
                 popupCommande.ShowDialog();
 
-                // On recharge la liste une fois le popup fermé pour voir les modifications
                 ChargerLesCommandes();
             }
         }

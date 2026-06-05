@@ -15,10 +15,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- TITRE -->
         <TextBlock Grid.Row="0" Text="Nouveau Client" FontSize="26" FontFamily="Century" FontWeight="Bold" Foreground="#2A2421" Margin="0,0,0,20" HorizontalAlignment="Center"/>
 
-        <!-- FORMULAIRE -->
         <Border Grid.Row="1" Background="#F6F4F0" CornerRadius="8" Padding="25">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="6" ShadowDepth="1.5" Opacity="0.1" Direction="270" Color="#2A2421" />
@@ -41,7 +39,6 @@
             </StackPanel>
         </Border>
 
-        <!-- BOUTONS D'ACTION -->
         <Grid Grid.Row="2" Margin="0,25,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

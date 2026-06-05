@@ -1,7 +1,6 @@
 ﻿using Npgsql;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Collections.ObjectModel;
 
 namespace Paul_MELAMPE_MORA.Classes
 {
@@ -40,7 +39,6 @@ namespace Paul_MELAMPE_MORA.Classes
             this.Categorie_evenement = categorie_evenement;
         }
 
-        // Ajout du "?" dans les paramètres
         public Commande(int id, DateOnly date_creation, DateOnly date_retrait, decimal acompte, bool est_prete, bool est_recuperee, decimal total, DateOnly? date_evenement, int? nb_personne, Client client, Categorie_evenement categorie_evenement)
         {
             this.Id = id;
@@ -191,7 +189,6 @@ namespace Paul_MELAMPE_MORA.Classes
             {
                 cmdUpdate.Parameters.AddWithValue("@commande_id", this.Id);
 
-                // Sécurisation : si la catégorie est null, on envoie DBNull.Value à la base de données
                 cmdUpdate.Parameters.AddWithValue("@categorie_evenement_id", this.Categorie_evenement != null ? (object)this.Categorie_evenement.Categorie_evenement_id : DBNull.Value);
 
                 cmdUpdate.Parameters.AddWithValue("@client_id", this.Client.Client_id);
@@ -202,7 +199,6 @@ namespace Paul_MELAMPE_MORA.Classes
                 cmdUpdate.Parameters.AddWithValue("@est_recuperee", this.Est_recuperee);
                 cmdUpdate.Parameters.AddWithValue("@total", this.Total);
 
-                // Sécurisation : si Date_evenement ou Nb_personne sont null, on envoie DBNull.Value
                 cmdUpdate.Parameters.AddWithValue("@date_evenement", this.Date_evenement.HasValue ? (object)this.Date_evenement.Value : DBNull.Value);
                 cmdUpdate.Parameters.AddWithValue("@nb_personne", this.Nb_personne.HasValue ? (object)this.Nb_personne.Value : DBNull.Value);
 

@@ -35,8 +35,6 @@ namespace Paul_MELAMPE_MORA
             {
                 Npgsql.NpgsqlConnection.ClearAllPools();
                 throw new Exception("Identifiant ou mot de passe invalide");
-                //MessageBox.Show("Impossible de charger les données. Voir votre admin.");
-                //Application.Current.Shutdown();
 
             }
         }

@@ -1,5 +1,7 @@
 ﻿using Npgsql;
+using System.Collections.ObjectModel;
 using System.Data;
+using System.Collections.ObjectModel;
 
 namespace Paul_MELAMPE_MORA.Classes
 {
@@ -18,6 +20,7 @@ namespace Paul_MELAMPE_MORA.Classes
 
         private Client client;
         private Categorie_evenement categorie_evenement;
+        public ObservableCollection<LigneCommande> LignesCommande { get; set; } = new ObservableCollection<LigneCommande>();
 
         public Commande()
         {

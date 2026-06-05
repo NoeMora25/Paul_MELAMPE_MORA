@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -18,6 +17,7 @@ namespace Paul_MELAMPE_MORA.UC
             InitializeComponent();
             LesCommandes = new ObservableCollection<Commande>();
 
+            // INDISPENSABLE pour que la liste et les filtres fonctionnent
             this.DataContext = this;
 
             ChargerLesCommandes();
@@ -35,10 +35,13 @@ namespace Paul_MELAMPE_MORA.UC
             {
                 if (!elt.Est_recuperee)
                 {
+                    // 1. On va chercher les produits de la commande en BDD
                     var produitsDeLaCommande = outilLigne.FindBySelection(elt.Id);
 
+                    // 2. On les met dans l'ObservableCollection de LA commande
                     elt.LignesCommande = new ObservableCollection<LigneCommande>(produitsDeLaCommande);
 
+                    // 3. On ajoute la commande finale à l'écran
                     LesCommandes.Add(elt);
                 }
             }
@@ -52,22 +55,14 @@ namespace Paul_MELAMPE_MORA.UC
             {
                 try
                 {
+                    // On met à jour la commande en BDD
                     commandeSelectionnee.Est_prete = true;
-                    // 4. On lance la sauvegarde dans la base de données
-                    // 4. On lance la sauvegarde dans la base de données
-                    // 5. On rafraîchit la VRAIE liste affichée à l'écran
-                    if (this.DataContext is Boulangerie maBoulangerie)
-                    {
-                        // On vide la liste regardée par le XAML
-                    {
-                    ChargerLesCommandes();
-                }
-                        {
-                            maBoulangerie.LesCommandes.Add(elt);
-                        }
-                    }
+                    commandeSelectionnee.Update();
 
                     MessageBox.Show("La commande a été marquée comme prête !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // On recharge simplement la liste depuis la base de données
+                    ChargerLesCommandes();
                 }
                 catch (Exception ex)
                 {
@@ -76,13 +71,15 @@ namespace Paul_MELAMPE_MORA.UC
             }
         }
 
+        private void BtnModifier_Click(object sender, RoutedEventArgs e)
+        {
             Button boutonClique = sender as Button;
 
             if (boutonClique != null && boutonClique.DataContext is Commande commandeChoisie)
             {
                 UCcommande uneCommandeUC = new UCcommande();
 
-                // 2. MAGIE : On lui dit de se pré-remplir avec la commande cliquée !
+                // On lui dit de se pré-remplir avec la commande cliquée
                 uneCommandeUC.ChargerPourModification(commandeChoisie);
 
                 Window popupCommande = new Window
@@ -98,9 +95,11 @@ namespace Paul_MELAMPE_MORA.UC
 
                 popupCommande.ShowDialog();
 
+                // On recharge la liste une fois le popup fermé pour voir les modifications
                 ChargerLesCommandes();
             }
         }
+
 
 
         private bool FiltrerLesCommandes(object obj)
@@ -114,6 +113,13 @@ namespace Paul_MELAMPE_MORA.UC
             return matchTexteNomClient && matchTexteNomProduit;
         }
 
+        private bool RechercheMotClefNomClient(Commande uneCommande)
+        {
+            if (string.IsNullOrEmpty(txtBoxNomClient.Text))
+                return true;
+
+            return uneCommande.Client.Nom.Contains(txtBoxNomClient.Text, StringComparison.OrdinalIgnoreCase);
+        }
 
         private bool RechercheLigneProduit(Commande uneCommande)
         {
@@ -130,13 +136,6 @@ namespace Paul_MELAMPE_MORA.UC
                     return true;
                 }
             }
-        {
-            if (string.IsNullOrEmpty(txtBoxNomClient.Text))
-                return true;
-
-            return uneCommande.Client.Nom.Contains(txtBoxNomClient.Text, StringComparison.OrdinalIgnoreCase);
-        }
-    
 
             return false;
         }

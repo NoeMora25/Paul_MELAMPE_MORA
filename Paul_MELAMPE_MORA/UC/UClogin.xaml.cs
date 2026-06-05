@@ -14,7 +14,7 @@ namespace Paul_MELAMPE_MORA.UC
         private void ButConnecter_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
-            mainWindow.mdp_user = TxtMDP.Text.Trim();
+            mainWindow.mdp_user = TxtMDP.Password.Trim();
             mainWindow.loginuser = TxtLogin.Text.Trim();
 
             try
